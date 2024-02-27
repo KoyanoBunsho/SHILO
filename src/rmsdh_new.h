@@ -416,6 +416,38 @@ public:
     assert(total_cnt == n * (n - 1) / 2);
     return static_cast<double>(monge_cnt) / static_cast<double>(total_cnt);
   }
+  double calcMongeRate2() {
+    std::vector<std::vector<double>> tmr_dp(n + 1, std::vector<double>(n + 1));
+    for (int i = 1; i <= n; i++) {
+      for (int j = i; j <= n; j++) {
+        tmr_dp[j][i] = calcSDij(i, j);
+      }
+    }
+    long long monotonicity_cnt = 0;
+    long long total_cnt = 0;
+#pragma omp parallel for reduction(+:monotonicity_cnt, total_cnt) num_threads(1000)
+    for (int j = 2; j <= n; j++) {
+      for (int i = 1; i < j; i++) {
+        for (int l = 2; l < i; l++) {
+          for (int k = 1; k < l; k++) {
+            total_cnt++;
+            assert(k < l && l < i && i < j);
+            if (tmr_dp[i][k] + tmr_dp[j][l] <= tmr_dp[i][l] + tmr_dp[j][k]) {
+              monotonicity_cnt++;
+            }
+          }
+        }
+      }
+    }
+    // long long lln = static_cast<long long>(n);
+    // assert(total_cnt ==
+    //     lln * (lln - 1) * (lln - 2) * (lln - 3) / (4 * 3 * 2));
+    std::cout << "total_cnt: " << total_cnt
+              << ", monotonicity_cnt: " << monotonicity_cnt << std::endl;
+    double tmr =
+        static_cast<double>(monotonicity_cnt) / static_cast<double>(total_cnt);
+    return tmr;
+  }
   double calcMongeRateFromMatrix(std::vector<std::vector<double>> &tmr_dp) {
     int monge_cnt = 0;
     int total_cnt = 0;
@@ -430,63 +462,6 @@ public:
     }
     assert(total_cnt == n * (n - 1) / 2);
     return static_cast<double>(monge_cnt) / static_cast<double>(total_cnt);
-  }
-  std::vector<double> calcTMR(const int hinge_num = 1, bool is_tmr = true) {
-    std::vector<std::vector<double>> tmr_dp(n + 1, std::vector<double>(n + 1));
-    std::vector<std::vector<double>> dp(n + 1,
-                                        std::vector<double>(hinge_num + 1));
-    std::vector<double> tmr_vec;
-    for (int j = 1; j < n; j++) {
-      double sub_sd_1j = calcSDij(1, j);
-      dp[j][0] = sub_sd_1j;
-    }
-    for (int k = 1; k < hinge_num + 1; k++) {
-      for (int j = 1; j <= n; j++) {
-        double ans = INF;
-        for (int i = 1; i <= n; i++) {
-          if (j < i) {
-            tmr_dp[j][i] = INF;
-          } else {
-            double sub_sd = calcSDij(i, j);
-            tmr_dp[j][i] = sub_sd + dp[i - 1][k - 1];
-            if (sub_sd + dp[i - 1][k - 1] < ans) {
-              ans = sub_sd + dp[i - 1][k - 1];
-            }
-          }
-        }
-        dp[j][k] = ans;
-      }
-      std::cout << calcMongeRateFromMatrix(tmr_dp) << std::endl;
-      long long monotonicity_cnt = 0;
-      long long total_cnt = 0;
-#pragma omp parallel for reduction(+:monotonicity_cnt, total_cnt) num_threads(1000)
-      for (int j = 2; j <= n; j++) {
-        for (int i = 1; i < j; i++) {
-          for (int l = 2; l < i; l++) {
-            for (int k = 1; k < l; k++) {
-              total_cnt++;
-              if (is_tmr) {
-                if (MonotonicityChecker(tmr_dp[i][k], tmr_dp[i][l],
-                                        tmr_dp[j][k], tmr_dp[j][l])) {
-                  monotonicity_cnt++;
-                }
-              } else {
-                if (tmr_dp[i][k] + tmr_dp[j][l] <=
-                    tmr_dp[i][l] + tmr_dp[j][k]) {
-                  monotonicity_cnt++;
-                }
-              }
-            }
-          }
-        }
-      }
-      long long lln = static_cast<long long>(n);
-      assert(total_cnt == lln * lln * (lln - 1) * (lln - 1) / 4);
-      double tmr = static_cast<double>(monotonicity_cnt) /
-                   static_cast<double>(total_cnt);
-      tmr_vec.push_back(tmr);
-    }
-    return tmr_vec;
   }
   RMSDhHingeCnt CalcFastRMSDhK(bool is_postprocessing = false) {
     /*
