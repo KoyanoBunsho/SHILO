@@ -6,6 +6,8 @@
 #include <chrono>
 #include <fstream>
 #include <iostream>
+#include <map>
+#include <numeric>
 #include <set>
 #include <sstream>
 #include <tuple>
@@ -17,7 +19,7 @@ private:
 
 public:
   PDBReader(const std::string &filename) : pdb_filename(filename) {}
-
+  std::string extension = get_file_extension();
   std::set<int> get_residue_numbers(const std::string &chain_id) const {
     std::ifstream file(pdb_filename);
     std::string line;
@@ -28,17 +30,34 @@ public:
         std::stringstream ss(line);
         std::string field;
         std::getline(ss, field, ' ');
+        std::string atom_name;
+        std::string chain;
+        int res_num;
         if (field == "ATOM") {
-          std::string atom_name;
-          std::string chain;
-          int res_num;
-          ss >> field;
-          ss >> atom_name;
-          ss >> field;
-          ss >> chain;
-          ss >> res_num;
-          if (chain == chain_id) {
-            residue_numbers.insert(res_num);
+          if (extension == ".pdb" || extension == ".ent") {
+            ss >> field;
+            ss >> atom_name;
+            ss >> field;
+            ss >> chain;
+            ss >> res_num;
+            if (chain == chain_id || (isdigit(chain_id[0]) &&
+                                      chain == std::to_string(chain_id[0]))) {
+
+              residue_numbers.insert(res_num);
+            }
+          } else if (extension == ".cif") {
+            ss >> field;
+            ss >> field;
+            ss >> atom_name;
+            ss >> field;
+            ss >> field;
+            ss >> chain;
+            ss >> field;
+            ss >> res_num;
+            if (chain == chain_id || (isdigit(chain_id[0]) &&
+                                      chain == std::to_string(chain_id[0]))) {
+              residue_numbers.insert(res_num);
+            }
           }
         }
       }
@@ -49,13 +68,20 @@ public:
 
     return residue_numbers;
   }
-
+  std::string get_file_extension() const {
+    size_t pos = pdb_filename.find_last_of('.');
+    if (pos == std::string::npos) {
+      return "";
+    }
+    return pdb_filename.substr(pos);
+  }
   std::vector<std::tuple<double, double, double>>
   get_CA_coordinates(const std::set<int> &residue_numbers,
                      const std::string &chain_id) const {
     std::ifstream file(pdb_filename);
     std::string line;
     std::vector<std::tuple<double, double, double>> coordinates;
+    std::set<int> seen_residues;
 
     if (file.is_open()) {
       while (getline(file, line)) {
@@ -67,15 +93,34 @@ public:
           std::string chain;
           int res_num;
           double x, y, z;
-          ss >> field;
-          ss >> atom_name;
-          ss >> field;
-          ss >> chain;
-          ss >> res_num;
-          ss >> x >> y >> z;
-          if (atom_name == "CA" && chain == chain_id &&
-              residue_numbers.find(res_num) != residue_numbers.end()) {
-            coordinates.push_back(std::make_tuple(x, y, z));
+          if (extension == ".pdb" || extension == ".ent") {
+            ss >> field;
+            ss >> atom_name;
+            ss >> field;
+            ss >> chain;
+            ss >> res_num;
+            ss >> x >> y >> z;
+          } else if (extension == ".cif") {
+            ss >> field;
+            ss >> field;
+            ss >> atom_name;
+            ss >> field;
+            ss >> field;
+            ss >> chain;
+            ss >> field;
+            ss >> res_num;
+            ss >> field;
+            ss >> x >> y >> z;
+          }
+          if (atom_name == "CA" &&
+              (chain == chain_id || (isdigit(chain_id[0]) &&
+                                     chain == std::to_string(chain_id[0])))) {
+
+            if (residue_numbers.find(res_num) != residue_numbers.end() &&
+                seen_residues.find(res_num) == seen_residues.end()) {
+              coordinates.emplace_back(x, y, z);
+              seen_residues.insert(res_num);
+            }
           }
         }
       }
@@ -94,6 +139,23 @@ std::set<int> intersect_residue_numbers(const std::set<int> &set1,
   std::set_intersection(set1.begin(), set1.end(), set2.begin(), set2.end(),
                         std::inserter(intersection, intersection.begin()));
   return intersection;
+}
+std::map<int, int> map_hinge_to_residue(const std::set<int> &residue_numbers) {
+  std::map<int, int> hinge_to_residue_map;
+  std::vector<int> hinge_indices(residue_numbers.size());
+  std::iota(hinge_indices.begin(), hinge_indices.end(), 1);
+  std::vector<int> sorted_residues(residue_numbers.begin(),
+                                   residue_numbers.end());
+  if (sorted_residues.size() != hinge_indices.size()) {
+    std::cerr << "Error: Residue numbers and hinge indices size mismatch."
+              << std::endl;
+    return hinge_to_residue_map;
+  }
+  for (size_t i = 0; i < hinge_indices.size(); ++i) {
+    hinge_to_residue_map[hinge_indices[i]] = sorted_residues[i];
+  }
+
+  return hinge_to_residue_map;
 }
 
 Eigen::MatrixXd
@@ -147,11 +209,14 @@ int main(int argc, char *argv[]) {
   std::vector<int> hinge_index_vec = rmsdh_hinge_cnt_result.hinge_index_vec;
   std::cout << "RMSDh: " << rmsdh_result << std::endl;
   std::string hinge_index = "";
+  std::map<int, int> hinge_to_residue_map =
+      map_hinge_to_residue(intersected_res_numbers);
   for (int i = 0; i < hinge_num; i++) {
     if (i < hinge_num - 1) {
-      hinge_index += (std::to_string(hinge_index_vec[i]) + " : ");
+      hinge_index +=
+          (std::to_string(hinge_to_residue_map[hinge_index_vec[i]]) + " : ");
     } else {
-      hinge_index += (std::to_string(hinge_index_vec[i]));
+      hinge_index += (std::to_string(hinge_to_residue_map[hinge_index_vec[i]]));
     }
   }
   std::cout << "Hinge index is: " << hinge_index << std::endl;
