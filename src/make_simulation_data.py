@@ -43,7 +43,7 @@ def process_pdb_file(pdb_file, sigma):
     threshold = calc_threshold(df.copy())
     np.random.seed()
     simulation_data_list = []
-    for hinge_num in range(min(6, df["unique_residue_number"].max() // 21)):
+    for hinge_num in range(min(11, df["unique_residue_number"].max() // 21)):
         rot_df = df.copy()
         cnt = 0
         while True:
