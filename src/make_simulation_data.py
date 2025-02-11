@@ -11,8 +11,6 @@ from scipy.spatial.transform import Rotation as R
 from scipy.stats import truncnorm
 from tqdm import tqdm
 
-p = pd.read_csv("b_factors_ratios_strict.csv")["Flexible"]
-
 
 def main():
     # pdb_files = glob("all_pdb/*.ent.gz")
