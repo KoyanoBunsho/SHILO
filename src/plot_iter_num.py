@@ -30,8 +30,8 @@ def main():
     rilo_4_par = pd.read_csv("rmsdh_result/ablation_study_loop_par4.csv")
 
     rilo_2_dyndom = pd.read_csv("rmsdh_result/ablation_study_loop_dyndom2.csv")
-    rilo_3_dyndom = pd.read_csv("rmsdh_result/ablation_study_loop_dyndom3.csv.gz")
-    rilo_4_dyndom = pd.read_csv("rmsdh_result/ablation_study_loop_dyndom4.csv.gz")
+    rilo_3_dyndom = pd.read_csv("rmsdh_result/ablation_study_loop_dyndom3.csv")
+    rilo_4_dyndom = pd.read_csv("rmsdh_result/ablation_study_loop_dyndom4.csv")
 
     # データセットのリスト化 (k=2,3,4 の各 Shibuya, Par, Dyndom)
     rilo_datasets = [
