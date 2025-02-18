@@ -518,9 +518,6 @@ public:
     hinge_index_vec =
         backTrackDPKFor(backtracking_table, hinge_index_vec, n + 1);
     int hinge_index_vec_size = (int)hinge_index_vec.size();
-    for (int i = 0; i < hinge_index_vec_size; i++) {
-      hinge_index_vec[i];
-    }
     RMSDhHingeCnt rmsdh_hinge_cnt_result;
     if (is_postprocessing) {
       RMSDhHingeCnt rmsdh_hinge_cnt_result =
