@@ -76,10 +76,10 @@ int main(int argc, char **argv) {
     std::cerr << "Invalid method name: " << argv[2] << std::endl;
     return 1;
   }
-  double sigma = std::stod(argv[3]);
+  std::string sigma = argv[3];
   std::string save_name = "rmsdh_result/simulation_" + save_method_name + "_" +
                           std::to_string(hinge_num) + "_" +
-                          std::to_string(sigma) + ".csv";
+                          sigma + ".csv";
   myfile.open(save_name);
   myfile << "p_pdb_id,Residue "
             "length,RMSD,RMSDh,k,hinge_cnt,actual_hinge_"
@@ -95,12 +95,11 @@ int main(int argc, char **argv) {
       std::string pdb_id = match[1].str();
       std::string chain_id = match[2].str();
       std::string p_path = entry.path().string();
-      std::string q_path = "simulation_data/pdb" + pdb_id + "_" + chain_id +
-                           "_sigma" + std::to_string(sigma) + ".pdb";
+      std::string q_path = "simulation_data/pdb" + pdb_id + "_" + chain_id +"_hinge_"+std::to_string(hinge_num)+
+                           "_sigma" + sigma + ".pdb";
       std::string hinge_path =
           "simulation_data_info/pdb" + pdb_id + "_" + chain_id + "_hinge_" +
-          std::to_string(hinge_num) + "_sigma" + std::to_string(sigma) + ".csv";
-
+          std::to_string(hinge_num) + "_sigma" + sigma + ".csv";
       if (fs::exists(q_path) && fs::exists(hinge_path)) {
         file_triples.push_back(std::make_tuple(p_path, q_path, hinge_path));
       }
