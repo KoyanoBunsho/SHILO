@@ -66,8 +66,8 @@ int main(int argc, char **argv) {
   std::ofstream myfile;
   std::string simulation_data_path = "simulation_data/";
   std::string simulation_data_info_path = "simulation_data_info/";
-  if (std::string(argv[2]) == "sh_ilo") {
-    save_method_name = "shilo";
+  if (std::string(argv[2]) == "shilo") {
+    save_method_name = "sh_ilo";
   } else {
     std::cerr << "Invalid method name: " << argv[2] << std::endl;
     return 1;
