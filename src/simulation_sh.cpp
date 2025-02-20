@@ -147,7 +147,7 @@ int main(int argc, char **argv) {
     double rmsd_result = CalcRMSD(PQ_pair.P, PQ_pair.Q, default_weights);
     auto start = std::chrono::high_resolution_clock::now();
     ProteinRMSDhinge rmsdh_hinge(PQ_pair.P, PQ_pair.Q, hinge_num);
-    RMSDhHingeCnt rmsdh_hinge_cnt_result;
+    RMSDhHingeCnt rmsdh_hinge_cnt_result = {};
     if (save_method_name == "sh") {
       rmsdh_hinge_cnt_result = rmsdh_hinge.CalcFastRMSDhK();
     } else if (save_method_name == "sh_lo") {
