@@ -57,12 +57,12 @@ std::string extractHingeIndices(const std::string &filename) {
 
 int main(int argc, char **argv) {
   std::string save_method_name;
-  int hinge_num = 2;
   if (argc < 4) {
     std::cerr << "Usage: " << argv[0] << " <hinge_num> <method> <sigma>"
               << std::endl;
     return 1;
   }
+  int hinge_num = argv[1];
   std::ofstream myfile;
   std::string simulation_data_path = "simulation_data/";
   std::string simulation_data_info_path = "simulation_data_info/";
