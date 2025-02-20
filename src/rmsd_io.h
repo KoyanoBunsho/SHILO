@@ -1,6 +1,7 @@
 #ifndef rmsd_io
 #define rmsd_io
 #include "rmsd_struct.h"
+#include <set>
 
 void read_csv(std::vector<std::vector<std::string>> &data,
               std::string csv_path) {

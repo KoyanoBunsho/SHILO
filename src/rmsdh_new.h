@@ -517,7 +517,6 @@ public:
     double rmsdh_result;
     hinge_index_vec =
         backTrackDPKFor(backtracking_table, hinge_index_vec, n + 1);
-    int hinge_index_vec_size = (int)hinge_index_vec.size();
     RMSDhHingeCnt rmsdh_hinge_cnt_result;
     if (is_postprocessing) {
       RMSDhHingeCnt rmsdh_hinge_cnt_result =
@@ -588,7 +587,6 @@ public:
     }
     hinge_index_vec =
         backTrackDPKFor(backtracking_table, hinge_index_vec, n + 1);
-    int hinge_index_vec_size = (int)hinge_index_vec.size();
     AblationResult rmsdh_hinge_cnt_result;
     rmsdh_hinge_cnt_result =
         RMSDhkPostProcessingLoop(hinge_index_vec, hinge_num);

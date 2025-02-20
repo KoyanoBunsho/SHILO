@@ -66,8 +66,12 @@ int main(int argc, char **argv) {
   std::ofstream myfile;
   std::string simulation_data_path = "simulation_data/";
   std::string simulation_data_info_path = "simulation_data_info/";
-  if (std::string(argv[2]) == "sh_ilo") {
+  if (std::string(argv[2]) == "sh") {
     save_method_name = "shilo";
+  } else if (std::string(argv[2]) == "shlo") {
+    save_method_name = "sh_lo";
+  } else if (std::string(argv[2]) == "shibuya") {
+    save_method_name = "shibuya";
   } else {
     std::cerr << "Invalid method name: " << argv[2] << std::endl;
     return 1;
@@ -143,9 +147,13 @@ int main(int argc, char **argv) {
     double rmsd_result = CalcRMSD(PQ_pair.P, PQ_pair.Q, default_weights);
     auto start = std::chrono::high_resolution_clock::now();
     ProteinRMSDhinge rmsdh_hinge(PQ_pair.P, PQ_pair.Q, hinge_num);
-    AblationResult rmsdh_hinge_cnt_result;
-    if (save_method_name == "sh_ilo") {
-      rmsdh_hinge_cnt_result = rmsdh_hinge.CalcFastRMSDhKLoop();
+    RMSDhHingeCnt rmsdh_hinge_cnt_result;
+    if (save_method_name == "sh") {
+      rmsdh_hinge_cnt_result = rmsdh_hinge.CalcFastRMSDhK();
+    } else if (save_method_name == "sh_lo") {
+      rmsdh_hinge_cnt_result = rmsdh_hinge.CalcFastRMSDhK(true);
+    } else if (save_method_name == "shibuya") {
+      rmsdh_hinge_cnt_result = rmsdh_hinge.CalcRMSDhK();
     }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> exec_time_ms = end - start;
