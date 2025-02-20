@@ -100,9 +100,6 @@ int main(int argc, char **argv) {
       std::string hinge_path =
           "simulation_data_info/pdb" + pdb_id + "_" + chain_id + "_hinge_" +
           std::to_string(hinge_num) + "_sigma" + sigma + ".csv";
-      std::cout << p_path << std::endl;
-      std::cout << q_path << std::endl;
-      std::cout << hinge_path << std::endl;
       if (fs::exists(q_path) && fs::exists(hinge_path)) {
         file_triples.push_back(std::make_tuple(p_path, q_path, hinge_path));
       }
@@ -113,7 +110,6 @@ int main(int argc, char **argv) {
     const auto &triple = file_triples[i];
     std::string p_pdb_id =
         std::get<0>(triple).substr(std::get<0>(triple).find_last_of("/") + 1);
-    std::cout << p_pdb_id << std::endl;
     std::string p_chain_id = getToken(p_pdb_id, 1);
     PDBReader reader1(std::get<0>(triple));
     PDBReader reader2(std::get<1>(triple));
