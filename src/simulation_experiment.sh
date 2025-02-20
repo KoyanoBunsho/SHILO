@@ -16,9 +16,7 @@ done
 
 for sigma in "${sigma_val[@]}"; do
     for hinge_num in {2..10}; do
-        for model in "${model_type[@]}"; do
-            ./simulation_sh_ilo "$hinge_num" "shilo" "$sigma"
-        done
+        ./simulation_sh_ilo "$hinge_num" "shilo" "$sigma"
     done
 done
 
