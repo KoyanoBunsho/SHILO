@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
               << std::endl;
     return 1;
   }
-  int hinge_num = stoi(argv[1]);
+  int hinge_num = std::stoi(argv[1]);
   std::ofstream myfile;
   std::string simulation_data_path = "simulation_data/";
   std::string simulation_data_info_path = "simulation_data_info/";
