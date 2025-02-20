@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
   std::string simulation_data_path = "simulation_data/";
   std::string simulation_data_info_path = "simulation_data_info/";
   if (std::string(argv[2]) == "sh") {
-    save_method_name = "shilo";
+    save_method_name = "sh";
   } else if (std::string(argv[2]) == "shlo") {
     save_method_name = "sh_lo";
   } else if (std::string(argv[2]) == "shibuya") {
