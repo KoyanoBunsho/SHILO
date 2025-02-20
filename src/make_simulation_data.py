@@ -19,7 +19,7 @@ def main():
     os.makedirs("simulation_data_info", exist_ok=True)
     n_jobs = os.cpu_count()
     print(f"{n_jobs} parallel")
-    for sigma in range(1, 6):
+    for sigma in [0.5, 1.0, 1.5]:
         simulation_data_list = Parallel(n_jobs=n_jobs)(
             delayed(process_pdb_file)(pdb_file, sigma)
             for pdb_file in tqdm(pdb_files, total=len(pdb_files))
