@@ -9,13 +9,14 @@
 #include <vector>
 
 int main(int argc, char **argv) {
-  if (argc < 3) {
+  if (argc < 4) {
     std::cerr << "Usage: " << argv[0] << " <input_csv_path> <output_csv_path>"
               << std::endl;
     return 1;
   }
-  std::string input_csv_path = argv[1];
-  std::string output_csv_path = argv[2];
+  std::string input_coord_path = argv[1];
+  std::string input_csv_path = argv[2];
+  std::string output_csv_path = argv[3];
 
   std::vector<std::vector<std::string>> pdb_chain_data;
   read_csv(pdb_chain_data, input_csv_path);
