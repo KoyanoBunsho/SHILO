@@ -44,11 +44,12 @@ int main(int argc, char **argv) {
     std::transform(q_pdb_chain_id.begin(), q_pdb_chain_id.begin() + 4,
                    std::back_inserter(q_pdb_id), ::tolower);
     Eigen::MatrixXd p, q;
+    std::string p_chain_id = p_pdb_chain_id.substr(5, 1);
+    std::string q_chain_id = q_pdb_chain_id.substr(5, 1);
     p = openMatrixData(coord_path + "coord_" + p_pdb_id + "_" + p_chain_id +
                        "_" + q_pdb_id + "_" + q_chain_id + ".csv");
     q = openMatrixData(coord_path + "coord_" + q_pdb_id + "_" + q_chain_id +
                        "_" + p_pdb_id + "_" + p_chain_id + ".csv");
-    int total_residue_length = p.cols();
     if (p.cols() == 0 || q.cols() == 0) {
       std::cout << "No data" << std::endl;
       continue;
@@ -59,9 +60,6 @@ int main(int argc, char **argv) {
       std::cout << "The residue length is different" << std::endl;
       continue;
     }
-
-    std::string p_chain_id = p_pdb_chain_id.substr(5, 1);
-    std::string q_chain_id = q_pdb_chain_id.substr(5, 1);
 
     myfile << p_pdb_id << "_" << p_chain_id << "," << q_pdb_id << "_"
            << q_chain_id << std::endl;
