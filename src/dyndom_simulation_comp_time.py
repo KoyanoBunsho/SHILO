@@ -89,9 +89,19 @@ def run_all_dyndom(result_directory):
 
 def run_dyndom_with_cleanup(command_file):
     duration = run_dyndom(command_file)
+    file_prefix = command_file.split("/")[1].split(".")[0]
+    rm_files = [
+        f"{file_prefix}_rasscript",
+        f"{file_prefix}_rotvecs",
+        f"{file_prefix}_dihedral",
+        f"{file_prefix}_pdb",
+    ]
     try:
         os.remove(command_file)
         print(f"Deleted command file: {command_file}")
+        for file in rm_files:
+            os.remove(file)
+        print("Unnecessary files")
     except OSError as e:
         print(f"Error deleting file {command_file}: {e}")
     return (command_file, duration)
