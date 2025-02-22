@@ -10,7 +10,7 @@ import glob
 def main():
     result_directory = "dyndom_simulation_result"
     os.makedirs(result_directory, exist_ok=True)
-    simulation_file = "output_simulation_file_for_fatcat.csv"
+    simulation_file = "output_simulation_file.csv"
     df = pd.read_csv(simulation_file)
     make_dyndom_command_files(df, result_directory)
     durations = run_all_dyndom(result_directory)
