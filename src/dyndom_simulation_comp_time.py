@@ -81,14 +81,19 @@ def run_dyndom(command_file_path):
 def run_all_dyndom(result_directory):
     command_files = glob.glob(f"{result_directory}/*.command")
     results = Parallel(n_jobs=os.cpu_count())(
-        delayed(run_dyndom_with_print)(command_file)
+        delayed(run_dyndom_with_cleanup)(command_file)
         for command_file in tqdm(command_files, total=len(command_files))
     )
     return results
 
 
-def run_dyndom_with_print(command_file):
+def run_dyndom_with_cleanup(command_file):
     duration = run_dyndom(command_file)
+    try:
+        os.remove(command_file)
+        print(f"Deleted command file: {command_file}")
+    except OSError as e:
+        print(f"Error deleting file {command_file}: {e}")
     return (command_file, duration)
 
 
