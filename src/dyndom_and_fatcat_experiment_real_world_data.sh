@@ -1,0 +1,9 @@
+# DynDom experiment
+python dyndom_experiment_shibuya_comp_time.py
+python dyndom_experiment_par_comp_time.py
+python dyndom_experiment_dyn_comp_time.py
+
+# FATCAT experiment
+python fatcat_experiment_shibuya_comp_time.py
+python fatcat_experiment_par_comp_time.py
+python fatcat_experiment_dyn_comp_time.py
