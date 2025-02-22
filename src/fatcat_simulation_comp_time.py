@@ -8,7 +8,7 @@ from joblib import Parallel, delayed
 def main():
     output_dir = "fatcat_simulation_result"
     os.makedirs(output_dir, exist_ok=True)
-    simulation_file = "output_simulation_file_for_fatcat.csv"
+    simulation_file = "output_simulation_file.csv"
     df = pd.read_csv(simulation_file)
     durations = compare_pdb_files(df, output_dir)
     execution_time_list = []
@@ -23,13 +23,16 @@ def run_fatcat(pdb1, pdb2, output_dir):
     output_filename = f"{output_dir}/{os.path.basename(pdb1)}_{os.path.basename(pdb2)}"
     command = [
         "./FATCAT_speed",
-        "-p1", pdb1,
-        "-p2", pdb2,
-        "-o", output_filename,
+        "-p1",
+        pdb1,
+        "-p2",
+        pdb2,
+        "-o",
+        output_filename,
         "-m",
         "-ac",
         "-time",
-        "-b"
+        "-b",
     ]
     try:
         result = subprocess.run(
