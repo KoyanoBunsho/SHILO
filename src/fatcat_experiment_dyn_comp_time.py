@@ -42,9 +42,9 @@ def run_fatcat(pair):
     command = [
         "./FATCAT_speed",
         "-p1",
-        f"{pdb1}.pdb",
+        f"{pdb1}.ent.gz",
         "-p2",
-        f"{pdb2}.pdb",
+        f"{pdb2}.ent.gz",
         "-o",
         output_filename,
         "-m",
@@ -87,8 +87,8 @@ def extract_pdb(pair):
         pdb2_df = pdb2_pdb.df["ATOM"]
         pdb1_df = pdb1_df[pdb1_df["chain_id"] == pdb1_chain_id]
         pdb2_df = pdb2_df[pdb2_df["chain_id"] == pdb2_chain_id]
-        pdb1_output_filename = f"{pdb1}.pdb"
-        pdb2_output_filename = f"{pdb2}.pdb"
+        pdb1_output_filename = f"{pdb1}.ent.gz"
+        pdb2_output_filename = f"{pdb2}.ent.gz"
         pdb1_pdb.df["ATOM"] = pdb1_df
         pdb2_pdb.df["ATOM"] = pdb2_df
         print(pdb1_output_filename)
