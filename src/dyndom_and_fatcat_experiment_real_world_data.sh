@@ -1,9 +1,9 @@
 # DynDom experiment
-python dyndom_experiment_shibuya_comp_time.py
-python dyndom_experiment_par_comp_time.py
-python dyndom_experiment_dyn_comp_time.py
+python dyndom_experiment_comp_time.py pdb_12_with_hinges_lower.csv dyndom_execution_time_shibuya_improved.csv
+python dyndom_experiment_comp_time.py pdb_with_hinges.csv dyndom_execution_time_par_improved.csv
+python dyndom_experiment_comp_time.py DynDon_database.csv dyndom_execution_time_dyn_improved.csv
 
 # FATCAT experiment
-python fatcat_experiment_shibuya_comp_time.py
-python fatcat_experiment_par_comp_time.py
-python fatcat_experiment_dyn_comp_time.py
+python fatcat_experiment_comp_time.py pdb_12_with_hinges_lower.csv dyndom_execution_time_shibuya_improved.csv
+python fatcat_experiment_comp_time.py pdb_with_hinges.csv dyndom_execution_time_par_improved.csv
+python fatcat_experiment_comp_time.py DynDon_database.csv dyndom_execution_time_dyn_improved.csv
