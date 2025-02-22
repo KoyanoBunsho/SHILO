@@ -30,7 +30,7 @@ int main() {
               original_file_path.substr(original_file_path.rfind('/') + 1,
                                         original_file_path.rfind(".pdb") -
                                             original_file_path.rfind('/') - 1) +
-              "_CA_coordinates.csv";
+              ".pdb";
           for (const auto &hinge_entry :
                fs::directory_iterator(simulation_data_path)) {
             const auto &hinge_path = hinge_entry.path();
@@ -42,8 +42,9 @@ int main() {
                   ".csv";
               std::string hinge_file_csv =
                   hinge_indices_csv.substr(0, hinge_indices_csv.find(".csv")) +
-                  "_CA_coordinates.csv";
-              output_file << original_file_csv << "," << hinge_file_csv << ","
+                  ".pdb";
+              output_file << "simulation_data/" + original_file_csv << ","
+                          << "simulation_data/" + hinge_file_csv << ","
                           << simulation_data_info_path + hinge_indices_csv
                           << "\n";
             }
