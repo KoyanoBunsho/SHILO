@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
               << std::endl;
     return 1;
   }
-  std::string input_coord_path = argv[1];
+  std::string coord_path = argv[1];
   std::string input_csv_path = argv[2];
   std::string output_csv_path = argv[3];
 
