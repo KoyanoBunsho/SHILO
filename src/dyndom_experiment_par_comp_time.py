@@ -3,7 +3,6 @@ import subprocess
 import os
 import time
 from joblib import Parallel, delayed
-from lib.utils import convert_pdb_id
 
 
 def main():
@@ -26,6 +25,11 @@ def main():
     pd.DataFrame(execution_time_list).to_csv(
         "dyndom_execution_time_dyn_improved.csv", index=False
     )
+
+
+def convert_pdb_id(pdb_str):
+    pdb, chain = pdb_str.split("_")
+    return f"{pdb.lower()}_{chain}"
 
 
 def process_pair(pair):

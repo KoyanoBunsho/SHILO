@@ -3,7 +3,6 @@ import subprocess
 import os
 from biopandas.pdb import PandasPdb
 from joblib import Parallel, delayed
-from lib.utils import convert_pdb_id
 
 
 def main():
@@ -29,6 +28,11 @@ def main():
     pd.DataFrame(execution_time_list).to_csv(
         "fatcat_execution_time_par_improved.csv", index=False
     )
+
+
+def convert_pdb_id(pdb_str):
+    pdb, chain = pdb_str.split("_")
+    return f"{pdb.lower()}_{chain}"
 
 
 def load_pdb_pairs(csv_file):
