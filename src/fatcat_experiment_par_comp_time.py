@@ -13,7 +13,7 @@ def main():
         return
     pdb_pairs = load_pdb_pairs(csv_file)
     os.chdir("all_pdb")
-    os.makedirs("fatcat_result_shibuya", exist_ok=True)
+    os.makedirs("fatcat_result_par", exist_ok=True)
 
     num_cores = os.cpu_count()
     Parallel(n_jobs=num_cores)(
@@ -39,7 +39,7 @@ def load_pdb_pairs(csv_file):
 def run_fatcat(pair):
     pdb1 = convert_pdb_id(pair["p_pdb"])
     pdb2 = convert_pdb_id(pair["q_pdb"])
-    output_filename = f"fatcat_result_shibuya/{pdb1}_{pdb2}"
+    output_filename = f"fatcat_result_par/{pdb1}_{pdb2}"
     command = [
         "./FATCAT_speed",
         "-p1",
