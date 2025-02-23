@@ -154,7 +154,7 @@ int main(int argc, char **argv) {
           res.hinge_index_vec, hinge_num);
       std::string hinge_index = "";
       for (int i = 0; i < (int)res.hinge_index_vec.size(); i++) {
-        if (i < res.hinge_index_vec.size() - 1) {
+        if (i < (int)res.hinge_index_vec.size() - 1) {
           hinge_index += (std::to_string(res.hinge_index_vec[i]) + " : ");
         } else {
           hinge_index += (std::to_string(res.hinge_index_vec[i]));
