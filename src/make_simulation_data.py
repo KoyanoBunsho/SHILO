@@ -172,7 +172,9 @@ def load_and_filter_pdb(filename):
     if ppdb.df["ATOM"]["chain_id"].empty:
         return None, None, None
     first_chain_id = ppdb.df["ATOM"]["chain_id"].iloc[0]
-    filtered_df = ppdb.df["ATOM"][ppdb.df["ATOM"]["chain_id"] == first_chain_id]
+    filtered_df = ppdb.df["ATOM"][
+        ppdb.df["ATOM"]["chain_id"] == first_chain_id
+    ].drop_duplicates(subset=["residue_number"], keep="first")
     if not filtered_df[filtered_df["atom_name"] == "CA"].empty:
         ppdb_copy = deepcopy(ppdb)
         ppdb_copy.df["ATOM"] = filtered_df
