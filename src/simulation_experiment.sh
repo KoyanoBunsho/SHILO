@@ -30,3 +30,5 @@ done
 
 bash fatcat_dyndom_simulation.sh
 bash fatcat_dyndom_result.sh
+
+python concat_simulation_res.py
