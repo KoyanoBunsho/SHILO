@@ -9,6 +9,7 @@
 #include <memory>
 #include <numeric>
 #include <omp.h>
+#include <random>
 #include <unordered_map>
 constexpr double INF = std::numeric_limits<double>::infinity();
 constexpr double eps = std::numeric_limits<double>::epsilon();
