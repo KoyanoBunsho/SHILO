@@ -663,5 +663,18 @@ ConformationPair MoveToOrigin(Eigen::Matrix3Xd P, Eigen::Matrix3Xd Q,
   PQ_pair.Q = Y;
   return PQ_pair;
 }
+std::vector<int> selectRandomHinges(int n, int k) {
+  std::vector<int> hinges;
+  for (int i = 1; i <= n; ++i) {
+    hinges.push_back(i);
+  }
+  std::random_device rd;
+
+  std::mt19937 g(rd());
+  std::shuffle(hinges.begin(), hinges.end(), g);
+  hinges.resize(k);
+  std::sort(hinges.begin(), hinges.end());
+  return hinges;
+}
 
 #endif
