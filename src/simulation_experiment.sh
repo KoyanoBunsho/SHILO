@@ -1,4 +1,5 @@
 #!/bin/bash
+python make_simulation_data.py
 
 g++ simulation_sh_ilo.cpp -o simulation_sh_ilo -std=c++14 -lstdc++fs -Wall -Wextra -O3 -mtune=native -march=native -mfpmath=both -Werror -fopenmp
 g++ simulation_sh.cpp -o simulation_sh -std=c++14 -lstdc++fs -Wall -Wextra -O3 -mtune=native -march=native -mfpmath=both -Werror -fopenmp
@@ -24,3 +25,5 @@ for sigma in "${sigma_val[@]}"; do
     done
 done
 
+bash fatcat_dyndom_simulation.sh
+bash fatcat_dyndom_result.sh
