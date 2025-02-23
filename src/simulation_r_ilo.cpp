@@ -57,7 +57,7 @@ std::string extractHingeIndices(const std::string &filename) {
 
 int main(int argc, char **argv) {
   std::string save_method_name;
-  if (argc < 4) {
+  if (argc < 3) {
     std::cerr << "Usage: " << argv[0] << " <hinge_num> <method> <sigma>"
               << std::endl;
     return 1;
