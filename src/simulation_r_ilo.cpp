@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
                           std::to_string(hinge_num) + "_" + sigma + ".csv";
   myfile.open(save_name);
   const int iter_num = 100;
-  myfile << "p_pdb_id,q_pdb_id,Residue length,hinge_num,actual_hinge_indices,";
+  myfile << "p_pdb_id,Residue length,hinge_num,actual_hinge_indices,";
   for (int i = 0; i < iter_num; i++) {
     if (i <= iter_num - 2) {
       myfile << i << "," << std::to_string(i) + "_RMSDhk,"
@@ -105,6 +105,7 @@ int main(int argc, char **argv) {
       }
     }
   }
+  std::chrono::duration<double, std::milli> exec_time_ms;
 #pragma omp parallel for
   for (int i = 0; i < (int)file_triples.size(); i++) {
     const auto &triple = file_triples[i];
@@ -127,8 +128,8 @@ int main(int argc, char **argv) {
     std::string hinge_file = std::get<2>(triple);
     std::string hingeIndices = extractHingeIndices(hinge_file);
     int total_residue_length = p.cols();
-    myfile << p_pdb_id << "," << q_pdb_id << "," << total_residue_length << ","
-           << hinge_num << "," << hingeIndices << ",";
+    myfile << p_pdb_id << "," << total_residue_length << "," << hinge_num << ","
+           << hingeIndices << ",";
     if (p.cols() != q.cols()) {
       std::cout << "p length: " << p.cols() << " q length: " << q.cols()
                 << std::endl;
@@ -152,22 +153,22 @@ int main(int argc, char **argv) {
       RMSDhHingeCnt rmsdhk = rmsdh_calculator.calcRMSDhKAfterHingeUpdate(
           res.hinge_index_vec, hinge_num);
       std::string hinge_index = "";
-      for (int i = 0; i < res.hinge_index_vec.size(); i++) {
+      for (int i = 0; i < (int)res.hinge_index_vec.size(); i++) {
         if (i < res.hinge_index_vec.size() - 1) {
           hinge_index += (std::to_string(res.hinge_index_vec[i]) + " : ");
         } else {
           hinge_index += (std::to_string(res.hinge_index_vec[i]));
         }
       }
-    }
 #pragma omp critical
-    {
-      if (iter < iter_num - 1) {
-        myfile << hinge_index << "," << rmsdhk.rmsdh_result << ","
-               << exec_time_ms.count() << "," << res.iter_num << ",";
-      } else {
-        myfile << hinge_index << "," << rmsdhk.rmsdh_result << ","
-               << exec_time_ms.count() << "," << res.iter_num;
+      {
+        if (iter < iter_num - 1) {
+          myfile << hinge_index << "," << rmsdhk.rmsdh_result << ","
+                 << exec_time_ms.count() << "," << res.iter_num << ",";
+        } else {
+          myfile << hinge_index << "," << rmsdhk.rmsdh_result << ","
+                 << exec_time_ms.count() << "," << res.iter_num;
+        }
       }
     }
   }
