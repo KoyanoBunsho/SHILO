@@ -74,11 +74,10 @@ int main(int argc, char **argv) {
   }
   std::string sigma = argv[3];
   std::string save_name = "rmsdh_result/simulation_" + save_method_name + "_" +
-                          std::to_string(hinge_num) + "_" +
-                          sigma + ".csv";
+                          std::to_string(hinge_num) + "_" + sigma + ".csv";
   myfile.open(save_name);
   myfile << "p_pdb_id,Residue "
-            "length,RMSD,RMSDh,k,hinge_cnt,actual_hinge_"
+            "length,RMSD,RMSDh,k,actual_hinge_"
             "indices,hinge_index,sigma,exec_time (s)"
          << std::endl;
   std::vector<std::tuple<std::string, std::string, std::string>> file_triples;
@@ -91,8 +90,9 @@ int main(int argc, char **argv) {
       std::string pdb_id = match[1].str();
       std::string chain_id = match[2].str();
       std::string p_path = entry.path().string();
-      std::string q_path = "simulation_data/pdb" + pdb_id + "_" + chain_id +"_hinge_" + std::to_string(hinge_num)+
-                           "_sigma" + sigma + ".pdb";
+      std::string q_path = "simulation_data/pdb" + pdb_id + "_" + chain_id +
+                           "_hinge_" + std::to_string(hinge_num) + "_sigma" +
+                           sigma + ".pdb";
       std::string hinge_path =
           "simulation_data_info/pdb" + pdb_id + "_" + chain_id + "_hinge_" +
           std::to_string(hinge_num) + "_sigma" + sigma + ".csv";
