@@ -1,40 +1,85 @@
 #include "rmsd_io.h"
 #include "rmsd_struct.h"
 #include "rmsdh_new.h"
+#include <algorithm>
+#include <experimental/filesystem>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <omp.h>
+#include <regex>
+#include <sstream>
+#include <string>
+#include <tuple>
+std::string getToken(const std::string &str, size_t index) {
+  size_t start = 0, end = 0, count = 0;
+  while ((end = str.find('_', start)) != std::string::npos) {
+    if (count == index) {
+      return str.substr(start, end - start);
+    }
+    start = end + 1;
+    count++;
+  }
+  if (count == index) {
+    return str.substr(start);
+  }
+  return "";
+}
 
 int main() {
-  std::string coord_path = "coord_csv_dyndom/";
-  std::ofstream myfile;
-  std::vector<std::vector<std::string>> pdb_chain_data;
-  // TODO: 読み込むcsvファイルをsimulation datasetに変更する
-  read_csv(pdb_chain_data, "DynDom_database.csv");
-  std::vector<std::pair<std::string, std::string>> pdb_pair_vec;
-  for (const auto &pdb_chain : pdb_chain_data) {
-    pdb_pair_vec.push_back(std::make_pair(pdb_chain[0], pdb_chain[1]));
+  if (argc < 3) {
+    std::cerr << "Usage: " << argv[0] << " <hinge_num> <sigma>" << std::endl;
+    return 1;
   }
+  std::vector<std::vector<std::string>> pdb_chain_data;
+  int hinge_num = std::stoi(argv[1]);
+  std::string sigma = argv[2];
+  std::ofstream myfile;
+  std::string simulation_data_path = "simulation_data/";
+  std::string simulation_data_info_path = "simulation_data_info/";
   myfile.open("monge_rate_simulation.csv");
-  myfile << "p_pdb_id"
-         << ","
-         << "q_pdb_id"
-         << ","
-         << "monge_rate,monge_rate_1" << std::endl;
-  // TODO: csvではなく，pdbファイルを読み込む
-  // TODO: pdbreaderクラスを新しく作成する
-  for (int i = 0; i < (int)pdb_pair_vec.size(); i++) {
-    std::string p_pdb_id, q_pdb_id;
-    std::string p_pdb_chain_id = pdb_pair_vec[i].first;
-    std::string q_pdb_chain_id = pdb_pair_vec[i].second;
-    std::transform(p_pdb_chain_id.begin(), p_pdb_chain_id.begin() + 4,
-                   std::back_inserter(p_pdb_id), ::tolower);
-    std::string p_chain_id = p_pdb_chain_id.substr(5, 1);
-    std::transform(q_pdb_chain_id.begin(), q_pdb_chain_id.begin() + 4,
-                   std::back_inserter(q_pdb_id), ::tolower);
-    std::string q_chain_id = q_pdb_chain_id.substr(5, 1);
+  myfile << "p_pdb_id,Residue length,actual_hinge_cnt,sigma,monge_rate_1"
+         << std::endl;
+  std::vector<std::tuple<std::string, std::string, std::string>> file_triples;
+  for (const auto &entry : fs::directory_iterator("simulation_data")) {
+    std::string filename = entry.path().filename().string();
+    std::smatch match;
+    std::regex pattern(R"(pdb([\w\d]+)_([A-Z])_original\.pdb)");
+
+    if (std::regex_match(filename, match, pattern)) {
+      std::string pdb_id = match[1].str();
+      std::string chain_id = match[2].str();
+      std::string p_path = entry.path().string();
+      std::string q_path = "simulation_data/pdb" + pdb_id + "_" + chain_id +
+                           "_hinge_" + std::to_string(hinge_num) + "_sigma" +
+                           sigma + ".pdb";
+      std::string hinge_path =
+          "simulation_data_info/pdb" + pdb_id + "_" + chain_id + "_hinge_" +
+          std::to_string(hinge_num) + "_sigma" + sigma + ".csv";
+      if (fs::exists(q_path) && fs::exists(hinge_path)) {
+        file_triples.push_back(std::make_tuple(p_path, q_path, hinge_path));
+      }
+    }
+  }
+
+  for (int i = 0; i < (int)file_triples.size(); i++) {
+    const auto &triple = file_triples[i];
+    std::string p_pdb_id =
+        std::get<0>(triple).substr(std::get<0>(triple).find_last_of("/") + 1);
+    std::string p_chain_id = getToken(p_pdb_id, 1);
+    PDBReader reader1(std::get<0>(triple));
+    PDBReader reader2(std::get<1>(triple));
+    std::set<int> res_numbers1 = reader1.get_residue_numbers(p_chain_id);
+    std::set<int> res_numbers2 = reader2.get_residue_numbers(p_chain_id);
+    std::set<int> intersected_res_numbers =
+        intersect_residue_numbers(res_numbers1, res_numbers2);
+    std::vector<std::tuple<double, double, double>> coordinatesP =
+        reader1.get_CA_coordinates(intersected_res_numbers, p_chain_id);
+    std::vector<std::tuple<double, double, double>> coordinatesQ =
+        reader2.get_CA_coordinates(intersected_res_numbers, p_chain_id);
     Eigen::MatrixXd p, q;
-    p = openMatrixData(coord_path + "coord_" + p_pdb_id + "_" + p_chain_id +
-                       "_" + q_pdb_id + "_" + q_chain_id + ".csv");
-    q = openMatrixData(coord_path + "coord_" + q_pdb_id + "_" + q_chain_id +
-                       "_" + p_pdb_id + "_" + p_chain_id + ".csv");
+    p = convert_to_matrix(coordinatesP).transpose();
+    q = convert_to_matrix(coordinatesQ).transpose();
     if (p.cols() == 0 || q.cols() == 0) {
       std::cout << "No data" << std::endl;
       continue;
@@ -56,12 +101,12 @@ int main() {
     auto start = std::chrono::high_resolution_clock::now();
     ConformationPair PQ_pair = MoveToOrigin(p, q, default_weights);
     ProteinRMSDhinge rmsdh_calculator(PQ_pair.P, PQ_pair.Q, 100);
-    double monge_rate = rmsdh_calculator.calcMongeRate();
     double monge_rate2 = rmsdh_calculator.calcMongeRate2();
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> exec_time_ms = end - start;
     std::cout << exec_time_ms.count() << " ms" << std::endl;
-    myfile << "," << monge_rate << "," << monge_rate2 << std::endl;
+    myfile << "," << total_residue_length << "," << hinge_num << "," << sigma
+           << "," << monge_rate2 << std::endl;
   }
   myfile.close();
 }
