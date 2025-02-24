@@ -13,7 +13,6 @@ from tqdm import tqdm
 
 
 def main():
-    # pdb_files = glob("all_pdb/*.ent.gz")
     pdb_files = pd.read_csv("selected_files.csv", header=None)[0].to_list()
     os.makedirs("simulation_data", exist_ok=True)
     os.makedirs("simulation_data_info", exist_ok=True)
@@ -172,9 +171,7 @@ def load_and_filter_pdb(filename):
     if ppdb.df["ATOM"]["chain_id"].empty:
         return None, None, None
     first_chain_id = ppdb.df["ATOM"]["chain_id"].iloc[0]
-    filtered_df = ppdb.df["ATOM"][
-        ppdb.df["ATOM"]["chain_id"] == first_chain_id
-    ].drop_duplicates(subset=["atom_name", "residue_number"], keep="first")
+    filtered_df = ppdb.df["ATOM"][ppdb.df["ATOM"]["chain_id"] == first_chain_id]
     if not filtered_df[filtered_df["atom_name"] == "CA"].empty:
         ppdb_copy = deepcopy(ppdb)
         ppdb_copy.df["ATOM"] = filtered_df
