@@ -1,0 +1,25 @@
+Align pdb2oct.pdb 192 with 4n6v.pdb 910
+Twists 3 ini-len 176 ini-rmsd 15.10 opt-equ 178 opt-rmsd 1.49 chain-rmsd 58.02 Score 402.59 align-len 186 gaps 8 (4.30%)
+P-value 3.38e-04 Afp-num 59298 Identity 95.70% Similarity 95.70%
+Block  0 afp  5 score 119.18 rmsd  0.59 gap 0 (0.00%)
+Block  1 afp  6 score 124.86 rmsd  1.84 gap 0 (0.00%)
+Block  2 afp  5 score 112.28 rmsd  1.57 gap 1 (0.02%)
+Block  3 afp  6 score 124.27 rmsd  1.74 gap 0 (0.00%)
+
+                  .    :    .    :    .    :    .    :    .    :    .    :    .    :
+Chain 1:    8 ATQPATAETQHIADQVRSQLEEKYNKKFPVFKAVSFKSQVVAGTNYFIKVHVGDEDFVHLRVFQSLPHEN
+              1111111111111111111111111111111111111111122222222222222222222222222222
+Chain 2:    8 ATQPATAETQHIADQVRSQLEEKENKKFPVFKAVSFKSQVVAGTNYFIKVHVGDEDFVHLRVFQSLPHEN
+
+                  .    :    .    :    .    :    .    :    .    :    .    :    .    :
+Chain 1:   78 KSLTLSNYQTNKAKHDELTYFGAPSATQPATAETQHIADQVRSQLEEKYNKKFPVFKAVSFKSQVVAGTN
+              22222222222222222222     333333333333333333333333333333333333333334444
+Chain 2:   78 KPLTLSNYQTNKAKHDELTYF----ATQPATAETQHIADQVRSQLEEKENKKFPVFKAVSFKSQVVAGTN
+
+                  .    :    .    :    .    :    .    :    .
+Chain 1:   53 YFIKVHVGDEDFVHLRVFQSLPHENKSLTLSNYQTNKAKHDELTYF
+              4444444444444444444444  4 44444444444444444444
+Chain 2:   53 YFIKVHVGDEDFVHLRVFQSLPHENKPLTLSNYQTNKAKHDELTYF
+
+Note: positions are from PDB; the numbers between alignments are block index
+
