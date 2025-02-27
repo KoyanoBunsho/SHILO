@@ -248,7 +248,7 @@ def main():
         axes[0].plot(
             k_values, values, marker=marker_styles[key], linestyle="-", label=key
         )
-    axes[0].set_xlabel("k")
+    axes[0].set_xlabel("#hinges")
     axes[0].set_xticks(range(2, k_max + 1))
     axes[0].set_ylim(0)
     axes[0].set_ylabel("Computation Time (s)")
@@ -260,7 +260,7 @@ def main():
         axes[1].plot(
             k_values, values, marker=marker_styles[key], linestyle="-", label=key
         )
-    axes[1].set_xlabel("k")
+    axes[1].set_xlabel("#hinges")
     axes[1].set_xticks(range(2, k_max + 1))
     axes[1].set_ylabel("Computation Time (s)")
     axes[1].set_ylim(0)
