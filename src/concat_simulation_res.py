@@ -5,7 +5,7 @@ import os
 def process_files(prefix):
     dfs = []
     for hinge_num in range(2, 11):
-        for sigma in [0.5, 1.5]:
+        for sigma in [0.5]:
             filename = f"rmsdh_result/{prefix}_{hinge_num}_{sigma}.csv"
             if os.path.exists(filename):
                 df = pd.read_csv(filename)
@@ -20,12 +20,12 @@ def process_files(prefix):
 
 def main():
     prefixes = [
-        "simulation_sh_ilo",
-        "simulation_sh_lo",
-        "simulation_sh",
-        "simulation_shibuya",
-        # "simulation_r_lo",
-        # "simulation_r_ilo",
+        # "simulation_sh_ilo",
+        # "simulation_sh_lo",
+        # "simulation_sh",
+        # "simulation_shibuya",
+        "simulation_r_lo",
+        "simulation_r_ilo",
     ]
     combined_results = {}
 
