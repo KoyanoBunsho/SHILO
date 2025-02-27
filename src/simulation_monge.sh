@@ -1,4 +1,8 @@
-#!/bin/bash
+#! /usr/local/bin/nosh
+#$ -S /usr/local/bin/nosh
+#$ -cwd
+#$ -l s_vmem=2.1G
+#$ -pe mpi_32 128
 g++ calc_monge_rate_simulation.cpp -o calc_monge_rate_simulation -std=c++14 -lstdc++fs -Wall -Wextra -O3 -mtune=native -march=native -mfpmath=both -Werror -fopenmp
 
 
