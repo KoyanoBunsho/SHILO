@@ -23,8 +23,6 @@ def main():
         zip(
             ok_pdb["p_pdb_id"],
             ok_pdb["q_pdb_id"],
-            ok_pdb["p_chain_id"],
-            ok_pdb["q_chain_id"],
         )
     )
     dyndom_comp_time_for_par_df = preprocess_df(
@@ -70,8 +68,6 @@ def main():
             lambda row: (
                 row["p_pdb_id"],
                 row["q_pdb_id"],
-                row["p_chain_id"],
-                row["q_chain_id"],
             )
             in ok_keys,
             axis=1,
@@ -82,8 +78,6 @@ def main():
             lambda row: (
                 row["p_pdb_id"],
                 row["q_pdb_id"],
-                row["p_chain_id"],
-                row["q_chain_id"],
             )
             in ok_keys,
             axis=1,
