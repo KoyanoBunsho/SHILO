@@ -93,8 +93,6 @@ int main(int argc, char **argv) {
     }
     myfile << p_pdb_id;
     int total_residue_length = p.cols();
-    std::cout << total_residue_length << std::endl;
-    std::cout << p_pdb_id << ", " << q_pdb_id << std::endl;
     std::vector<double> default_weights;
     for (int i = 0; i < total_residue_length; i++) {
       default_weights.push_back(1.0);
@@ -105,7 +103,6 @@ int main(int argc, char **argv) {
     double monge_rate2 = rmsdh_calculator.calcMongeRate2();
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> exec_time_ms = end - start;
-    std::cout << exec_time_ms.count() << " ms" << std::endl;
     myfile << "," << total_residue_length << "," << hinge_num << "," << sigma
            << "," << monge_rate2 << std::endl;
   }
