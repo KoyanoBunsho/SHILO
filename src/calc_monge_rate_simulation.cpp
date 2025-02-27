@@ -11,6 +11,7 @@
 #include <sstream>
 #include <string>
 #include <tuple>
+namespace fs = std::experimental::filesystem;
 std::string getToken(const std::string &str, size_t index) {
   size_t start = 0, end = 0, count = 0;
   while ((end = str.find('_', start)) != std::string::npos) {
@@ -26,7 +27,7 @@ std::string getToken(const std::string &str, size_t index) {
   return "";
 }
 
-int main() {
+int main(int argc, char **argv) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0] << " <hinge_num> <sigma>" << std::endl;
     return 1;
@@ -90,7 +91,7 @@ int main() {
       std::cout << "The residue length is different" << std::endl;
       continue;
     }
-    myfile << p_pdb_id << "," << q_pdb_id;
+    myfile << p_pdb_id;
     int total_residue_length = p.cols();
     std::cout << total_residue_length << std::endl;
     std::cout << p_pdb_id << ", " << q_pdb_id << std::endl;
