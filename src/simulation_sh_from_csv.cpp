@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
       std::string pdb_id = match[1].str();
       std::string chain_id = match[2].str();
       std::string p_path = "coord_csv_simulation/pdb" + pdb_id + "_" +
-                           chain_id + "original_CA_coordinates.csv";
+                           chain_id + "_original_CA_coordinates.csv";
       std::string q_path = "coord_csv_simulation/pdb" + pdb_id + "_" +
                            chain_id + "_hinge_" + std::to_string(hinge_num) +
                            "_sigma" + sigma + "_CA_coordinates.csv";
