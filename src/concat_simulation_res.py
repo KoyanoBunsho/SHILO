@@ -20,10 +20,10 @@ def process_files(prefix):
 
 def main():
     prefixes = [
-        # "simulation_sh_ilo",
-        # "simulation_sh_lo",
-        # "simulation_sh",
-        # "simulation_shibuya",
+        "simulation_sh_ilo",
+        "simulation_sh_lo",
+        "simulation_sh",
+        "simulation_shibuya",
         "simulation_r_lo",
         "simulation_r_ilo",
     ]
