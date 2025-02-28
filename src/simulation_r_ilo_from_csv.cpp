@@ -87,6 +87,7 @@ int main(int argc, char **argv) {
       continue;
     }
     std::cout << total_residue_length << std::endl;
+    std::chrono::duration<double, std::milli> exec_time_ms;
 #pragma omp critical
     {
       for (int iter = 0; iter < iter_num; iter++) {

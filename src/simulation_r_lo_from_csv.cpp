@@ -87,6 +87,7 @@ int main(int argc, char **argv) {
       continue;
     }
     std::cout << total_residue_length << std::endl;
+    std::chrono::duration<double, std::milli> exec_time_ms;
 #pragma omp critical
     {
       for (int iter = 0; iter < iter_num; iter++) {
@@ -110,10 +111,10 @@ int main(int argc, char **argv) {
         }
         if (iter < iter_num - 1) {
           myfile << hinge_index << "," << rmsdhk.rmsdh_result << ","
-                 << exec_time_ms.count() << "," << res.iter_num << ",";
+                 << exec_time_ms.count() << ",";
         } else {
           myfile << hinge_index << "," << rmsdhk.rmsdh_result << ","
-                 << exec_time_ms.count() << "," << res.iter_num << std::endl;
+                 << exec_time_ms.count() << std::endl;
         }
       }
     }
