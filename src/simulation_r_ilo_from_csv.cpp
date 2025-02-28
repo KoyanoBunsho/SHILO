@@ -21,9 +21,8 @@
 namespace fs = std::experimental::filesystem;
 
 int main(int argc, char **argv) {
-  if (argc < 4) {
-    std::cerr << "Usage: " << argv[0] << " <hinge_num> <method> <sigma>"
-              << std::endl;
+  if (argc < 3) {
+    std::cerr << "Usage: " << argv[0] << " <hinge_num> <sigma>" << std::endl;
     return 1;
   }
   int hinge_num = std::stoi(argv[1]);
