@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
   }
   int hinge_num = std::stoi(argv[1]);
   std::ofstream myfile;
-  std::string simulation_data_path = "simulation_data/";
+  std::string simulation_data_path = "coord_csv_simulation/";
   std::string simulation_data_info_path = "simulation_data_info/";
   if (std::string(argv[2]) == "sh") {
     save_method_name = "sh";
@@ -47,14 +47,6 @@ int main(int argc, char **argv) {
             "indices,hinge_index,sigma,exec_time (s)"
          << std::endl;
   std::vector<std::tuple<std::string, std::string, std::string>> file_triples;
-  while (std::getline(input_file, line)) {
-    std::stringstream ss(line);
-    std::string p_path, q_path, hinge_path;
-    getline(ss, p_path, ',');
-    getline(ss, q_path, ',');
-    getline(ss, hinge_path, ',');
-    file_triples.push_back(std::make_tuple(p_path, q_path, hinge_path));
-  }
   for (const auto &entry : fs::directory_iterator("simulation_data")) {
     std::string filename = entry.path().filename().string();
     std::smatch match;
@@ -63,10 +55,11 @@ int main(int argc, char **argv) {
     if (std::regex_match(filename, match, pattern)) {
       std::string pdb_id = match[1].str();
       std::string chain_id = match[2].str();
-      std::string p_path = entry.path().string();
-      std::string q_path = "simulation_data/pdb" + pdb_id + "_" + chain_id +
-                           "_hinge_" + std::to_string(hinge_num) + "_sigma" +
-                           sigma + ".pdb";
+      std::string p_path = "coord_csv_simulation/pdb" + pdb_id + "_" +
+                           chain_id + "original_CA_coordinates.csv";
+      std::string q_path = "coord_csv_simulation/pdb" + pdb_id + "_" +
+                           chain_id + "_hinge_" + std::to_string(hinge_num) +
+                           "_sigma" + sigma + "_CA_coordinates.csv";
       std::string hinge_path =
           "simulation_data_info/pdb" + pdb_id + "_" + chain_id + "_hinge_" +
           std::to_string(hinge_num) + "_sigma" + sigma + ".csv";
