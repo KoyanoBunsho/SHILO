@@ -140,27 +140,27 @@ int main(int argc, char **argv) {
       continue;
     }
     std::cout << total_residue_length << std::endl;
-    for (int iter = 0; iter < iter_num; iter++) {
-      auto start = std::chrono::high_resolution_clock::now();
-      std::vector<int> random_hinges =
-          selectRandomHinges(total_residue_length, hinge_num);
-      ProteinRMSDhinge rmsdh_calculator(p, q, 100);
-      RMSDhHingeCnt res =
-          rmsdh_calculator.RMSDhkPostProcessing(random_hinges, hinge_num);
-      auto end = std::chrono::high_resolution_clock::now();
-      exec_time_ms = end - start;
-      RMSDhHingeCnt rmsdhk = rmsdh_calculator.calcRMSDhKAfterHingeUpdate(
-          res.hinge_index_vec, hinge_num);
-      std::string hinge_index = "";
-      for (int i = 0; i < (int)res.hinge_index_vec.size(); i++) {
-        if (i < (int)res.hinge_index_vec.size() - 1) {
-          hinge_index += (std::to_string(res.hinge_index_vec[i]) + " : ");
-        } else {
-          hinge_index += (std::to_string(res.hinge_index_vec[i]));
-        }
-      }
 #pragma omp critical
-      {
+    {
+      for (int iter = 0; iter < iter_num; iter++) {
+        auto start = std::chrono::high_resolution_clock::now();
+        std::vector<int> random_hinges =
+            selectRandomHinges(total_residue_length, hinge_num);
+        ProteinRMSDhinge rmsdh_calculator(p, q, 100);
+        RMSDhHingeCnt res =
+            rmsdh_calculator.RMSDhkPostProcessing(random_hinges, hinge_num);
+        auto end = std::chrono::high_resolution_clock::now();
+        exec_time_ms = end - start;
+        RMSDhHingeCnt rmsdhk = rmsdh_calculator.calcRMSDhKAfterHingeUpdate(
+            res.hinge_index_vec, hinge_num);
+        std::string hinge_index = "";
+        for (int i = 0; i < (int)res.hinge_index_vec.size(); i++) {
+          if (i < (int)res.hinge_index_vec.size() - 1) {
+            hinge_index += (std::to_string(res.hinge_index_vec[i]) + " : ");
+          } else {
+            hinge_index += (std::to_string(res.hinge_index_vec[i]));
+          }
+        }
         if (iter < iter_num - 1) {
           myfile << hinge_index << "," << rmsdhk.rmsdh_result << ","
                  << exec_time_ms.count() << ",";
