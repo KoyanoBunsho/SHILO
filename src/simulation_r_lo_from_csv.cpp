@@ -35,10 +35,10 @@ int main(int argc, char **argv) {
   myfile << "p_pdb_id,Residue length,hinge_num,actual_hinge_indices,";
   for (int i = 0; i < iter_num; i++) {
     if (i < iter_num - 1)
-      myfile << i << "," << i << "_hinge_index" << i << "_RMSDhk," << i
+      myfile << i << "_hinge_index," << i << "_RMSDhk," << i
              << "_computation_time,";
     else
-      myfile << i << "," << i << "_hinge_index" << i << "_RMSDhk," << i
+      myfile << i << "_hinge_index," << i << "_RMSDhk," << i
              << "_computation_time" << std::endl;
   }
 
