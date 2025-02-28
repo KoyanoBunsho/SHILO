@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
   std::string simulation_data_path = "simulation_data/";
   std::string simulation_data_info_path = "simulation_data_info/";
   myfile.open("monge_rate_simulation_" + std::to_string(hinge_num) + "_" +
-              "sigma" + std::to_string(sigma) + ".csv");
+              "sigma" + sigma + ".csv");
   myfile << "p_pdb_id,Residue length,actual_hinge_cnt,sigma,monge_rate_1"
          << std::endl;
   std::vector<std::tuple<std::string, std::string, std::string>> file_triples;
