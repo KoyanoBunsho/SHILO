@@ -74,10 +74,12 @@ int main(int argc, char **argv) {
   myfile << "p_pdb_id,Residue length,hinge_num,actual_hinge_indices,";
   for (int i = 0; i < iter_num; i++) {
     if (i <= iter_num - 2) {
-      myfile << i << "," << std::to_string(i) + "_RMSDhk,"
+      myfile << i << "," << std::to_string(i) + "_hinge_index"
+             << std::to_string(i) + "_RMSDhk,"
              << std::to_string(i) + "_computation_time,";
     } else {
-      myfile << i << "," << std::to_string(i) + "_RMSDhk,"
+      myfile << i << "," << std::to_string(i) + "_hinge_index"
+             << std::to_string(i) + "_RMSDhk,"
              << std::to_string(i) + "_computation_time" << std::endl;
     }
   }
@@ -164,7 +166,7 @@ int main(int argc, char **argv) {
                  << exec_time_ms.count() << ",";
         } else {
           myfile << hinge_index << "," << rmsdhk.rmsdh_result << ","
-                 << exec_time_ms.count();
+                 << exec_time_ms.count() << std::endl;
         }
       }
     }
