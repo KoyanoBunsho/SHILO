@@ -5,7 +5,9 @@
 #include "rmsd_struct.h"
 #include "rmsdh_new.h"
 #include <algorithm>
+#include <chrono>
 #include <experimental/filesystem>
+#include <fstream>
 #include <iostream>
 #include <map>
 #include <numeric>
@@ -14,36 +16,32 @@
 #include <sstream>
 #include <string>
 #include <tuple>
+#include <vector>
 
 namespace fs = std::experimental::filesystem;
 
 int main(int argc, char **argv) {
-  std::string save_method_name;
   if (argc < 4) {
     std::cerr << "Usage: " << argv[0] << " <hinge_num> <method> <sigma>"
               << std::endl;
     return 1;
   }
   int hinge_num = std::stoi(argv[1]);
-  std::ofstream myfile;
-  std::string simulation_data_path = "coord_csv_simulation/";
-  std::string simulation_data_info_path = "simulation_data_info/";
   std::string sigma = argv[2];
   std::string save_name = "rmsdh_result/simulation_r_ilo_" +
                           std::to_string(hinge_num) + "_" + sigma + ".csv";
-  myfile.open(save_name);
+  std::ofstream myfile(save_name);
   const int iter_num = 100;
   myfile << "p_pdb_id,Residue length,hinge_num,actual_hinge_indices,";
   for (int i = 0; i < iter_num; i++) {
-    if (i <= iter_num - 2) {
+    if (i < iter_num - 1)
       myfile << i << "," << std::to_string(i) + "_hinge_index"
              << std::to_string(i) + "_RMSDhk,"
              << std::to_string(i) + "_computation_time,";
-    } else {
+    else
       myfile << i << "," << std::to_string(i) + "_hinge_index"
              << std::to_string(i) + "_RMSDhk,"
              << std::to_string(i) + "_computation_time" << std::endl;
-    }
   }
   std::vector<std::tuple<std::string, std::string, std::string>> file_triples;
   for (const auto &entry : fs::directory_iterator("simulation_data")) {
@@ -67,57 +65,65 @@ int main(int argc, char **argv) {
       }
     }
   }
+  std::vector<std::string> results(file_triples.size());
 #pragma omp parallel for
-  for (const auto &triple : file_triples) {
-    std::string p_pdb_id =
-        std::get<0>(triple).substr(std::get<0>(triple).find_last_of("/") + 1);
-    Eigen::MatrixXd p = openMatrixData(std::get<0>(triple));
-    Eigen::MatrixXd q = openMatrixData(std::get<1>(triple));
-    std::string hinge_file = std::get<2>(triple);
-    std::string hingeIndices = extractHingeIndices(hinge_file);
+  for (size_t i = 0; i < file_triples.size(); i++) {
+    auto triple = file_triples[i];
+    std::string p_path = std::get<0>(triple);
+    std::string q_path = std::get<1>(triple);
+    std::string hinge_path = std::get<2>(triple);
+    std::string p_pdb_id = p_path.substr(p_path.find_last_of("/") + 1);
+    std::ostringstream oss;
+    Eigen::MatrixXd p = openMatrixData(p_path);
+    Eigen::MatrixXd q = openMatrixData(q_path);
     int total_residue_length = p.cols();
     if (p.cols() != q.cols()) {
-      std::cout << "p length: " << p.cols() << " q length: " << q.cols()
+      std::cerr << "p length: " << p.cols() << " q length: " << q.cols()
                 << std::endl;
-      std::cout << "The residue length is different" << std::endl;
+      std::cerr << "The residue length is different" << std::endl;
+      results[i] = "";
       continue;
     }
     if (p.cols() == 0) {
-      std::cout << "No data" << std::endl;
+      std::cerr << "No data" << std::endl;
+      results[i] = "";
       continue;
     }
-    std::cout << total_residue_length << std::endl;
-    std::chrono::duration<double, std::milli> exec_time_ms;
-#pragma omp critical
-    {
-      for (int iter = 0; iter < iter_num; iter++) {
-        auto start = std::chrono::high_resolution_clock::now();
-        std::vector<int> random_hinges =
-            selectRandomHinges(total_residue_length, hinge_num);
-        ProteinRMSDhinge rmsdh_calculator(p, q, 100);
-        AblationResult res =
-            rmsdh_calculator.RMSDhkPostProcessingLoop(random_hinges, hinge_num);
-        auto end = std::chrono::high_resolution_clock::now();
-        exec_time_ms = end - start;
-        RMSDhHingeCnt rmsdhk = rmsdh_calculator.calcRMSDhKAfterHingeUpdate(
-            res.hinge_index_vec, hinge_num);
-        std::string hinge_index = "";
-        for (int i = 0; i < (int)res.hinge_index_vec.size(); i++) {
-          if (i < (int)res.hinge_index_vec.size() - 1) {
-            hinge_index += (std::to_string(res.hinge_index_vec[i]) + " : ");
-          } else {
-            hinge_index += (std::to_string(res.hinge_index_vec[i]));
-          }
-        }
-        if (iter < iter_num - 1) {
-          myfile << hinge_index << "," << rmsdhk.rmsdh_result << ","
-                 << exec_time_ms.count() << "," << res.iter_num << ",";
-        } else {
-          myfile << hinge_index << "," << rmsdhk.rmsdh_result << ","
-                 << exec_time_ms.count() << "," << res.iter_num << std::endl;
-        }
+    std::string hingeIndices = extractHingeIndices(hinge_path);
+    oss << p_pdb_id << "," << total_residue_length << "," << hinge_num << ","
+        << hingeIndices << ",";
+    for (int iter = 0; iter < iter_num; iter++) {
+      auto start = std::chrono::high_resolution_clock::now();
+      std::vector<int> random_hinges =
+          selectRandomHinges(total_residue_length, hinge_num);
+      ProteinRMSDhinge rmsdh_calculator(p, q, 100);
+      AblationResult res =
+          rmsdh_calculator.RMSDhkPostProcessingLoop(random_hinges, hinge_num);
+      auto end = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double, std::milli> exec_time_ms = end - start;
+      RMSDhHingeCnt rmsdhk = rmsdh_calculator.calcRMSDhKAfterHingeUpdate(
+          res.hinge_index_vec, hinge_num);
+      std::string hinge_index = "";
+      for (size_t j = 0; j < res.hinge_index_vec.size(); j++) {
+        hinge_index += std::to_string(res.hinge_index_vec[j]);
+        if (j != res.hinge_index_vec.size() - 1)
+          hinge_index += " : ";
       }
+
+      if (iter < iter_num - 1)
+        oss << hinge_index << "," << rmsdhk.rmsdh_result << ","
+            << exec_time_ms.count() << "," << res.iter_num << ",";
+      else
+        oss << hinge_index << "," << rmsdhk.rmsdh_result << ","
+            << exec_time_ms.count() << "," << res.iter_num;
     }
+    oss << "\n";
+    results[i] = oss.str();
+  }
+  for (const auto &line : results) {
+    if (!line.empty())
+      myfile << line;
   }
   myfile.close();
+  return 0;
 }
