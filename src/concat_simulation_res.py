@@ -5,7 +5,7 @@ import os
 def process_files(prefix):
     combined_rows = []
     header = None
-    for hinge_num in range(2, 11):
+    for hinge_num in range(2, 6):
         for sigma in [0.5]:
             filename = f"rmsdh_result/{prefix}_{hinge_num}_{sigma}.csv"
             if os.path.exists(filename):
@@ -53,10 +53,6 @@ def main():
                 writer.writerows(combined_data)
         else:
             print(f"{prefix} のファイルは存在しませんでした。")
-    for prefix, data in combined_results.items():
-        print(f"\n{prefix} の先頭5行:")
-        for row in data[:6]:
-            print(row)
 
 
 if __name__ == "__main__":
