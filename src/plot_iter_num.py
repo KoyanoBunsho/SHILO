@@ -12,48 +12,48 @@ def main():
     shilo_2_shibuya = pd.read_csv(
         "rmsdh_result/fast_rmsdh_hingek_cnt_2_postpro_loop.csv"
     )
-    shilo_3_shibuya = pd.read_csv(
-        "rmsdh_result/fast_rmsdh_hingek_cnt_3_postpro_loop.csv"
+    shilo_5_shibuya = pd.read_csv(
+        "rmsdh_result/fast_rmsdh_hingek_cnt_5_postpro_loop.csv"
     )
-    shilo_4_shibuya = pd.read_csv(
-        "rmsdh_result/fast_rmsdh_hingek_cnt_4_postpro_loop.csv"
+    shilo_10_shibuya = pd.read_csv(
+        "rmsdh_result/fast_rmsdh_hingek_cnt_10_postpro_loop.csv"
     )
 
     shilo_2_par = pd.read_csv("rmsdh_result/fast_rmsdhk_more_data_2_pospro_loop.csv")
-    shilo_3_par = pd.read_csv("rmsdh_result/fast_rmsdhk_more_data_3_pospro_loop.csv")
-    shilo_4_par = pd.read_csv("rmsdh_result/fast_rmsdhk_more_data_4_pospro_loop.csv")
+    shilo_5_par = pd.read_csv("rmsdh_result/fast_rmsdhk_more_data_5_pospro_loop.csv")
+    shilo_10_par = pd.read_csv("rmsdh_result/fast_rmsdhk_more_data_10_pospro_loop.csv")
 
     shilo_2_dyndom = pd.read_csv("rmsdh_result/fast_rmsdhk_dyndom_2_postpro_loop.csv")
-    shilo_3_dyndom = pd.read_csv("rmsdh_result/fast_rmsdhk_dyndom_3_postpro_loop.csv")
-    shilo_4_dyndom = pd.read_csv("rmsdh_result/fast_rmsdhk_dyndom_4_postpro_loop.csv")
+    shilo_5_dyndom = pd.read_csv("rmsdh_result/fast_rmsdhk_dyndom_5_postpro_loop.csv")
+    shilo_10_dyndom = pd.read_csv("rmsdh_result/fast_rmsdhk_dyndom_10_postpro_loop.csv")
 
     # rilo データの読み込み
     rilo_2_shibuya = pd.read_csv("rmsdh_result/ablation_study_loop2.csv")
-    rilo_3_shibuya = pd.read_csv("rmsdh_result/ablation_study_loop3.csv")
-    rilo_4_shibuya = pd.read_csv("rmsdh_result/ablation_study_loop4.csv")
+    rilo_5_shibuya = pd.read_csv("rmsdh_result/ablation_study_loop5.csv")
+    rilo_10_shibuya = pd.read_csv("rmsdh_result/ablation_study_loop10.csv")
 
     rilo_2_par = pd.read_csv("rmsdh_result/ablation_study_loop_par2.csv")
-    rilo_3_par = pd.read_csv("rmsdh_result/ablation_study_loop_par3.csv")
-    rilo_4_par = pd.read_csv("rmsdh_result/ablation_study_loop_par4.csv")
+    rilo_5_par = pd.read_csv("rmsdh_result/ablation_study_loop_par5.csv")
+    rilo_10_par = pd.read_csv("rmsdh_result/ablation_study_loop_par10.csv")
 
     rilo_2_dyndom = pd.read_csv("rmsdh_result/ablation_study_loop_dyndom2.csv")
-    rilo_3_dyndom = pd.read_csv("rmsdh_result/ablation_study_loop_dyndom3.csv")
-    rilo_4_dyndom = pd.read_csv("rmsdh_result/ablation_study_loop_dyndom4.csv")
+    rilo_5_dyndom = pd.read_csv("rmsdh_result/ablation_study_loop_dyndom5.csv")
+    rilo_10_dyndom = pd.read_csv("rmsdh_result/ablation_study_loop_dyndom10.csv")
 
-    # データセットのリスト化 (k=2,3,4 の各 Shibuya, Par, Dyndom)
+    # データセットのリスト化 (k=2,5,10 の各 Shibuya, Par, Dyndom)
     rilo_datasets = [
         [rilo_2_shibuya, rilo_2_par, rilo_2_dyndom],
-        [rilo_3_shibuya, rilo_3_par, rilo_3_dyndom],
-        [rilo_4_shibuya, rilo_4_par, rilo_4_dyndom],
+        [rilo_5_shibuya, rilo_5_par, rilo_5_dyndom],
+        [rilo_10_shibuya, rilo_10_par, rilo_10_dyndom],
     ]
 
     shilo_datasets = [
         [shilo_2_shibuya, shilo_2_par, shilo_2_dyndom],
-        [shilo_3_shibuya, shilo_3_par, shilo_3_dyndom],
-        [shilo_4_shibuya, shilo_4_par, shilo_4_dyndom],
+        [shilo_5_shibuya, shilo_5_par, shilo_5_dyndom],
+        [shilo_10_shibuya, shilo_10_par, shilo_10_dyndom],
     ]
 
-    titles = ["k=2", "k=3", "k=4"]
+    titles = ["k=2", "k=5", "k=10"]
     col_titles = ["Shibuya 2008", "PAR 2020", "DynDom 2024"]
 
     iter_num_cols_list = [f"{i}_iter_num" for i in range(100)]
@@ -105,7 +105,7 @@ def main():
                 alpha=0.5,
             )
             axes[i, j].set_title(f"{row_title} - {col_title}")
-            axes[i, j].set_xlabel("Value")
+            axes[i, j].set_xlabel("#iterations")
             axes[i, j].set_ylabel("Percentage (%)")
             axes[i, j].set_xlim(1, 7)
             axes[i, j].legend()
