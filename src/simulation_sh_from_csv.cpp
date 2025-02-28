@@ -97,7 +97,6 @@ int main(int argc, char **argv) {
     std::cout << p_pdb_id << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
     ProteinRMSDhinge rmsdh_hinge(PQ_pair.P, PQ_pair.Q, hinge_num);
-    RMSDhHingeCnt rmsdh_hinge_cnt_result;
     RMSDhHingeCnt rmsdh_hinge_cnt_result = {};
     if (save_method_name == "sh") {
       rmsdh_hinge_cnt_result = rmsdh_hinge.CalcFastRMSDhK();
@@ -110,7 +109,6 @@ int main(int argc, char **argv) {
     std::chrono::duration<double, std::milli> exec_time_ms = end - start;
     double exec_time_s = exec_time_ms.count() / 1000.0;
     std::cout << exec_time_s << " s" << std::endl;
-    double rmsdh_final_result = rmsdh_hinge_cnt_result.rmsdh_result;
     int hinge_cnt = rmsdh_hinge_cnt_result.hinge_cnt;
     std::vector<int> hinge_index_vec = rmsdh_hinge_cnt_result.hinge_index_vec;
     std::string hinge_index = "";

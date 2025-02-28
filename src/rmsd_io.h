@@ -180,4 +180,28 @@ convert_to_matrix(const std::vector<std::tuple<double, double, double>> &vec) {
   return matrix;
 }
 
+std::string extractHingeIndices(const std::string &filename) {
+  std::ifstream file(filename);
+  if (!file.is_open()) {
+    std::cerr << "ファイルが開けません: " << filename << std::endl;
+    return "";
+  }
+  std::string line;
+  std::getline(file, line);
+  while (std::getline(file, line)) {
+    std::stringstream ss(line);
+    std::string cell;
+    std::vector<std::string> row;
+    while (std::getline(ss, cell, ',')) {
+      row.push_back(cell);
+    }
+    if (row.size() > 5) {
+      file.close();
+      return row[4];
+    }
+  }
+  file.close();
+  return "";
+}
+
 #endif
