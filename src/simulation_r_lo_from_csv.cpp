@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
   }
   int hinge_num = std::stoi(argv[1]);
   std::string sigma = argv[2];
-  std::string save_name = "rmsdh_result/simulation_r_ilo_" +
+  std::string save_name = "rmsdh_result/simulation_r_lo_" +
                           std::to_string(hinge_num) + "_" + sigma + ".csv";
   std::ofstream myfile(save_name);
   const int iter_num = 100;
