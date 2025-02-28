@@ -109,7 +109,7 @@ int main(int argc, char **argv) {
     std::chrono::duration<double, std::milli> exec_time_ms = end - start;
     double exec_time_s = exec_time_ms.count() / 1000.0;
     std::cout << exec_time_s << " s" << std::endl;
-    int hinge_cnt = rmsdh_hinge_cnt_result.hinge_cnt;
+    double rmsdh_final_result = rmsdh_hinge_cnt_result.rmsdh_result;
     std::vector<int> hinge_index_vec = rmsdh_hinge_cnt_result.hinge_index_vec;
     std::string hinge_index = "";
     for (int i = hinge_index_vec.size() - 1; i >= 0; i--) {
