@@ -35,13 +35,14 @@ int main(int argc, char **argv) {
   myfile << "p_pdb_id,Residue length,hinge_num,actual_hinge_indices,";
   for (int i = 0; i < iter_num; i++) {
     if (i < iter_num - 1)
-      myfile << i << "_hinge_index," << i << "_RMSDhk," << i
-             << "_computation_time,";
+      myfile << std::to_string(i) + "_hinge_index,"
+             << std::to_string(i) + "_RMSDhk,"
+             << std::to_string(i) + "_computation_time,";
     else
-      myfile << i << "_hinge_index," << i << "_RMSDhk," << i
-             << "_computation_time" << std::endl;
+      myfile << std::to_string(i) + "_hinge_index,"
+             << std::to_string(i) + "_RMSDhk,"
+             << std::to_string(i) + "_computation_time" << std::endl;
   }
-
   std::vector<std::tuple<std::string, std::string, std::string>> file_triples;
   for (const auto &entry : fs::directory_iterator("simulation_data")) {
     std::string filename = entry.path().filename().string();
