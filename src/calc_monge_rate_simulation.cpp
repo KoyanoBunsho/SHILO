@@ -51,10 +51,11 @@ int main(int argc, char **argv) {
     if (std::regex_match(filename, match, pattern)) {
       std::string pdb_id = match[1].str();
       std::string chain_id = match[2].str();
-      std::string p_path = entry.path().string();
-      std::string q_path = "simulation_data/pdb" + pdb_id + "_" + chain_id +
-                           "_hinge_" + std::to_string(hinge_num) + "_sigma" +
-                           sigma + ".pdb";
+      std::string p_path = "coord_csv_simulation/pdb" + pdb_id + "_" +
+                           chain_id + "_original_CA_coordinates.csv";
+      std::string q_path = "coord_csv_simulation/pdb" + pdb_id + "_" +
+                           chain_id + "_hinge_" + std::to_string(hinge_num) +
+                           "_sigma" + sigma + "_CA_coordinates.csv";
       std::string hinge_path =
           "simulation_data_info/pdb" + pdb_id + "_" + chain_id + "_hinge_" +
           std::to_string(hinge_num) + "_sigma" + sigma + ".csv";
@@ -63,25 +64,12 @@ int main(int argc, char **argv) {
       }
     }
   }
-
   for (int i = 0; i < (int)file_triples.size(); i++) {
     const auto &triple = file_triples[i];
     std::string p_pdb_id =
         std::get<0>(triple).substr(std::get<0>(triple).find_last_of("/") + 1);
-    std::string p_chain_id = getToken(p_pdb_id, 1);
-    PDBReader reader1(std::get<0>(triple));
-    PDBReader reader2(std::get<1>(triple));
-    std::set<int> res_numbers1 = reader1.get_residue_numbers(p_chain_id);
-    std::set<int> res_numbers2 = reader2.get_residue_numbers(p_chain_id);
-    std::set<int> intersected_res_numbers =
-        intersect_residue_numbers(res_numbers1, res_numbers2);
-    std::vector<std::tuple<double, double, double>> coordinatesP =
-        reader1.get_CA_coordinates(intersected_res_numbers, p_chain_id);
-    std::vector<std::tuple<double, double, double>> coordinatesQ =
-        reader2.get_CA_coordinates(intersected_res_numbers, p_chain_id);
-    Eigen::MatrixXd p, q;
-    p = convert_to_matrix(coordinatesP).transpose();
-    q = convert_to_matrix(coordinatesQ).transpose();
+    Eigen::MatrixXd p = openMatrixData(std::get<0>(triple));
+    Eigen::MatrixXd q = openMatrixData(std::get<1>(triple));
     if (p.cols() == 0 || q.cols() == 0) {
       std::cout << "No data" << std::endl;
       continue;
