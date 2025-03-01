@@ -36,11 +36,13 @@ int main(int argc, char **argv) {
     if (i < iter_num - 1)
       myfile << std::to_string(i) + "_hinge_index,"
              << std::to_string(i) + "_RMSDhk,"
-             << std::to_string(i) + "_computation_time,";
+             << std::to_string(i) + "_computation_time,"
+             << std::to_string(i) + "_iter_num,";
     else
       myfile << std::to_string(i) + "_hinge_index,"
              << std::to_string(i) + "_RMSDhk,"
-             << std::to_string(i) + "_computation_time" << std::endl;
+             << std::to_string(i) + "_computation_time,"
+             << std::to_string(i) + "_iter_num" << std::endl;
   }
   std::vector<std::tuple<std::string, std::string, std::string>> file_triples;
   for (const auto &entry : fs::directory_iterator("simulation_data")) {
