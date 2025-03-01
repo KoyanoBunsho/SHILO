@@ -426,7 +426,7 @@ public:
     }
     long long monotonicity_cnt = 0;
     long long total_cnt = 0;
-#pragma omp parallel for reduction(+:monotonicity_cnt, total_cnt) num_threads(100)
+#pragma omp parallel for reduction(+:monotonicity_cnt, total_cnt) num_threads(80)
     for (int j = 2; j <= n; j++) {
       for (int i = 1; i < j; i++) {
         for (int l = 2; l < i; l++) {
