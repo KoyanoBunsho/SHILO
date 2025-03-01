@@ -1,11 +1,7 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import os
-from tqdm import tqdm
 
 
 def main():
-    # 各シミュレーション結果の読み込み
     simulation_sh_ilo_df = read_simulation_data(
         "rmsdh_result/simulation_sh_ilo_combined.csv"
     )
@@ -14,10 +10,10 @@ def main():
     )
     simulation_sh_df = read_simulation_data("rmsdh_result/simulation_sh_combined.csv")
     simulation_r_ilo_df = read_simulation_data(
-        "rmsdh_result/simulation_r_ilo_combined.csv.gz"
+        "rmsdh_result/simulation_r_ilo_combined.csv"
     )
     simulation_r_lo_df = read_simulation_data(
-        "rmsdh_result/simulation_r_lo_combined.csv.gz"
+        "rmsdh_result/simulation_r_lo_combined.csv"
     )
     simulation_shibuya_df = read_simulation_data(
         "rmsdh_result/simulation_shibuya_combined.csv"
@@ -41,7 +37,7 @@ def main():
             )
             if (method == "R + LO") or (method == "R + ILO"):
                 rmsdh_cols = [f"{i}_RMSDhk" for i in range(100)]
-                ratio_series = merge_df[rmsdh_cols].div(merge_df["RMSDh_exact"], axis=0)
+                ratio_series = merge_df[rmsdh_cols].div(merge_df["RMSDh"], axis=0)
                 avg_ratio = ratio_series.mean().mean()
                 max_ratio = ratio_series.max().mean()
                 min_ratio = ratio_series.min().mean()
@@ -69,15 +65,6 @@ def main():
 
 def read_simulation_data(file_path):
     df = pd.read_csv(file_path).fillna("")
-    """
-    df["primary_key"] = (
-        df["p_pdb_id"].apply(lambda x: str(x)[:9])
-        + "_hinge_"
-        + df["k"].astype(str)
-        + "_sigma"
-        + df["sigma"].astype(str)
-    )
-    """
     df["actual_hinge_cnt"] = df["k"]
     return df
 
