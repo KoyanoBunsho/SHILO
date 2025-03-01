@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
   std::ofstream myfile(save_name);
   const int iter_num = 100;
 
-  myfile << "p_pdb_id,Residue length,k,actual_hinge_indices,";
+  myfile << "p_pdb_id,Residue length,k,actual_hinge_indices,sigma,";
   for (int i = 0; i < iter_num; i++) {
     if (i < iter_num - 1)
       myfile << std::to_string(i) + "_hinge_index,"
@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
     std::string hingeIndices = extractHingeIndices(hinge_path);
 
     oss << p_pdb_id << "," << total_residue_length << "," << hinge_num << ","
-        << hingeIndices << ",";
+        << hingeIndices << "," << sigma << ",";
     for (int iter = 0; iter < iter_num; iter++) {
       auto start = std::chrono::high_resolution_clock::now();
       std::vector<int> random_hinges =
