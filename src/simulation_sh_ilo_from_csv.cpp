@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
   myfile.open(save_name);
   myfile << "p_pdb_id,Residue "
             "length,RMSD,RMSDh,k,actual_hinge_"
-            "indices,hinge_index,sigma,exec_time (s)"
+            "indices,hinge_index,sigma,exec_time (s),iter_num"
          << std::endl;
   std::vector<std::tuple<std::string, std::string, std::string>> file_triples;
   for (const auto &entry : fs::directory_iterator("simulation_data")) {
@@ -103,6 +103,7 @@ int main(int argc, char **argv) {
     std::cout << exec_time_s << " s" << std::endl;
     double rmsdh_final_result = rmsdh_hinge_cnt_result.rmsdh_result;
     std::vector<int> hinge_index_vec = rmsdh_hinge_cnt_result.hinge_index_vec;
+    int iter_num = rmsdh_hinge_cnt_result.iter_num;
     std::string hinge_index = "";
     for (int i = hinge_index_vec.size() - 1; i >= 0; i--) {
       if (i > 0) {
@@ -116,7 +117,7 @@ int main(int argc, char **argv) {
       myfile << p_pdb_id << "," << total_residue_length << "," << rmsd_result
              << "," << rmsdh_final_result << "," << hinge_num << ","
              << hingeIndices << "," << hinge_index << "," << sigma << ","
-             << exec_time_s << std::endl;
+             << exec_time_s << iter_num << std::endl;
     }
   }
   myfile.close();
