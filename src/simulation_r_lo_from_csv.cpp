@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
   std::ofstream myfile(save_name);
   const int iter_num = 100;
 
-  myfile << "p_pdb_id,Residue length,hinge_num,actual_hinge_indices,";
+  myfile << "p_pdb_id,Residue length,k,actual_hinge_indices,";
   for (int i = 0; i < iter_num; i++) {
     if (i < iter_num - 1)
       myfile << std::to_string(i) + "_hinge_index,"
