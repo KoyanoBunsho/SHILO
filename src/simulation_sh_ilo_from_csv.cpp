@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
       myfile << p_pdb_id << "," << total_residue_length << "," << rmsd_result
              << "," << rmsdh_final_result << "," << hinge_num << ","
              << hingeIndices << "," << hinge_index << "," << sigma << ","
-             << exec_time_s << iter_num << std::endl;
+             << exec_time_s << "," << iter_num << std::endl;
     }
   }
   myfile.close();
