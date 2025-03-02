@@ -13,9 +13,9 @@ def main(csv_path):
         p_pdb_id = p_pdb.split("_")[0].lower()
         q_pdb_id = q_pdb.split("_")[0].lower()
         try:
-            ppdb.fetch_pdb(p_pdb_id).to_pdb(f"all_pdb/pdb{p_pdb_id}.ent.gz")
+            ppdb.fetch_pdb(p_pdb_id).to_pdb(f"all_pdb/pdb{p_pdb_id}.ent.gz", gz=True)
             print(f"pdb{p_pdb_id}.ent.gz のダウンロードに成功しました。")
-            ppdb.fetch_pdb(q_pdb_id).to_pdb(f"all_pdb/pdb{q_pdb_id}.ent.gz")
+            ppdb.fetch_pdb(q_pdb_id).to_pdb(f"all_pdb/pdb{q_pdb_id}.ent.gz", gz=True)
             print(f"pdb{q_pdb_id}.ent.gz のダウンロードに成功しました。")
         except Exception as e:
             print(f"pdb{p_pdb_id}.ent.gz のダウンロードに失敗しました: {e}")
