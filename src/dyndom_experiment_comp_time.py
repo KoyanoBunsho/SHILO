@@ -67,8 +67,8 @@ def run_dyndom(pair):
 
 
 def make_dyndom_command_file(pair):
-    pdb1 = pair["p_pdb"]
-    pdb2 = pair["q_pdb"]
+    pdb1 = convert_pdb_id(pair["p_pdb"])
+    pdb2 = convert_pdb_id(pair["q_pdb"])
     title = f"{pdb1}_{pdb2}.w5"
     filename1 = f"{pdb1}.pdb"
     filename2 = f"{pdb2}.pdb"
