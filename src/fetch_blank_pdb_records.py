@@ -12,7 +12,7 @@ def main(csv_path):
         q_pdb = row["q_pdb"]
         pdb_id = p_pdb.split("_")[0].lower()
         try:
-            ppdb.fetch_pdb(pdb_id).to_pdb(f"pdb{pdb_id}.ent.gz")
+            ppdb.fetch_pdb(pdb_id).to_pdb(f"all_pdb/pdb{pdb_id}.ent.gz")
             print(f"pdb{pdb_id}.ent.gz のダウンロードに成功しました。")
         except Exception as e:
             print(f"pdb{pdb_id}.ent.gz のダウンロードに失敗しました: {e}")
