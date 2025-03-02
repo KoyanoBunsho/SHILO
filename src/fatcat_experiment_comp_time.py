@@ -79,10 +79,11 @@ def run_fatcat(pair):
 
 
 def extract_pdb(pair):
-    pdb1 = pair["p_pdb"]
-    pdb2 = pair["q_pdb"]
-    pdb1_chain_id = pdb1.split("_")[-1]
-    pdb2_chain_id = pdb2.split("_")[-1]
+    pdb1 = convert_pdb_id(pair["p_pdb"])
+    pdb2 = convert_pdb_id(pair["q_pdb"])
+    print(pdb1, pdb2)
+    pdb1_chain_id = pdb1[-1]
+    pdb2_chain_id = pdb2[-1]
     pdb1_filename = f"pdb{pdb1.split('_')[0]}.ent.gz"
     pdb2_filename = f"pdb{pdb2.split('_')[0]}.ent.gz"
     print(f"Processing: {pdb1_filename}")
@@ -91,6 +92,10 @@ def extract_pdb(pair):
         pdb2_pdb = PandasPdb().read_pdb(pdb2_filename)
         pdb1_df = pdb1_pdb.df["ATOM"]
         pdb2_df = pdb2_pdb.df["ATOM"]
+        if pdb1_chain_id == "_":
+            pdb1_chain_id = pdb1_df["chain_id"].unique()[0]
+        if pdb2_chain_id == "_":
+            pdb2_chain_id = pdb2_df["chain_id"].unique()[0]
         pdb1_df = pdb1_df[pdb1_df["chain_id"] == pdb1_chain_id]
         pdb2_df = pdb2_df[pdb2_df["chain_id"] == pdb2_chain_id]
         pdb1_output_filename = f"{pdb1}.pdb"
@@ -99,6 +104,7 @@ def extract_pdb(pair):
         pdb2_pdb.df["ATOM"] = pdb2_df
         pdb1_pdb.to_pdb(pdb1_output_filename)
         pdb2_pdb.to_pdb(pdb2_output_filename)
+        print(f"Saved {pdb1_output_filename}, {pdb2_output_filename}")
 
 
 if __name__ == "__main__":
