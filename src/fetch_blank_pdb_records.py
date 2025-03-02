@@ -10,12 +10,15 @@ def main(csv_path):
     for idx, row in filtered_df.iterrows():
         p_pdb = row["p_pdb"]
         q_pdb = row["q_pdb"]
-        pdb_id = p_pdb.split("_")[0].lower()
+        p_pdb_id = p_pdb.split("_")[0].lower()
+        q_pdb_id = q_pdb.split("_")[0].lower()
         try:
-            ppdb.fetch_pdb(pdb_id).to_pdb(f"all_pdb/pdb{pdb_id}.ent.gz")
-            print(f"pdb{pdb_id}.ent.gz のダウンロードに成功しました。")
+            ppdb.fetch_pdb(p_pdb_id).to_pdb(f"all_pdb/pdb{p_pdb_id}.ent.gz")
+            print(f"pdb{p_pdb_id}.ent.gz のダウンロードに成功しました。")
+            ppdb.fetch_pdb(q_pdb_id).to_pdb(f"all_pdb/pdb{q_pdb_id}.ent.gz")
+            print(f"pdb{q_pdb_id}.ent.gz のダウンロードに成功しました。")
         except Exception as e:
-            print(f"pdb{pdb_id}.ent.gz のダウンロードに失敗しました: {e}")
+            print(f"pdb{p_pdb_id}.ent.gz のダウンロードに失敗しました: {e}")
 
 
 if __name__ == "__main__":
