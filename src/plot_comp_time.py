@@ -19,12 +19,8 @@ def main():
     ok_pdb = pd.read_csv("../notebooks/ok_pdb.csv")
     ok_pdb["p_pdb_id"] = ok_pdb["p_pdb_id"].str.lower()
     ok_pdb["q_pdb_id"] = ok_pdb["q_pdb_id"].str.lower()
-    ok_keys = set(
-        zip(
-            ok_pdb["p_pdb_id"],
-            ok_pdb["q_pdb_id"],
-        )
-    )
+    ok_keys = set(zip(ok_pdb["p_pdb_id"], ok_pdb["q_pdb_id"]))
+
     dyndom_comp_time_for_par_df = preprocess_df(
         pd.read_csv("all_pdb/dyndom_execution_time_par_improved.csv")
     )
@@ -65,24 +61,15 @@ def main():
     ]
     dyndom_comp_time_for_par_df = dyndom_comp_time_for_par_df[
         dyndom_comp_time_for_par_df.apply(
-            lambda row: (
-                row["p_pdb_id"],
-                row["q_pdb_id"],
-            )
-            in ok_keys,
-            axis=1,
+            lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1
         )
     ]
     fatcat_comp_time_for_par_df = fatcat_comp_time_for_par_df[
         fatcat_comp_time_for_par_df.apply(
-            lambda row: (
-                row["p_pdb_id"],
-                row["q_pdb_id"],
-            )
-            in ok_keys,
-            axis=1,
+            lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1
         )
     ]
+    print(len(fatcat_comp_time_for_dyn_df))
     assert (
         len(fatcat_comp_time_for_dyn_df)
         == len(dyndom_comp_time_for_dyn_df)
@@ -93,74 +80,43 @@ def main():
         == len(dyndom_comp_time_for_par_df)
         == len(ok_pdb)
     )
+
     comp_time_cols_list = [f"{i}_computation_time" for i in range(100)]
     rlo_par_dict, rlo_dyndom_dict = {}, {}
     rilo_par_dict, rilo_dyndom_dict = {}, {}
     sh_par_dict, sh_dyndom_dict = {}, {}
     sh_lo_par_dict, sh_lo_dyndom_dict = {}, {}
     shilo_par_dict, shilo_dyndom_dict = {}, {}
+    fatcat_par_dict, fatcat_dyndom_dict = {}, {}
+    dyndom_par_dict, dyndom_dyndom_dict = {}, {}
 
     k_max = 10
     for k in range(2, k_max + 1):
         df = pd.read_csv(f"rmsdh_result/ablation_study_par_{k}.csv")
         rlo_par_dict[k] = df[
-            df.apply(
-                lambda row: (
-                    row["p_pdb_id"],
-                    row["q_pdb_id"],
-                )
-                in ok_keys,
-                axis=1,
-            )
+            df.apply(lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1)
         ]
 
         df = pd.read_csv(f"rmsdh_result/ablation_study_loop_par{k}.csv")
         rilo_par_dict[k] = df[
-            df.apply(
-                lambda row: (
-                    row["p_pdb_id"],
-                    row["q_pdb_id"],
-                )
-                in ok_keys,
-                axis=1,
-            )
+            df.apply(lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1)
         ]
 
         df = pd.read_csv(f"rmsdh_result/fast_rmsdhk_more_data_{k}.csv")
         sh_par_dict[k] = df[
-            df.apply(
-                lambda row: (
-                    row["p_pdb_id"],
-                    row["q_pdb_id"],
-                )
-                in ok_keys,
-                axis=1,
-            )
+            df.apply(lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1)
         ]
 
         df = pd.read_csv(f"rmsdh_result/fast_rmsdhk_more_data_{k}_pospro.csv")
         sh_lo_par_dict[k] = df[
-            df.apply(
-                lambda row: (
-                    row["p_pdb_id"],
-                    row["q_pdb_id"],
-                )
-                in ok_keys,
-                axis=1,
-            )
+            df.apply(lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1)
         ]
 
         df = pd.read_csv(f"rmsdh_result/fast_rmsdhk_more_data_{k}_pospro_loop.csv")
         shilo_par_dict[k] = df[
-            df.apply(
-                lambda row: (
-                    row["p_pdb_id"],
-                    row["q_pdb_id"],
-                )
-                in ok_keys,
-                axis=1,
-            )
+            df.apply(lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1)
         ]
+
         rlo_dyndom_dict[k] = pd.read_csv(f"rmsdh_result/ablation_study_dyndom_{k}.csv")
         rilo_dyndom_dict[k] = pd.read_csv(
             f"rmsdh_result/ablation_study_loop_dyndom{k}.csv"
@@ -174,14 +130,15 @@ def main():
         shilo_dyndom_dict[k] = pd.read_csv(
             f"rmsdh_result/fast_rmsdhk_dyndom_{k}_postpro_loop.csv"
         )
+
     comp_time_par = {
         "R+LO": [],
         "R+ILO": [],
         "SH": [],
         "SH+LO": [],
         "SH+ILO": [],
-        # "FATCAT": [],
-        # "DynDom": [],
+        "FATCAT": [],
+        "DynDom": [],
     }
     comp_time_dyndom = {
         "R+LO": [],
@@ -189,8 +146,8 @@ def main():
         "SH": [],
         "SH+LO": [],
         "SH+ILO": [],
-        # "FATCAT": [],
-        # "DynDom": [],
+        "FATCAT": [],
+        "DynDom": [],
     }
 
     for k in range(2, k_max + 1):
@@ -203,12 +160,6 @@ def main():
         comp_time_par["SH"].append(sh_par_dict[k]["exec_time (s)"].sum())
         comp_time_par["SH+LO"].append(sh_lo_par_dict[k]["exec_time (s)"].sum())
         comp_time_par["SH+ILO"].append(shilo_par_dict[k]["exec_time (s)"].sum())
-        """comp_time_par["FATCAT"].append(
-            fatcat_comp_time_for_par_df["execution_time"].sum()
-        )
-        comp_time_par["DynDom"].append(
-            dyndom_comp_time_for_par_df["execution_time"].sum()
-        )"""
 
         comp_time_dyndom["R+LO"].append(
             rlo_dyndom_dict[k][comp_time_cols_list].sum().mean() / 1000
@@ -219,12 +170,6 @@ def main():
         comp_time_dyndom["SH"].append(sh_dyndom_dict[k]["exec_time (s)"].sum())
         comp_time_dyndom["SH+LO"].append(sh_lo_dyndom_dict[k]["exec_time (s)"].sum())
         comp_time_dyndom["SH+ILO"].append(shilo_dyndom_dict[k]["exec_time (s)"].sum())
-        # comp_time_dyndom["FATCAT"].append(
-        #   fatcat_comp_time_for_dyn_df["execution_time"].sum()
-        # )
-        # comp_time_dyndom["DynDom"].append(
-        #   dyndom_comp_time_for_dyn_df["execution_time"].sum()
-        # )
 
     k_values = range(2, k_max + 1)
     _, axes = plt.subplots(1, 2, figsize=(14, 6))
@@ -234,11 +179,14 @@ def main():
         "SH": "D",
         "SH+LO": "^",
         "SH+ILO": "v",
-        # "FATCAT": ">",
-        # "DynDom": "<",
+        "FATCAT": ">",
+        "DynDom": "<",
     }
 
+    # PAR用のプロット（FATCAT, DynDomはプロット対象外）
     for key, values in comp_time_par.items():
+        if key in ["FATCAT", "DynDom"]:
+            continue
         axes[0].plot(
             k_values, values, marker=marker_styles[key], linestyle="-", label=key
         )
@@ -250,7 +198,10 @@ def main():
     axes[0].legend()
     axes[0].grid(True)
 
+    # DynDom用のプロット（FATCAT, DynDomはプロット対象外）
     for key, values in comp_time_dyndom.items():
+        if key in ["FATCAT", "DynDom"]:
+            continue
         axes[1].plot(
             k_values, values, marker=marker_styles[key], linestyle="-", label=key
         )
@@ -265,7 +216,20 @@ def main():
     plt.tight_layout()
     plt.savefig("figures/computation_time_comparison.svg", format="svg")
     plt.savefig("figures/computation_time_comparison.png")
+    print(
+        f"SH + ILO & {format_stats(shilo_par_dict[2]["exec_time (s)"].sum())} & {format_stats(shilo_par_dict[2]["exec_time (s)"].mean())} & {format_stats(shilo_dyndom_dict[2]["exec_time (s)"].sum())} & {format_stats(shilo_dyndom_dict[2]["exec_time (s)"].mean())}"
+    )
+    print(
+        f"FATCAT & {format_stats(fatcat_comp_time_for_par_df["execution_time"].sum())} & {format_stats(fatcat_comp_time_for_par_df["execution_time"].mean())} & {format_stats(fatcat_comp_time_for_dyn_df["execution_time"].sum())} & {format_stats(fatcat_comp_time_for_dyn_df["execution_time"].mean())}"
+    )
+    print(
+        f"DynDom & {format_stats(dyndom_comp_time_for_par_df["execution_time"].sum())} & {format_stats(dyndom_comp_time_for_par_df["execution_time"].mean())} & {format_stats(dyndom_comp_time_for_dyn_df["execution_time"].sum())} & {format_stats(dyndom_comp_time_for_dyn_df["execution_time"].mean())}"
+    )
     plt.close()
+
+
+def format_stats(stats):
+    return f"{stats:.3f}"
 
 
 if __name__ == "__main__":
