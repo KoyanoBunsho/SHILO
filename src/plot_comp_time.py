@@ -19,6 +19,7 @@ def format_stats(stats):
 
 
 def read_simulation_data(file_path):
+    # simulation dataset の読み込み（今回のプロットでは使用しない）
     df = pd.read_csv(file_path).fillna("")
     df["actual_hinge_cnt"] = df["k"]
     df["primary_key"] = (
@@ -34,20 +35,15 @@ def main():
     os.makedirs("figures", exist_ok=True)
 
     # --- データ読み込み ---
-    # ok_pdb：PAR, DynDom用のフィルタリングに利用
+    # ok_pdb：PAR, DynDom 用のフィルタリングに利用
     ok_pdb = pd.read_csv("../notebooks/ok_pdb.csv")
     ok_pdb["p_pdb_id"] = ok_pdb["p_pdb_id"].str.lower()
     ok_pdb["q_pdb_id"] = ok_pdb["q_pdb_id"].str.lower()
     ok_keys = set(zip(ok_pdb["p_pdb_id"], ok_pdb["q_pdb_id"]))
 
-    # simulation dataset
-    simulation_sh_ilo_df = read_simulation_data("rmsdh_result/simulation_sh_ilo_combined.csv")
-    simulation_sh_lo_df = read_simulation_data("rmsdh_result/simulation_sh_lo_combined.csv")
-    simulation_sh_df     = read_simulation_data("rmsdh_result/simulation_sh_combined.csv")
-    simulation_r_ilo_df  = read_simulation_data("rmsdh_result/simulation_r_ilo_combined.csv")
-    simulation_r_lo_df   = read_simulation_data("rmsdh_result/simulation_r_lo_combined.csv")
+    # ※ simulation dataset は今回のプロット対象外なので読み込み不要
 
-    # PAR, DynDom, FATCAT の計算時間データ（ここでは PAR, DynDom 用にフィルタ済み）
+    # PAR, DynDom, FATCAT の計算時間データ（PAR, DynDom 用にフィルタ済み）
     dyndom_comp_time_for_par_df = preprocess_df(
         pd.read_csv("all_pdb/dyndom_execution_time_par_improved.csv")
     )
@@ -87,6 +83,7 @@ def main():
     assert len(fatcat_comp_time_for_par_df) == len(dyndom_comp_time_for_par_df) == len(ok_pdb)
 
     # --- 各種計算時間データの整形 ---
+    # 0～99 の {i}_computation_time 列を対象とする
     comp_time_cols_list = [f"{i}_computation_time" for i in range(100)]
     rlo_par_dict, rlo_dyndom_dict = {}, {}
     rilo_par_dict, rilo_dyndom_dict = {}, {}
@@ -96,7 +93,7 @@ def main():
 
     k_max = 5
     for k in range(2, k_max + 1):
-        # PAR dataset
+        # PAR dataset のデータ（フィルタリング済み）
         df = pd.read_csv(f"rmsdh_result/ablation_study_par_{k}.csv")
         rlo_par_dict[k] = df[df.apply(lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1)]
         df = pd.read_csv(f"rmsdh_result/ablation_study_loop_par{k}.csv")
@@ -108,14 +105,14 @@ def main():
         df = pd.read_csv(f"rmsdh_result/fast_rmsdhk_more_data_{k}_pospro_loop.csv")
         shilo_par_dict[k] = df[df.apply(lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1)]
 
-        # DynDom dataset
+        # DynDom dataset のデータ
         rlo_dyndom_dict[k] = pd.read_csv(f"rmsdh_result/ablation_study_dyndom_{k}.csv")
         rilo_dyndom_dict[k] = pd.read_csv(f"rmsdh_result/ablation_study_loop_dyndom{k}.csv")
         sh_dyndom_dict[k] = pd.read_csv(f"rmsdh_result/fast_rmsdh_hingek_cnt_dyndom_{k}.csv")
         sh_lo_dyndom_dict[k] = pd.read_csv(f"rmsdh_result/fast_rmsdh_hingek_cnt_dyndom_{k}_postpro.csv")
         shilo_dyndom_dict[k] = pd.read_csv(f"rmsdh_result/fast_rmsdhk_dyndom_{k}_postpro_loop.csv")
 
-    # PAR, DynDom 用の計算時間（各kごとにリスト化）
+    # PAR, DynDom 用の計算時間（各 k ごとに各手法の平均値を算出）
     comp_time_par = {"R+LO": [], "R+ILO": [], "SH": [], "SH+LO": [], "SH+ILO": []}
     comp_time_dyndom = {"R+LO": [], "R+ILO": [], "SH": [], "SH+LO": [], "SH+ILO": []}
 
@@ -140,57 +137,33 @@ def main():
         "SH+ILO": "v",
     }
 
-    # --- 1行3列のサブプロット作成 ---
-    _, axes = plt.subplots(nrows=1, ncols=3, figsize=(21, 6))
-    
-    # ① Simulation dataset のプロット
-    sim_methods = {
-        "R+LO": simulation_r_lo_df,
-        "R+ILO": simulation_r_ilo_df,
-        "SH": simulation_sh_df,
-        "SH+LO": simulation_sh_lo_df,
-        "SH+ILO": simulation_sh_ilo_df,
-    }
-    for key, df in sim_methods.items():
-        # actual_hinge_cnt ごとに "exec_time (s)" の平均を算出
-        if key == "R+LO" or key == "R+ILO":
-            grouped = df.groupby("actual_hinge_cnt")[comp_time_cols_list].mean().mean(axis=1) / 1000
-        else:
-            grouped = df.groupby("actual_hinge_cnt")["exec_time (s)"].mean()
+    # --- 1行2列のサブプロット作成（左：PAR, 右：DynDom） ---
+    fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(14, 6))
+    k_values = list(range(2, k_max + 1))
+
+    # (a) PAR dataset のプロット
+    for key, values in comp_time_par.items():
         axes[0].plot(
-            grouped.index, grouped.values,
+            k_values, values,
             marker=marker_styles[key], linestyle="-", label=key
         )
     axes[0].set_xlabel("(a)")
-    axes[0].set_xticks(range(2, k_max + 1))
+    axes[0].set_xticks(k_values)
     axes[0].set_ylabel("Computation Time (s)")
     axes[0].legend()
     axes[0].grid(True)
 
-    # ② PAR dataset のプロット
-    k_values = list(range(2, k_max + 1))
-    for key, values in comp_time_par.items():
+    # (b) DynDom dataset のプロット
+    for key, values in comp_time_dyndom.items():
         axes[1].plot(
             k_values, values,
             marker=marker_styles[key], linestyle="-", label=key
         )
-    axes[1].set_xlabel("(b))")
+    axes[1].set_xlabel("(b)")
     axes[1].set_xticks(k_values)
     axes[1].set_ylabel("Computation Time (s)")
     axes[1].legend()
     axes[1].grid(True)
-
-    # ③ DynDom dataset のプロット
-    for key, values in comp_time_dyndom.items():
-        axes[2].plot(
-            k_values, values,
-            marker=marker_styles[key], linestyle="-", label=key
-        )
-    axes[2].set_xlabel("(c)")
-    axes[2].set_xticks(k_values)
-    axes[2].set_ylabel("Computation Time (s)")
-    axes[2].legend()
-    axes[2].grid(True)
 
     plt.tight_layout()
     plt.savefig("figures/computation_time_comparison.svg", format="svg")
