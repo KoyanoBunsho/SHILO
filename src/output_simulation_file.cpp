@@ -38,7 +38,7 @@ int main() {
               std::string hinge_file_csv =
                   hinge_indices_csv.substr(0, hinge_indices_csv.find(".csv")) +
                   ".pdb";
-              output_file << "simulation_data/" + original_file_csv << ","
+              output_file << "simulation_data/" + original_file_path << ","
                           << "simulation_data/" + hinge_file_csv << ","
                           << simulation_data_info_path + hinge_indices_csv
                           << "\n";
