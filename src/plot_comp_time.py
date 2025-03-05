@@ -14,85 +14,76 @@ def preprocess_df(df):
     return df
 
 
+def format_stats(stats):
+    return f"{stats:.3f}"
+
+
+def read_simulation_data(file_path):
+    # simulation dataset の読み込み（今回のプロットでは使用しない）
+    df = pd.read_csv(file_path).fillna("")
+    df["actual_hinge_cnt"] = df["k"]
+    df["primary_key"] = (
+        df["p_pdb_id"].apply(lambda x: str(x)[:9])
+        + "_hinge_"
+        + df["actual_hinge_cnt"].astype(str)
+        + "_sigma0.5"
+    )
+    return df
+
+
 def main():
     os.makedirs("figures", exist_ok=True)
+
+    # --- データ読み込み ---
+    # ok_pdb：PAR, DynDom 用のフィルタリングに利用
     ok_pdb = pd.read_csv("../notebooks/ok_pdb.csv")
     ok_pdb["p_pdb_id"] = ok_pdb["p_pdb_id"].str.lower()
     ok_pdb["q_pdb_id"] = ok_pdb["q_pdb_id"].str.lower()
-    ok_keys = set(
-        zip(
-            ok_pdb["p_pdb_id"],
-            ok_pdb["q_pdb_id"],
-        )
-    )
+    ok_keys = set(zip(ok_pdb["p_pdb_id"], ok_pdb["q_pdb_id"]))
+
+    # ※ simulation dataset は今回のプロット対象外なので読み込み不要
+
+    # PAR, DynDom, FATCAT の計算時間データ（PAR, DynDom 用にフィルタ済み）
     dyndom_comp_time_for_par_df = preprocess_df(
         pd.read_csv("all_pdb/dyndom_execution_time_par_improved.csv")
     )
-    dyndom_comp_time_for_dyn_df = pd.read_csv(
-        "all_pdb/dyndom_execution_time_dyn_improved.csv"
-    )
+    dyndom_comp_time_for_dyn_df = pd.read_csv("all_pdb/dyndom_execution_time_dyn_improved.csv")
     fatcat_comp_time_for_par_df = preprocess_df(
         pd.read_csv("all_pdb/fatcat_execution_time_par_improved.csv")
     )
-    fatcat_comp_time_for_dyn_df = pd.read_csv(
-        "all_pdb/fatcat_execution_time_dyn_improved.csv"
-    )
+    fatcat_comp_time_for_dyn_df = pd.read_csv("all_pdb/fatcat_execution_time_dyn_improved.csv")
+
     dyn_data_for_experiment_df = pd.read_csv("rmsdh_result/dyn_data_for_experiment.csv")
     dyn_data_for_experiment_df["p_q_pdb"] = (
-        dyn_data_for_experiment_df["p_pdb_id"]
-        + "_"
-        + dyn_data_for_experiment_df["q_pdb_id"]
+        dyn_data_for_experiment_df["p_pdb_id"] + "_" + dyn_data_for_experiment_df["q_pdb_id"]
     )
     dyndom_comp_time_for_dyn_df["p_q_pdb"] = (
-        dyndom_comp_time_for_dyn_df["p_pdb"]
-        + "_"
-        + dyndom_comp_time_for_dyn_df["q_pdb"]
+        dyndom_comp_time_for_dyn_df["p_pdb"] + "_" + dyndom_comp_time_for_dyn_df["q_pdb"]
     )
     fatcat_comp_time_for_dyn_df["p_q_pdb"] = (
-        fatcat_comp_time_for_dyn_df["p_pdb"]
-        + "_"
-        + fatcat_comp_time_for_dyn_df["q_pdb"]
+        fatcat_comp_time_for_dyn_df["p_pdb"] + "_" + fatcat_comp_time_for_dyn_df["q_pdb"]
     )
     dyndom_comp_time_for_dyn_df = dyndom_comp_time_for_dyn_df[
-        dyndom_comp_time_for_dyn_df["p_q_pdb"].isin(
-            dyn_data_for_experiment_df["p_q_pdb"].to_list()
-        )
+        dyndom_comp_time_for_dyn_df["p_q_pdb"].isin(dyn_data_for_experiment_df["p_q_pdb"].to_list())
     ]
     fatcat_comp_time_for_dyn_df = fatcat_comp_time_for_dyn_df[
-        fatcat_comp_time_for_dyn_df["p_q_pdb"].isin(
-            dyn_data_for_experiment_df["p_q_pdb"].to_list()
-        )
+        fatcat_comp_time_for_dyn_df["p_q_pdb"].isin(dyn_data_for_experiment_df["p_q_pdb"].to_list())
     ]
     dyndom_comp_time_for_par_df = dyndom_comp_time_for_par_df[
         dyndom_comp_time_for_par_df.apply(
-            lambda row: (
-                row["p_pdb_id"],
-                row["q_pdb_id"],
-            )
-            in ok_keys,
-            axis=1,
+            lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1
         )
     ]
     fatcat_comp_time_for_par_df = fatcat_comp_time_for_par_df[
         fatcat_comp_time_for_par_df.apply(
-            lambda row: (
-                row["p_pdb_id"],
-                row["q_pdb_id"],
-            )
-            in ok_keys,
-            axis=1,
+            lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1
         )
     ]
-    assert (
-        len(fatcat_comp_time_for_dyn_df)
-        == len(dyndom_comp_time_for_dyn_df)
-        == len(dyn_data_for_experiment_df)
-    )
-    assert (
-        len(fatcat_comp_time_for_par_df)
-        == len(dyndom_comp_time_for_par_df)
-        == len(ok_pdb)
-    )
+    assert len(fatcat_comp_time_for_dyn_df) == len(dyndom_comp_time_for_dyn_df) == len(dyn_data_for_experiment_df)
+    assert len(fatcat_comp_time_for_par_df) == len(dyndom_comp_time_for_par_df) == len(ok_pdb)
+
+    # --- 各種計算時間データの整形 ---
+    # 0～99 の {i}_computation_time 列を対象とする
     comp_time_cols_list = [f"{i}_computation_time" for i in range(100)]
     rlo_par_dict, rlo_dyndom_dict = {}, {}
     rilo_par_dict, rilo_dyndom_dict = {}, {}
@@ -100,165 +91,77 @@ def main():
     sh_lo_par_dict, sh_lo_dyndom_dict = {}, {}
     shilo_par_dict, shilo_dyndom_dict = {}, {}
 
-    k_max = 10
+    k_max = 5
     for k in range(2, k_max + 1):
+        # PAR dataset のデータ（フィルタリング済み）
         df = pd.read_csv(f"rmsdh_result/ablation_study_par_{k}.csv")
-        rlo_par_dict[k] = df[
-            df.apply(
-                lambda row: (
-                    row["p_pdb_id"],
-                    row["q_pdb_id"],
-                )
-                in ok_keys,
-                axis=1,
-            )
-        ]
-
+        rlo_par_dict[k] = df[df.apply(lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1)]
         df = pd.read_csv(f"rmsdh_result/ablation_study_loop_par{k}.csv")
-        rilo_par_dict[k] = df[
-            df.apply(
-                lambda row: (
-                    row["p_pdb_id"],
-                    row["q_pdb_id"],
-                )
-                in ok_keys,
-                axis=1,
-            )
-        ]
-
+        rilo_par_dict[k] = df[df.apply(lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1)]
         df = pd.read_csv(f"rmsdh_result/fast_rmsdhk_more_data_{k}.csv")
-        sh_par_dict[k] = df[
-            df.apply(
-                lambda row: (
-                    row["p_pdb_id"],
-                    row["q_pdb_id"],
-                )
-                in ok_keys,
-                axis=1,
-            )
-        ]
-
+        sh_par_dict[k] = df[df.apply(lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1)]
         df = pd.read_csv(f"rmsdh_result/fast_rmsdhk_more_data_{k}_pospro.csv")
-        sh_lo_par_dict[k] = df[
-            df.apply(
-                lambda row: (
-                    row["p_pdb_id"],
-                    row["q_pdb_id"],
-                )
-                in ok_keys,
-                axis=1,
-            )
-        ]
-
+        sh_lo_par_dict[k] = df[df.apply(lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1)]
         df = pd.read_csv(f"rmsdh_result/fast_rmsdhk_more_data_{k}_pospro_loop.csv")
-        shilo_par_dict[k] = df[
-            df.apply(
-                lambda row: (
-                    row["p_pdb_id"],
-                    row["q_pdb_id"],
-                )
-                in ok_keys,
-                axis=1,
-            )
-        ]
+        shilo_par_dict[k] = df[df.apply(lambda row: (row["p_pdb_id"], row["q_pdb_id"]) in ok_keys, axis=1)]
+
+        # DynDom dataset のデータ
         rlo_dyndom_dict[k] = pd.read_csv(f"rmsdh_result/ablation_study_dyndom_{k}.csv")
-        rilo_dyndom_dict[k] = pd.read_csv(
-            f"rmsdh_result/ablation_study_loop_dyndom{k}.csv"
-        )
-        sh_dyndom_dict[k] = pd.read_csv(
-            f"rmsdh_result/fast_rmsdh_hingek_cnt_dyndom_{k}.csv"
-        )
-        sh_lo_dyndom_dict[k] = pd.read_csv(
-            f"rmsdh_result/fast_rmsdh_hingek_cnt_dyndom_{k}_postpro.csv"
-        )
-        shilo_dyndom_dict[k] = pd.read_csv(
-            f"rmsdh_result/fast_rmsdhk_dyndom_{k}_postpro_loop.csv"
-        )
-    comp_time_par = {
-        "R+LO": [],
-        "R+ILO": [],
-        "SH": [],
-        "SH+LO": [],
-        "SH+ILO": [],
-        # "FATCAT": [],
-        # "DynDom": [],
-    }
-    comp_time_dyndom = {
-        "R+LO": [],
-        "R+ILO": [],
-        "SH": [],
-        "SH+LO": [],
-        "SH+ILO": [],
-        # "FATCAT": [],
-        # "DynDom": [],
-    }
+        rilo_dyndom_dict[k] = pd.read_csv(f"rmsdh_result/ablation_study_loop_dyndom{k}.csv")
+        sh_dyndom_dict[k] = pd.read_csv(f"rmsdh_result/fast_rmsdh_hingek_cnt_dyndom_{k}.csv")
+        sh_lo_dyndom_dict[k] = pd.read_csv(f"rmsdh_result/fast_rmsdh_hingek_cnt_dyndom_{k}_postpro.csv")
+        shilo_dyndom_dict[k] = pd.read_csv(f"rmsdh_result/fast_rmsdhk_dyndom_{k}_postpro_loop.csv")
+
+    # PAR, DynDom 用の計算時間（各 k ごとに各手法の平均値を算出）
+    comp_time_par = {"R+LO": [], "R+ILO": [], "SH": [], "SH+LO": [], "SH+ILO": []}
+    comp_time_dyndom = {"R+LO": [], "R+ILO": [], "SH": [], "SH+LO": [], "SH+ILO": []}
 
     for k in range(2, k_max + 1):
-        comp_time_par["R+LO"].append(
-            rlo_par_dict[k][comp_time_cols_list].sum().mean() / 1000
-        )
-        comp_time_par["R+ILO"].append(
-            rilo_par_dict[k][comp_time_cols_list].sum().mean() / 1000
-        )
-        comp_time_par["SH"].append(sh_par_dict[k]["exec_time (s)"].sum())
-        comp_time_par["SH+LO"].append(sh_lo_par_dict[k]["exec_time (s)"].sum())
-        comp_time_par["SH+ILO"].append(shilo_par_dict[k]["exec_time (s)"].sum())
-        """comp_time_par["FATCAT"].append(
-            fatcat_comp_time_for_par_df["execution_time"].sum()
-        )
-        comp_time_par["DynDom"].append(
-            dyndom_comp_time_for_par_df["execution_time"].sum()
-        )"""
+        comp_time_par["R+LO"].append(rlo_par_dict[k][comp_time_cols_list].mean().mean() / 1000)
+        comp_time_par["R+ILO"].append(rilo_par_dict[k][comp_time_cols_list].mean().mean() / 1000)
+        comp_time_par["SH"].append(sh_par_dict[k]["exec_time (s)"].mean())
+        comp_time_par["SH+LO"].append(sh_lo_par_dict[k]["exec_time (s)"].mean())
+        comp_time_par["SH+ILO"].append(shilo_par_dict[k]["exec_time (s)"].mean())
 
-        comp_time_dyndom["R+LO"].append(
-            rlo_dyndom_dict[k][comp_time_cols_list].sum().mean() / 1000
-        )
-        comp_time_dyndom["R+ILO"].append(
-            rilo_dyndom_dict[k][comp_time_cols_list].sum().mean() / 1000
-        )
-        comp_time_dyndom["SH"].append(sh_dyndom_dict[k]["exec_time (s)"].sum())
-        comp_time_dyndom["SH+LO"].append(sh_lo_dyndom_dict[k]["exec_time (s)"].sum())
-        comp_time_dyndom["SH+ILO"].append(shilo_dyndom_dict[k]["exec_time (s)"].sum())
-        # comp_time_dyndom["FATCAT"].append(
-        #   fatcat_comp_time_for_dyn_df["execution_time"].sum()
-        # )
-        # comp_time_dyndom["DynDom"].append(
-        #   dyndom_comp_time_for_dyn_df["execution_time"].sum()
-        # )
+        comp_time_dyndom["R+LO"].append(rlo_dyndom_dict[k][comp_time_cols_list].mean().mean() / 1000)
+        comp_time_dyndom["R+ILO"].append(rilo_dyndom_dict[k][comp_time_cols_list].mean().mean() / 1000)
+        comp_time_dyndom["SH"].append(sh_dyndom_dict[k]["exec_time (s)"].mean())
+        comp_time_dyndom["SH+LO"].append(sh_lo_dyndom_dict[k]["exec_time (s)"].mean())
+        comp_time_dyndom["SH+ILO"].append(shilo_dyndom_dict[k]["exec_time (s)"].mean())
 
-    k_values = range(2, k_max + 1)
-    _, axes = plt.subplots(1, 2, figsize=(14, 6))
     marker_styles = {
         "R+LO": "o",
         "R+ILO": "s",
         "SH": "D",
         "SH+LO": "^",
         "SH+ILO": "v",
-        # "FATCAT": ">",
-        # "DynDom": "<",
     }
 
+    # --- 1行2列のサブプロット作成（左：PAR, 右：DynDom） ---
+    fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(14, 6))
+    k_values = list(range(2, k_max + 1))
+
+    # (a) PAR dataset のプロット
     for key, values in comp_time_par.items():
         axes[0].plot(
-            k_values, values, marker=marker_styles[key], linestyle="-", label=key
+            k_values, values,
+            marker=marker_styles[key], linestyle="-", label=key
         )
-    axes[0].set_xlabel("#hinges")
-    axes[0].set_xticks(range(2, k_max + 1))
-    axes[0].set_ylim(0)
+    axes[0].set_xlabel("(a)")
+    axes[0].set_xticks(k_values)
     axes[0].set_ylabel("Computation Time (s)")
-    axes[0].set_title("PAR 2020")
     axes[0].legend()
     axes[0].grid(True)
 
+    # (b) DynDom dataset のプロット
     for key, values in comp_time_dyndom.items():
         axes[1].plot(
-            k_values, values, marker=marker_styles[key], linestyle="-", label=key
+            k_values, values,
+            marker=marker_styles[key], linestyle="-", label=key
         )
-    axes[1].set_xlabel("#hinges")
-    axes[1].set_xticks(range(2, k_max + 1))
+    axes[1].set_xlabel("(b)")
+    axes[1].set_xticks(k_values)
     axes[1].set_ylabel("Computation Time (s)")
-    axes[1].set_ylim(0)
-    axes[1].set_title("DynDom 2024")
     axes[1].legend()
     axes[1].grid(True)
 
