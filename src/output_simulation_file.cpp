@@ -26,11 +26,6 @@ int main() {
               filename.substr(0, filename.find("_original"));
           std::string original_file_path = path.string();
           std::regex hinge_file_pattern(base_name + "_hinge_.*\\.pdb");
-          std::string original_file_csv =
-              original_file_path.substr(original_file_path.rfind('/') + 1,
-                                        original_file_path.rfind(".pdb") -
-                                            original_file_path.rfind('/') - 1) +
-              ".pdb";
           for (const auto &hinge_entry :
                fs::directory_iterator(simulation_data_path)) {
             const auto &hinge_path = hinge_entry.path();
