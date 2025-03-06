@@ -2,15 +2,25 @@ import pandas as pd
 import os
 from tqdm import tqdm
 
+
 def main():
-    os.makedirs("figures", exist_ok=True)    
-    simulation_sh_ilo_df = read_simulation_data("rmsdh_result/simulation_sh_ilo_combined.csv")
-    simulation_sh_lo_df = read_simulation_data("rmsdh_result/simulation_sh_lo_combined.csv")
+    os.makedirs("figures", exist_ok=True)
+    simulation_sh_ilo_df = read_simulation_data(
+        "rmsdh_result/simulation_sh_ilo_combined.csv"
+    )
+    simulation_sh_lo_df = read_simulation_data(
+        "rmsdh_result/simulation_sh_lo_combined.csv"
+    )
     simulation_sh_df = read_simulation_data("rmsdh_result/simulation_sh_combined.csv")
-    simulation_r_ilo_df = read_simulation_data("rmsdh_result/simulation_r_ilo_combined.csv")
-    simulation_r_lo_df = read_simulation_data("rmsdh_result/simulation_r_lo_combined.csv")
-    simulation_shibuya_df = read_simulation_data("rmsdh_result/simulation_shibuya_combined.csv")
-    # TODO: DynDomとFATCATの結果をまとめる
+    simulation_r_ilo_df = read_simulation_data(
+        "rmsdh_result/simulation_r_ilo_combined.csv"
+    )
+    simulation_r_lo_df = read_simulation_data(
+        "rmsdh_result/simulation_r_lo_combined.csv"
+    )
+    simulation_shibuya_df = read_simulation_data(
+        "rmsdh_result/simulation_shibuya_combined.csv"
+    )
     df_dict = {}
     df_dict["R + LO"] = simulation_r_lo_df
     df_dict["R + ILO"] = simulation_r_ilo_df
@@ -23,10 +33,12 @@ def main():
         f.write(latex_table)
     print("LaTeX table code written to figures/simulation_f_measure.tex")
 
+
 def read_simulation_data(file_path):
     df = pd.read_csv(file_path).fillna("")
     df["actual_hinge_cnt"] = df["k"]
     return df
+
 
 def calc_ans_dyndom(exp, detect, d=0):
     true_hinge_indices = exp.split(" : ")
@@ -35,7 +47,9 @@ def calc_ans_dyndom(exp, detect, d=0):
     FP = 0
     FN = 0
     if detected_hinge_indices != [""]:
-        detected_ranges = [(int(label) - d, int(label) + d) for label in detected_hinge_indices]
+        detected_ranges = [
+            (int(label) - d, int(label) + d) for label in detected_hinge_indices
+        ]
     else:
         detected_ranges = []
     for true in true_hinge_indices:
@@ -55,7 +69,9 @@ def calc_ans_dyndom(exp, detect, d=0):
             FP += 1
     return {"TP": TP, "FP": FP, "FN": FN}
 
+
 def calc_acc_df(df, heuristic_df):
+    print(df.head(), heuristic_df.head())
     df["hinge_index"] = df["hinge_index"].fillna("")
     heuristic_df["hinge_index"] = heuristic_df["hinge_index"].fillna("")
     f_measure_dict = {}
@@ -64,9 +80,7 @@ def calc_acc_df(df, heuristic_df):
         for i in range(len(df)):
             acc.append(
                 calc_ans_dyndom(
-                    df.loc[i]["hinge_index"],
-                    heuristic_df.loc[i]["hinge_index"],
-                    d
+                    df.loc[i]["hinge_index"], heuristic_df.loc[i]["hinge_index"], d
                 )
             )
         acc_df = pd.DataFrame(acc)
@@ -75,7 +89,11 @@ def calc_acc_df(df, heuristic_df):
         FN = acc_df["FN"].sum()
         precision = TP / (TP + FP) if (TP + FP) != 0 else 0
         recall = TP / (TP + FN) if (TP + FN) != 0 else 0
-        f_measure = (2 * precision * recall) / (precision + recall) if (precision + recall) != 0 else 0
+        f_measure = (
+            (2 * precision * recall) / (precision + recall)
+            if (precision + recall) != 0
+            else 0
+        )
         f_measure_dict[f"F-measure_distance_{d}"] = f_measure
         f_measure_dict[f"Precision_distance_{d}"] = precision
         f_measure_dict[f"Recall_distance_{d}"] = recall
@@ -92,7 +110,9 @@ def calc_acc_df_multi(true_df, pred_df):
         return calc_acc_df(true_df, pred_df)
     for col in tqdm(hinge_cols, desc="Calculating multi-hinge metrics"):
         temp_pred = pred_df[[col]].copy().rename(columns={col: "hinge_index"})
-        metrics = calc_acc_df(true_df.reset_index(drop=True), temp_pred.reset_index(drop=True))
+        metrics = calc_acc_df(
+            true_df.reset_index(drop=True), temp_pred.reset_index(drop=True)
+        )
         metrics_list.append(metrics)
     avg_metrics = {}
     keys = metrics_list[0].keys()
@@ -105,7 +125,14 @@ def generate_latex_table_accuracy(df_dict):
     results = []
     results_precision = []
     results_recall = []
-    method_order = ["R + LO", "R + ILO", "SH", "SH + LO", "SH + ILO", "Shibuya's method"]
+    method_order = [
+        "R + LO",
+        "R + ILO",
+        "SH",
+        "SH + LO",
+        "SH + ILO",
+        "Shibuya's method",
+    ]
     for method in method_order:
         acc_df = df_dict[method]
         for cnt in range(2, 6):
@@ -118,7 +145,9 @@ def generate_latex_table_accuracy(df_dict):
             precision = res_acc.get("Precision_distance_3", 0)
             recall = res_acc.get("Recall_distance_3", 0)
             results.append({"Method": method, "k": cnt, "F-measure": f_measure})
-            results_precision.append({"Method": method, "k": cnt, "Precision": precision})
+            results_precision.append(
+                {"Method": method, "k": cnt, "Precision": precision}
+            )
             results_recall.append({"Method": method, "k": cnt, "Recall": recall})
     df_f = pd.DataFrame(results)
     df_p = pd.DataFrame(results_precision)
@@ -131,10 +160,14 @@ def generate_latex_table_accuracy(df_dict):
     lines = []
     lines.append(r"\begin{table*}[t]")
     lines.append(r"    \centering")
-    lines.append(r"    \caption{Evaluation results (F-measure, Precision, and Recall) on the Simulation dataset for different assumed number of hinges $k$.}")
+    lines.append(
+        r"    \caption{Evaluation results (F-measure, Precision, and Recall) on the Simulation dataset for different assumed number of hinges $k$.}"
+    )
     lines.append(r"    \begin{tabular}{ccccc}")
     lines.append(r"        \hline")
-    lines.append(r"        \multirow{2}{*}{$k$} & \multirow{2}{*}{Method} & \multicolumn{3}{c}{Simulation dataset} \\")
+    lines.append(
+        r"        \multirow{2}{*}{$k$} & \multirow{2}{*}{Method} & \multicolumn{3}{c}{Simulation dataset} \\"
+    )
     lines.append(r"        \cline{3-5} \\")
     lines.append(r"         &  & F-measure & Precision & Recall \\")
     lines.append(r"        \hline")
@@ -147,11 +180,12 @@ def generate_latex_table_accuracy(df_dict):
             else:
                 line = f"         & {row['Method']} & {row['F-measure']:.3f} & {row['Precision']:.3f} & {row['Recall']:.3f} \\\\"
             lines.append(line)
-        lines.append(r"        \hline")    
+        lines.append(r"        \hline")
     lines.append(r"    \end{tabular}")
     lines.append(r"    \label{tab:simulation_dataset_results}")
     lines.append(r"\end{table*}")
     return "\n".join(lines)
+
 
 if __name__ == "__main__":
     main()
