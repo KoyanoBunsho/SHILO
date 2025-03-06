@@ -21,6 +21,25 @@ def main():
     simulation_shibuya_df = read_simulation_data(
         "rmsdh_result/simulation_shibuya_combined.csv"
     )
+    simulation_dyndom_df = read_fatcat_dyndom_data(
+        "dyndom_simulation_hinge_count_result.csv",
+        "dyndom_simulation_result/dyndom_simulation_execution_time_improved.csv",
+        simulation_shibuya_df,
+    )
+    simulation_fatcat_df = read_fatcat_dyndom_data(
+        "fatcat_simulation_hinge_count_result.csv",
+        "fatcat_simulation_execution_time_improved.csv",
+        simulation_shibuya_df,
+    )
+    assert (
+        len(simulation_dyndom_df)
+        == len(simulation_dyndom_df)
+        == len(simulation_r_ilo_df)
+        == len(simulation_sh_df)
+        == len(simulation_r_lo_df)
+        == len(simulation_sh_lo_df)
+        == len(simulation_sh_ilo_df)
+    )
     df_dict = {}
     df_dict["R + LO"] = simulation_r_lo_df
     df_dict["R + ILO"] = simulation_r_ilo_df
@@ -28,8 +47,10 @@ def main():
     df_dict["SH + LO"] = simulation_sh_lo_df
     df_dict["SH + ILO"] = simulation_sh_ilo_df
     df_dict["Shibuya's method"] = simulation_shibuya_df
+    df_dict["FATCAT"] = simulation_fatcat_df
+    df_dict["DynDom"] = simulation_dyndom_df
     latex_table = generate_latex_table_accuracy(df_dict)
-    with open("figures/latex_table.tex", "w", encoding="utf-8") as f:
+    with open("figures/simulation_f_measure.tex", "w", encoding="utf-8") as f:
         f.write(latex_table)
     print("LaTeX table code written to figures/simulation_f_measure.tex")
 
@@ -132,6 +153,8 @@ def generate_latex_table_accuracy(df_dict):
         "SH + LO",
         "SH + ILO",
         "Shibuya's method",
+        "FATCAT",
+        "DynDom",
     ]
     for method in method_order:
         acc_df = df_dict[method]
@@ -185,6 +208,41 @@ def generate_latex_table_accuracy(df_dict):
     lines.append(r"    \label{tab:simulation_dataset_results}")
     lines.append(r"\end{table*}")
     return "\n".join(lines)
+
+
+def read_fatcat_dyndom_data(file_path1, file_path2, simulation_shibuya_df):
+    df1 = pd.read_csv(file_path1).fillna("")
+    df1["primary_key"] = (
+        df1["q_pdb"].apply(lambda x: str(x).split("/")[1]).str.replace(".pdb", "")
+    )
+    df1 = df1.rename(columns={"detected_hinge_count": "hinge_cnt"})
+    df2 = pd.read_csv(file_path2)
+    if "fatcat" in file_path2:
+        df2["primary_key"] = df2["pdb"].str.replace(".pdb", "")
+    else:
+        df2["primary_key"] = df2["pdb_pair"].apply(lambda x: x[19:-8])
+    df1 = df1.merge(df2, on=["primary_key"]).rename(
+        columns={"execution_time": "exec_time (s)"}
+    )
+    df1 = df1.merge(
+        simulation_shibuya_df[
+            ["primary_key", "actual_hinge_cnt", "actual_hinge_indices"]
+        ],
+        on=["primary_key"],
+    )
+    return df1
+
+
+def read_simulation_data(file_path):
+    df = pd.read_csv(file_path).fillna("")
+    df["actual_hinge_cnt"] = df["k"]
+    df["primary_key"] = (
+        df["p_pdb_id"].apply(lambda x: str(x)[:9])
+        + "_hinge_"
+        + df["actual_hinge_cnt"].astype(str)
+        + "_sigma0.5"
+    )
+    return df
 
 
 if __name__ == "__main__":
