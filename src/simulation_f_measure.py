@@ -2,15 +2,44 @@ import pandas as pd
 import os
 from tqdm import tqdm
 
+
 def main():
-    os.makedirs("figures", exist_ok=True)    
-    simulation_sh_ilo_df = read_simulation_data("rmsdh_result/simulation_sh_ilo_combined.csv")
-    simulation_sh_lo_df = read_simulation_data("rmsdh_result/simulation_sh_lo_combined.csv")
+    os.makedirs("figures", exist_ok=True)
+    simulation_sh_ilo_df = read_simulation_data(
+        "rmsdh_result/simulation_sh_ilo_combined.csv"
+    )
+    simulation_sh_lo_df = read_simulation_data(
+        "rmsdh_result/simulation_sh_lo_combined.csv"
+    )
     simulation_sh_df = read_simulation_data("rmsdh_result/simulation_sh_combined.csv")
-    simulation_r_ilo_df = read_simulation_data("rmsdh_result/simulation_r_ilo_combined.csv")
-    simulation_r_lo_df = read_simulation_data("rmsdh_result/simulation_r_lo_combined.csv")
-    simulation_shibuya_df = read_simulation_data("rmsdh_result/simulation_shibuya_combined.csv")
-    # TODO: DynDomとFATCATの結果をまとめる
+    simulation_r_ilo_df = read_simulation_data(
+        "rmsdh_result/simulation_r_ilo_combined.csv"
+    )
+    simulation_r_lo_df = read_simulation_data(
+        "rmsdh_result/simulation_r_lo_combined.csv"
+    )
+    simulation_shibuya_df = read_simulation_data(
+        "rmsdh_result/simulation_shibuya_combined.csv"
+    )
+    simulation_dyndom_df = read_fatcat_dyndom_data(
+        "dyndom_simulation_hinge_count_result.csv",
+        "dyndom_simulation_result/dyndom_simulation_execution_time_improved.csv",
+        simulation_shibuya_df,
+    )
+    simulation_fatcat_df = read_fatcat_dyndom_data(
+        "fatcat_simulation_hinge_count_result.csv",
+        "fatcat_simulation_execution_time_improved.csv",
+        simulation_shibuya_df,
+    )
+    assert (
+        len(simulation_dyndom_df)
+        == len(simulation_dyndom_df)
+        == len(simulation_r_ilo_df)
+        == len(simulation_sh_df)
+        == len(simulation_r_lo_df)
+        == len(simulation_sh_lo_df)
+        == len(simulation_sh_ilo_df)
+    )
     df_dict = {}
     df_dict["R + LO"] = simulation_r_lo_df
     df_dict["R + ILO"] = simulation_r_ilo_df
@@ -18,15 +47,19 @@ def main():
     df_dict["SH + LO"] = simulation_sh_lo_df
     df_dict["SH + ILO"] = simulation_sh_ilo_df
     df_dict["Shibuya's method"] = simulation_shibuya_df
+    df_dict["FATCAT"] = simulation_fatcat_df
+    df_dict["DynDom"] = simulation_dyndom_df
     latex_table = generate_latex_table_accuracy(df_dict)
-    with open("figures/latex_table.tex", "w", encoding="utf-8") as f:
+    with open("figures/simulation_f_measure.tex", "w", encoding="utf-8") as f:
         f.write(latex_table)
     print("LaTeX table code written to figures/simulation_f_measure.tex")
+
 
 def read_simulation_data(file_path):
     df = pd.read_csv(file_path).fillna("")
     df["actual_hinge_cnt"] = df["k"]
     return df
+
 
 def calc_ans_dyndom(exp, detect, d=0):
     true_hinge_indices = exp.split(" : ")
@@ -35,7 +68,9 @@ def calc_ans_dyndom(exp, detect, d=0):
     FP = 0
     FN = 0
     if detected_hinge_indices != [""]:
-        detected_ranges = [(int(label) - d, int(label) + d) for label in detected_hinge_indices]
+        detected_ranges = [
+            (int(label) - d, int(label) + d) for label in detected_hinge_indices
+        ]
     else:
         detected_ranges = []
     for true in true_hinge_indices:
@@ -55,6 +90,7 @@ def calc_ans_dyndom(exp, detect, d=0):
             FP += 1
     return {"TP": TP, "FP": FP, "FN": FN}
 
+
 def calc_acc_df(df, heuristic_df):
     df["hinge_index"] = df["hinge_index"].fillna("")
     heuristic_df["hinge_index"] = heuristic_df["hinge_index"].fillna("")
@@ -64,9 +100,7 @@ def calc_acc_df(df, heuristic_df):
         for i in range(len(df)):
             acc.append(
                 calc_ans_dyndom(
-                    df.loc[i]["hinge_index"],
-                    heuristic_df.loc[i]["hinge_index"],
-                    d
+                    df.loc[i]["hinge_index"], heuristic_df.loc[i]["hinge_index"], d
                 )
             )
         acc_df = pd.DataFrame(acc)
@@ -75,7 +109,11 @@ def calc_acc_df(df, heuristic_df):
         FN = acc_df["FN"].sum()
         precision = TP / (TP + FP) if (TP + FP) != 0 else 0
         recall = TP / (TP + FN) if (TP + FN) != 0 else 0
-        f_measure = (2 * precision * recall) / (precision + recall) if (precision + recall) != 0 else 0
+        f_measure = (
+            (2 * precision * recall) / (precision + recall)
+            if (precision + recall) != 0
+            else 0
+        )
         f_measure_dict[f"F-measure_distance_{d}"] = f_measure
         f_measure_dict[f"Precision_distance_{d}"] = precision
         f_measure_dict[f"Recall_distance_{d}"] = recall
@@ -92,7 +130,9 @@ def calc_acc_df_multi(true_df, pred_df):
         return calc_acc_df(true_df, pred_df)
     for col in tqdm(hinge_cols, desc="Calculating multi-hinge metrics"):
         temp_pred = pred_df[[col]].copy().rename(columns={col: "hinge_index"})
-        metrics = calc_acc_df(true_df.reset_index(drop=True), temp_pred.reset_index(drop=True))
+        metrics = calc_acc_df(
+            true_df.reset_index(drop=True), temp_pred.reset_index(drop=True)
+        )
         metrics_list.append(metrics)
     avg_metrics = {}
     keys = metrics_list[0].keys()
@@ -105,7 +145,16 @@ def generate_latex_table_accuracy(df_dict):
     results = []
     results_precision = []
     results_recall = []
-    method_order = ["R + LO", "R + ILO", "SH", "SH + LO", "SH + ILO", "Shibuya's method"]
+    method_order = [
+        "R + LO",
+        "R + ILO",
+        "SH",
+        "SH + LO",
+        "SH + ILO",
+        "Shibuya's method",
+        "FATCAT",
+        "DynDom"
+    ]
     for method in method_order:
         acc_df = df_dict[method]
         for cnt in range(2, 6):
@@ -118,7 +167,9 @@ def generate_latex_table_accuracy(df_dict):
             precision = res_acc.get("Precision_distance_3", 0)
             recall = res_acc.get("Recall_distance_3", 0)
             results.append({"Method": method, "k": cnt, "F-measure": f_measure})
-            results_precision.append({"Method": method, "k": cnt, "Precision": precision})
+            results_precision.append(
+                {"Method": method, "k": cnt, "Precision": precision}
+            )
             results_recall.append({"Method": method, "k": cnt, "Recall": recall})
     df_f = pd.DataFrame(results)
     df_p = pd.DataFrame(results_precision)
@@ -131,10 +182,14 @@ def generate_latex_table_accuracy(df_dict):
     lines = []
     lines.append(r"\begin{table*}[t]")
     lines.append(r"    \centering")
-    lines.append(r"    \caption{Evaluation results (F-measure, Precision, and Recall) on the Simulation dataset for different assumed number of hinges $k$.}")
+    lines.append(
+        r"    \caption{Evaluation results (F-measure, Precision, and Recall) on the Simulation dataset for different assumed number of hinges $k$.}"
+    )
     lines.append(r"    \begin{tabular}{ccccc}")
     lines.append(r"        \hline")
-    lines.append(r"        \multirow{2}{*}{$k$} & \multirow{2}{*}{Method} & \multicolumn{3}{c}{Simulation dataset} \\")
+    lines.append(
+        r"        \multirow{2}{*}{$k$} & \multirow{2}{*}{Method} & \multicolumn{3}{c}{Simulation dataset} \\"
+    )
     lines.append(r"        \cline{3-5} \\")
     lines.append(r"         &  & F-measure & Precision & Recall \\")
     lines.append(r"        \hline")
@@ -147,11 +202,44 @@ def generate_latex_table_accuracy(df_dict):
             else:
                 line = f"         & {row['Method']} & {row['F-measure']:.3f} & {row['Precision']:.3f} & {row['Recall']:.3f} \\\\"
             lines.append(line)
-        lines.append(r"        \hline")    
+        lines.append(r"        \hline")
     lines.append(r"    \end{tabular}")
     lines.append(r"    \label{tab:simulation_dataset_results}")
     lines.append(r"\end{table*}")
     return "\n".join(lines)
+
+
+def read_fatcat_dyndom_data(file_path1, file_path2, simulation_shibuya_df):
+    df1 = pd.read_csv(file_path1).fillna("")
+    df1["primary_key"] = (
+        df1["q_pdb"].apply(lambda x: str(x).split("/")[1]).str.replace(".pdb", "")
+    )
+    df1 = df1.rename(columns={"detected_hinge_count": "hinge_cnt"})
+    df2 = pd.read_csv(file_path2)
+    if "fatcat" in file_path2:
+        df2["primary_key"] = df2["pdb"].str.replace(".pdb", "")
+    else:
+        df2["primary_key"] = df2["pdb_pair"].apply(lambda x: x[19:-8])
+    df1 = df1.merge(df2, on=["primary_key"]).rename(
+        columns={"execution_time": "exec_time (s)"}
+    )
+    df1 = df1.merge(
+        simulation_shibuya_df[["primary_key", "actual_hinge_cnt", "actual_hinge_indices"]], on=["primary_key"]
+    )
+    return df1
+
+
+def read_simulation_data(file_path):
+    df = pd.read_csv(file_path).fillna("")
+    df["actual_hinge_cnt"] = df["k"]
+    df["primary_key"] = (
+        df["p_pdb_id"].apply(lambda x: str(x)[:9])
+        + "_hinge_"
+        + df["actual_hinge_cnt"].astype(str)
+        + "_sigma0.5"
+    )
+    return df
+
 
 if __name__ == "__main__":
     main()
