@@ -110,12 +110,12 @@ def main():
         # 平均値を丸マーカー、最大値を四角マーカーでプロット
         ax.plot(k_values, avg_list, marker="o", linestyle="-", label="Average")
         ax.plot(k_values, max_list, marker="s", linestyle="-", label="Maximum")
-        ax.set_xlabel(f"{caption_dict[title]}")
+        ax.set_xlabel(f"{caption_dict[title]}", fontsize=24)
         ax.set_xticks(k_values)
         ax.grid(True)
         ax.legend()
 
-    axes[0].set_ylabel("#Iterations")
+    axes[0].set_ylabel("#Iterations", fontsize=24)
 
     plt.tight_layout()
     plt.savefig("figures/all_sh_ilo_iteration_metrics.svg", format="svg")
