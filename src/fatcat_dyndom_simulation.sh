@@ -1,0 +1,2 @@
+python fatcat_simulation_comp_time.py
+python dyndom_simulation_comp_time.py

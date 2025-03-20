@@ -6,7 +6,7 @@ g++ ablation_study_postprocessing_dyndom.cpp -O3 -o ablation_study_postprocessin
 g++ ablation_study_postprocessing_dyndom_loop.cpp -O3 -o ablation_study_postprocessing_dyndom_loop
 
 
-for k in {2..4}
+for k in {5..10}
 do
 echo "-----$k-----"
 echo "-----Shibuya 2008 dataset-----"

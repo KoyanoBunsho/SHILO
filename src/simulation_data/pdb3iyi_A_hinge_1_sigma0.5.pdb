@@ -1,0 +1,1334 @@
+HEADER    VIRUS                                   14-DEC-09   3IYI              
+TITLE     P22 EXPANDED HEAD COAT PROTEIN STRUCTURES REVEAL A NOVEL MECHANISM FOR
+TITLE    2 CAPSID MATURATION: STABILITY WITHOUT AUXILIARY PROTEINS OR CHEMICAL  
+TITLE    3 CROSS-LINKS                                                          
+COMPND    MOL_ID: 1;                                                            
+COMPND   2 MOLECULE: P22 COAT PROTEIN IN PROCAPSID SHELLS;                      
+COMPND   3 CHAIN: A, B, C, D, E, F, G;                                          
+COMPND   4 SYNONYM: PROTEIN GP5                                                 
+SOURCE    MOL_ID: 1;                                                            
+SOURCE   2 ORGANISM_SCIENTIFIC: ENTEROBACTERIA PHAGE P22;                       
+SOURCE   3 ORGANISM_TAXID: 10754                                                
+KEYWDS    HK97-LIKE FOLD, VIRUS                                                 
+EXPDTA    ELECTRON MICROSCOPY                                                   
+MDLTYP    CA ATOMS ONLY, CHAIN A, B, C, D, E, F, G                              
+AUTHOR    K.N.PARENT,R.KHAYAT,L.H.TU,M.M.SUHANOVSKY,J.R.CORTINES,C.M.TESCHKE,   
+AUTHOR   2 J.E.JOHNSON,T.S.BAKER                                                
+REVDAT   6   21-FEB-24 3IYI    1       REMARK                                   
+REVDAT   5   18-JUL-18 3IYI    1       REMARK                                   
+REVDAT   4   07-DEC-16 3IYI    1       REMARK                                   
+REVDAT   3   21-JAN-15 3IYI    1       DBREF                                    
+REVDAT   2   05-SEP-12 3IYI    1       REMARK VERSN                             
+REVDAT   1   31-MAR-10 3IYI    0                                                
+JRNL        AUTH   K.N.PARENT,R.KHAYAT,L.H.TU,M.M.SUHANOVSKY,J.R.CORTINES,      
+JRNL        AUTH 2 C.M.TESCHKE,J.E.JOHNSON,T.S.BAKER                            
+JRNL        TITL   P22 COAT PROTEIN STRUCTURES REVEAL A NOVEL MECHANISM FOR     
+JRNL        TITL 2 CAPSID MATURATION: STABILITY WITHOUT AUXILIARY PROTEINS OR   
+JRNL        TITL 3 CHEMICAL CROSSLINKS                                          
+JRNL        REF    STRUCTURE                     V.  18   390 2010              
+JRNL        REFN                   ISSN 0969-2126                               
+JRNL        PMID   20223221                                                     
+JRNL        DOI    10.1016/J.STR.2009.12.014                                    
+REMARK   2                                                                      
+REMARK   2 RESOLUTION.    9.10 ANGSTROMS.                                       
+REMARK   3                                                                      
+REMARK   3 REFINEMENT.                                                          
+REMARK   3   SOFTWARE PACKAGES      : COOT, MODELLER, AUTO3DEM                  
+REMARK   3   RECONSTRUCTION SCHEMA  : NULL                                      
+REMARK   3                                                                      
+REMARK   3 EM MAP-MODEL FITTING AND REFINEMENT                                  
+REMARK   3   PDB ENTRY                    : 1OHG                                
+REMARK   3   REFINEMENT SPACE             : REAL                                
+REMARK   3   REFINEMENT PROTOCOL          : FLEXIBLE FIT                        
+REMARK   3   REFINEMENT TARGET            : CROSS-CORRELATION COEFFICIENT       
+REMARK   3   OVERALL ANISOTROPIC B VALUE  : NULL                                
+REMARK   3                                                                      
+REMARK   3 FITTING PROCEDURE : METHOD--LOCAL REFINEMENT, FLEXIBLE FITTING       
+REMARK   3  REFINEMENT PROTOCOL--RIGID BODY                                     
+REMARK   3                                                                      
+REMARK   3 EM IMAGE RECONSTRUCTION STATISTICS                                   
+REMARK   3   NOMINAL PIXEL SIZE (ANGSTROMS)    : 1.620                          
+REMARK   3   ACTUAL PIXEL SIZE  (ANGSTROMS)    : NULL                           
+REMARK   3   EFFECTIVE RESOLUTION (ANGSTROMS)  : 9.100                          
+REMARK   3   NUMBER OF PARTICLES               : 11997                          
+REMARK   3   CTF CORRECTION METHOD             : NULL                           
+REMARK   3                                                                      
+REMARK   3 EM RECONSTRUCTION MAGNIFICATION CALIBRATION: NULL                    
+REMARK   3                                                                      
+REMARK   3 OTHER DETAILS: ( DETAILS ABOUT THE PARTICLE: DATA WERE COLLECTED     
+REMARK   3  ON FILM )                                                           
+REMARK   4                                                                      
+REMARK   4 3IYI COMPLIES WITH FORMAT V. 3.30, 13-JUL-11                         
+REMARK 100                                                                      
+REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY RCSB ON 11-JAN-10.                  
+REMARK 100 THE DEPOSITION ID IS D_1000160024.                                   
+REMARK 245                                                                      
+REMARK 245 EXPERIMENTAL DETAILS                                                 
+REMARK 245   RECONSTRUCTION METHOD          : SINGLE PARTICLE                   
+REMARK 245   SPECIMEN TYPE                  : VITREOUS ICE (CRYO EM)            
+REMARK 245                                                                      
+REMARK 245 ELECTRON MICROSCOPE SAMPLE                                           
+REMARK 245   SAMPLE TYPE                    : PARTICLE                          
+REMARK 245   PARTICLE TYPE                  : POINT                             
+REMARK 245   NAME OF SAMPLE                 : P22 PROCAPSID SHELL               
+REMARK 245   SAMPLE CONCENTRATION (MG ML-1) : 8.00                              
+REMARK 245   SAMPLE SUPPORT DETAILS         : QUANTIFOIL                        
+REMARK 245   SAMPLE VITRIFICATION DETAILS   : NULL                              
+REMARK 245   SAMPLE BUFFER                  : 20 MM SODIUM PHOSPHATE BUFFER,    
+REMARK 245                                    PH = 7.6                          
+REMARK 245   PH                             : 7.60                              
+REMARK 245   SAMPLE DETAILS                 : ICOSAHEDRAL. SCAFFOLDING          
+REMARK 245  PROTEIN, PORTAL AND EJECTION PROTEINS REMOVED BY 0.5 M GUHCL        
+REMARK 245                                                                      
+REMARK 245 DATA ACQUISITION                                                     
+REMARK 245   DATE OF EXPERIMENT                : 01-JAN-09                      
+REMARK 245   NUMBER OF MICROGRAPHS-IMAGES      : NULL                           
+REMARK 245   TEMPERATURE (KELVIN)              : 90.00                          
+REMARK 245   MICROSCOPE MODEL                  : FEI POLARA 300                 
+REMARK 245   DETECTOR TYPE                     : KODAK SO-163 FILM              
+REMARK 245   MINIMUM DEFOCUS (NM)              : 410.00                         
+REMARK 245   MAXIMUM DEFOCUS (NM)              : 3650.00                        
+REMARK 245   MINIMUM TILT ANGLE (DEGREES)      : -9999.0                        
+REMARK 245   MAXIMUM TILT ANGLE (DEGREES)      : -9999.0                        
+REMARK 245   NOMINAL CS                        : 2.30                           
+REMARK 245   IMAGING MODE                      : BRIGHT FIELD                   
+REMARK 245   ELECTRON DOSE (ELECTRONS NM**-2)  : 800.00                         
+REMARK 245   ILLUMINATION MODE                 : FLOOD BEAM                     
+REMARK 245   NOMINAL MAGNIFICATION             : 39000                          
+REMARK 245   CALIBRATED MAGNIFICATION          : NULL                           
+REMARK 245   SOURCE                            : FIELD EMISSION GUN             
+REMARK 245   ACCELERATION VOLTAGE (KV)         : 200                            
+REMARK 245   IMAGING DETAILS                   : NULL                           
+REMARK 247                                                                      
+REMARK 247 ELECTRON MICROSCOPY                                                  
+REMARK 247  THE COORDINATES IN THIS ENTRY WERE GENERATED FROM ELECTRON          
+REMARK 247  MICROSCOPY DATA. PROTEIN DATA BANK CONVENTIONS REQUIRE              
+REMARK 247  THAT CRYST1 AND SCALE RECORDS BE INCLUDED, BUT THE VALUES           
+REMARK 247  ON THESE RECORDS ARE MEANINGLESS EXCEPT FOR THE CALCULATION         
+REMARK 247  OF THE STRUCTURE FACTORS.                                           
+REMARK 300                                                                      
+REMARK 300 BIOMOLECULE: 1                                                       
+REMARK 300 SEE REMARK 350 FOR THE AUTHOR PROVIDED AND/OR PROGRAM                
+REMARK 300 GENERATED ASSEMBLY INFORMATION FOR THE STRUCTURE IN                  
+REMARK 300 THIS ENTRY. THE REMARK MAY ALSO PROVIDE INFORMATION ON               
+REMARK 300 BURIED SURFACE AREA.                                                 
+REMARK 300 THE ASSEMBLY REPRESENTED IN THIS ENTRY HAS REGULAR                   
+REMARK 300 ICOSAHEDRAL POINT SYMMETRY (SCHOENFLIES SYMBOL = I).                 
+REMARK 350                                                                      
+REMARK 350 COORDINATES FOR A COMPLETE MULTIMER REPRESENTING THE KNOWN           
+REMARK 350 BIOLOGICALLY SIGNIFICANT OLIGOMERIZATION STATE OF THE                
+REMARK 350 MOLECULE CAN BE GENERATED BY APPLYING BIOMT TRANSFORMATIONS          
+REMARK 350 GIVEN BELOW.  BOTH NON-CRYSTALLOGRAPHIC AND                          
+REMARK 350 CRYSTALLOGRAPHIC OPERATIONS ARE GIVEN.                               
+REMARK 350                                                                      
+REMARK 350 BIOMOLECULE: 1                                                       
+REMARK 350 APPLY THE FOLLOWING TO CHAINS: A, B, C, D, E, F, G                   
+REMARK 350   BIOMT1   1  1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT2   1  0.000000  1.000000  0.000000        0.00000            
+REMARK 350   BIOMT3   1  0.000000  0.000000  1.000000        0.00000            
+REMARK 350   BIOMT1   2  0.309017 -0.809017  0.500000        0.00000            
+REMARK 350   BIOMT2   2  0.809017  0.500000  0.309017        0.00000            
+REMARK 350   BIOMT3   2 -0.500000  0.309017  0.809017        0.00000            
+REMARK 350   BIOMT1   3 -0.809017 -0.500000  0.309017        0.00000            
+REMARK 350   BIOMT2   3  0.500000 -0.309017  0.809017        0.00000            
+REMARK 350   BIOMT3   3 -0.309017  0.809017  0.500000        0.00000            
+REMARK 350   BIOMT1   4 -0.809017  0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT2   4 -0.500000 -0.309017  0.809017        0.00000            
+REMARK 350   BIOMT3   4  0.309017  0.809017  0.500000        0.00000            
+REMARK 350   BIOMT1   5  0.309017  0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT2   5 -0.809017  0.500000  0.309017        0.00000            
+REMARK 350   BIOMT3   5  0.500000  0.309017  0.809017        0.00000            
+REMARK 350   BIOMT1   6 -1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT2   6  0.000000 -1.000000  0.000000        0.00000            
+REMARK 350   BIOMT3   6  0.000000  0.000000  1.000000        0.00000            
+REMARK 350   BIOMT1   7 -0.309017  0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT2   7 -0.809017 -0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT3   7 -0.500000  0.309017  0.809017        0.00000            
+REMARK 350   BIOMT1   8  0.809017  0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT2   8 -0.500000  0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT3   8 -0.309017  0.809017  0.500000        0.00000            
+REMARK 350   BIOMT1   9  0.809017 -0.500000  0.309017        0.00000            
+REMARK 350   BIOMT2   9  0.500000  0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT3   9  0.309017  0.809017  0.500000        0.00000            
+REMARK 350   BIOMT1  10 -0.309017 -0.809017  0.500000        0.00000            
+REMARK 350   BIOMT2  10  0.809017 -0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT3  10  0.500000  0.309017  0.809017        0.00000            
+REMARK 350   BIOMT1  11 -1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT2  11  0.000000  1.000000  0.000000        0.00000            
+REMARK 350   BIOMT3  11  0.000000  0.000000 -1.000000        0.00000            
+REMARK 350   BIOMT1  12 -0.309017  0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT2  12  0.809017  0.500000  0.309017        0.00000            
+REMARK 350   BIOMT3  12  0.500000 -0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT1  13  0.809017  0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT2  13  0.500000 -0.309017  0.809017        0.00000            
+REMARK 350   BIOMT3  13  0.309017 -0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT1  14  0.809017 -0.500000  0.309017        0.00000            
+REMARK 350   BIOMT2  14 -0.500000 -0.309017  0.809017        0.00000            
+REMARK 350   BIOMT3  14 -0.309017 -0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT1  15 -0.309017 -0.809017  0.500000        0.00000            
+REMARK 350   BIOMT2  15 -0.809017  0.500000  0.309017        0.00000            
+REMARK 350   BIOMT3  15 -0.500000 -0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT1  16  1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT2  16  0.000000 -1.000000  0.000000        0.00000            
+REMARK 350   BIOMT3  16  0.000000  0.000000 -1.000000        0.00000            
+REMARK 350   BIOMT1  17  0.309017 -0.809017  0.500000        0.00000            
+REMARK 350   BIOMT2  17 -0.809017 -0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT3  17  0.500000 -0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT1  18 -0.809017 -0.500000  0.309017        0.00000            
+REMARK 350   BIOMT2  18 -0.500000  0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT3  18  0.309017 -0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT1  19 -0.809017  0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT2  19  0.500000  0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT3  19 -0.309017 -0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT1  20  0.309017  0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT2  20  0.809017 -0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT3  20 -0.500000 -0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT1  21  0.000000  0.000000  1.000000        0.00000            
+REMARK 350   BIOMT2  21  1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT3  21  0.000000  1.000000  0.000000        0.00000            
+REMARK 350   BIOMT1  22 -0.500000  0.309017  0.809017        0.00000            
+REMARK 350   BIOMT2  22  0.309017 -0.809017  0.500000        0.00000            
+REMARK 350   BIOMT3  22  0.809017  0.500000  0.309017        0.00000            
+REMARK 350   BIOMT1  23 -0.309017  0.809017  0.500000        0.00000            
+REMARK 350   BIOMT2  23 -0.809017 -0.500000  0.309017        0.00000            
+REMARK 350   BIOMT3  23  0.500000 -0.309017  0.809017        0.00000            
+REMARK 350   BIOMT1  24  0.309017  0.809017  0.500000        0.00000            
+REMARK 350   BIOMT2  24 -0.809017  0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT3  24 -0.500000 -0.309017  0.809017        0.00000            
+REMARK 350   BIOMT1  25  0.500000  0.309017  0.809017        0.00000            
+REMARK 350   BIOMT2  25  0.309017  0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT3  25 -0.809017  0.500000  0.309017        0.00000            
+REMARK 350   BIOMT1  26  0.000000  0.000000  1.000000        0.00000            
+REMARK 350   BIOMT2  26 -1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT3  26  0.000000 -1.000000  0.000000        0.00000            
+REMARK 350   BIOMT1  27 -0.500000  0.309017  0.809017        0.00000            
+REMARK 350   BIOMT2  27 -0.309017  0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT3  27 -0.809017 -0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT1  28 -0.309017  0.809017  0.500000        0.00000            
+REMARK 350   BIOMT2  28  0.809017  0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT3  28 -0.500000  0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT1  29  0.309017  0.809017  0.500000        0.00000            
+REMARK 350   BIOMT2  29  0.809017 -0.500000  0.309017        0.00000            
+REMARK 350   BIOMT3  29  0.500000  0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT1  30  0.500000  0.309017  0.809017        0.00000            
+REMARK 350   BIOMT2  30 -0.309017 -0.809017  0.500000        0.00000            
+REMARK 350   BIOMT3  30  0.809017 -0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT1  31  0.000000  0.000000 -1.000000        0.00000            
+REMARK 350   BIOMT2  31 -1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT3  31  0.000000  1.000000  0.000000        0.00000            
+REMARK 350   BIOMT1  32  0.500000 -0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT2  32 -0.309017  0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT3  32  0.809017  0.500000  0.309017        0.00000            
+REMARK 350   BIOMT1  33  0.309017 -0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT2  33  0.809017  0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT3  33  0.500000 -0.309017  0.809017        0.00000            
+REMARK 350   BIOMT1  34 -0.309017 -0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT2  34  0.809017 -0.500000  0.309017        0.00000            
+REMARK 350   BIOMT3  34 -0.500000 -0.309017  0.809017        0.00000            
+REMARK 350   BIOMT1  35 -0.500000 -0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT2  35 -0.309017 -0.809017  0.500000        0.00000            
+REMARK 350   BIOMT3  35 -0.809017  0.500000  0.309017        0.00000            
+REMARK 350   BIOMT1  36  0.000000  0.000000 -1.000000        0.00000            
+REMARK 350   BIOMT2  36  1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT3  36  0.000000 -1.000000  0.000000        0.00000            
+REMARK 350   BIOMT1  37  0.500000 -0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT2  37  0.309017 -0.809017  0.500000        0.00000            
+REMARK 350   BIOMT3  37 -0.809017 -0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT1  38  0.309017 -0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT2  38 -0.809017 -0.500000  0.309017        0.00000            
+REMARK 350   BIOMT3  38 -0.500000  0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT1  39 -0.309017 -0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT2  39 -0.809017  0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT3  39  0.500000  0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT1  40 -0.500000 -0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT2  40  0.309017  0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT3  40  0.809017 -0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT1  41  0.000000  1.000000  0.000000        0.00000            
+REMARK 350   BIOMT2  41  0.000000  0.000000  1.000000        0.00000            
+REMARK 350   BIOMT3  41  1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT1  42  0.809017  0.500000  0.309017        0.00000            
+REMARK 350   BIOMT2  42 -0.500000  0.309017  0.809017        0.00000            
+REMARK 350   BIOMT3  42  0.309017 -0.809017  0.500000        0.00000            
+REMARK 350   BIOMT1  43  0.500000 -0.309017  0.809017        0.00000            
+REMARK 350   BIOMT2  43 -0.309017  0.809017  0.500000        0.00000            
+REMARK 350   BIOMT3  43 -0.809017 -0.500000  0.309017        0.00000            
+REMARK 350   BIOMT1  44 -0.500000 -0.309017  0.809017        0.00000            
+REMARK 350   BIOMT2  44  0.309017  0.809017  0.500000        0.00000            
+REMARK 350   BIOMT3  44 -0.809017  0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT1  45 -0.809017  0.500000  0.309017        0.00000            
+REMARK 350   BIOMT2  45  0.500000  0.309017  0.809017        0.00000            
+REMARK 350   BIOMT3  45  0.309017  0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT1  46  0.000000 -1.000000  0.000000        0.00000            
+REMARK 350   BIOMT2  46  0.000000  0.000000  1.000000        0.00000            
+REMARK 350   BIOMT3  46 -1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT1  47 -0.809017 -0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT2  47 -0.500000  0.309017  0.809017        0.00000            
+REMARK 350   BIOMT3  47 -0.309017  0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT1  48 -0.500000  0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT2  48 -0.309017  0.809017  0.500000        0.00000            
+REMARK 350   BIOMT3  48  0.809017  0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT1  49  0.500000  0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT2  49  0.309017  0.809017  0.500000        0.00000            
+REMARK 350   BIOMT3  49  0.809017 -0.500000  0.309017        0.00000            
+REMARK 350   BIOMT1  50  0.809017 -0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT2  50  0.500000  0.309017  0.809017        0.00000            
+REMARK 350   BIOMT3  50 -0.309017 -0.809017  0.500000        0.00000            
+REMARK 350   BIOMT1  51  0.000000  1.000000  0.000000        0.00000            
+REMARK 350   BIOMT2  51  0.000000  0.000000 -1.000000        0.00000            
+REMARK 350   BIOMT3  51 -1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT1  52  0.809017  0.500000  0.309017        0.00000            
+REMARK 350   BIOMT2  52  0.500000 -0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT3  52 -0.309017  0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT1  53  0.500000 -0.309017  0.809017        0.00000            
+REMARK 350   BIOMT2  53  0.309017 -0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT3  53  0.809017  0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT1  54 -0.500000 -0.309017  0.809017        0.00000            
+REMARK 350   BIOMT2  54 -0.309017 -0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT3  54  0.809017 -0.500000  0.309017        0.00000            
+REMARK 350   BIOMT1  55 -0.809017  0.500000  0.309017        0.00000            
+REMARK 350   BIOMT2  55 -0.500000 -0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT3  55 -0.309017 -0.809017  0.500000        0.00000            
+REMARK 350   BIOMT1  56  0.000000 -1.000000  0.000000        0.00000            
+REMARK 350   BIOMT2  56  0.000000  0.000000 -1.000000        0.00000            
+REMARK 350   BIOMT3  56  1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT1  57 -0.809017 -0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT2  57  0.500000 -0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT3  57  0.309017 -0.809017  0.500000        0.00000            
+REMARK 350   BIOMT1  58 -0.500000  0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT2  58  0.309017 -0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT3  58 -0.809017 -0.500000  0.309017        0.00000            
+REMARK 350   BIOMT1  59  0.500000  0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT2  59 -0.309017 -0.809017 -0.500000        0.00000            
+REMARK 350   BIOMT3  59 -0.809017  0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT1  60  0.809017 -0.500000 -0.309017        0.00000            
+REMARK 350   BIOMT2  60 -0.500000 -0.309017 -0.809017        0.00000            
+REMARK 350   BIOMT3  60  0.309017  0.809017 -0.500000        0.00000            
+REMARK 465                                                                      
+REMARK 465 MISSING RESIDUES                                                     
+REMARK 465 THE FOLLOWING RESIDUES WERE NOT LOCATED IN THE                       
+REMARK 465 EXPERIMENT. (M=MODEL NUMBER; RES=RESIDUE NAME; C=CHAIN               
+REMARK 465 IDENTIFIER; SSSEQ=SEQUENCE NUMBER; I=INSERTION CODE.)                
+REMARK 465                                                                      
+REMARK 465   M RES C SSSEQI                                                     
+REMARK 465     MET A     1                                                      
+REMARK 465     ALA A   225                                                      
+REMARK 465     THR A   226                                                      
+REMARK 465     GLY A   227                                                      
+REMARK 465     ILE A   228                                                      
+REMARK 465     ALA A   314                                                      
+REMARK 465     LEU A   315                                                      
+REMARK 465     ASP A   316                                                      
+REMARK 465     ASP A   317                                                      
+REMARK 465     VAL A   318                                                      
+REMARK 465     SER A   319                                                      
+REMARK 465     LEU A   320                                                      
+REMARK 465     SER A   321                                                      
+REMARK 465     PRO A   322                                                      
+REMARK 465     GLU A   323                                                      
+REMARK 465     GLN A   324                                                      
+REMARK 465     ARG A   325                                                      
+REMARK 465     ALA A   326                                                      
+REMARK 465     TYR A   327                                                      
+REMARK 465     ALA A   328                                                      
+REMARK 465     ASN A   329                                                      
+REMARK 465     VAL A   330                                                      
+REMARK 465     ASN A   331                                                      
+REMARK 465     THR A   332                                                      
+REMARK 465     SER A   333                                                      
+REMARK 465     LEU A   334                                                      
+REMARK 465     ALA A   335                                                      
+REMARK 465     ASP A   336                                                      
+REMARK 465     ALA A   337                                                      
+REMARK 465     MET A   338                                                      
+REMARK 465     ALA A   339                                                      
+REMARK 465     VAL A   340                                                      
+REMARK 465     ASN A   341                                                      
+REMARK 465     ILE A   342                                                      
+REMARK 465     LEU A   343                                                      
+REMARK 465     ASN A   344                                                      
+REMARK 465     VAL A   345                                                      
+REMARK 465     LYS A   346                                                      
+REMARK 465     ASP A   347                                                      
+REMARK 465     ALA A   348                                                      
+REMARK 465     ARG A   349                                                      
+REMARK 465     THR A   350                                                      
+REMARK 465     ASN A   351                                                      
+REMARK 465     VAL A   352                                                      
+REMARK 465     THR A   429                                                      
+REMARK 465     ALA A   430                                                      
+REMARK 465     MET B     1                                                      
+REMARK 465     ALA B   225                                                      
+REMARK 465     THR B   226                                                      
+REMARK 465     GLY B   227                                                      
+REMARK 465     ILE B   228                                                      
+REMARK 465     ALA B   314                                                      
+REMARK 465     LEU B   315                                                      
+REMARK 465     ASP B   316                                                      
+REMARK 465     ASP B   317                                                      
+REMARK 465     VAL B   318                                                      
+REMARK 465     SER B   319                                                      
+REMARK 465     LEU B   320                                                      
+REMARK 465     SER B   321                                                      
+REMARK 465     PRO B   322                                                      
+REMARK 465     GLU B   323                                                      
+REMARK 465     GLN B   324                                                      
+REMARK 465     ARG B   325                                                      
+REMARK 465     ALA B   326                                                      
+REMARK 465     TYR B   327                                                      
+REMARK 465     ALA B   328                                                      
+REMARK 465     ASN B   329                                                      
+REMARK 465     VAL B   330                                                      
+REMARK 465     ASN B   331                                                      
+REMARK 465     THR B   332                                                      
+REMARK 465     SER B   333                                                      
+REMARK 465     LEU B   334                                                      
+REMARK 465     ALA B   335                                                      
+REMARK 465     ASP B   336                                                      
+REMARK 465     ALA B   337                                                      
+REMARK 465     MET B   338                                                      
+REMARK 465     ALA B   339                                                      
+REMARK 465     VAL B   340                                                      
+REMARK 465     ASN B   341                                                      
+REMARK 465     ILE B   342                                                      
+REMARK 465     LEU B   343                                                      
+REMARK 465     ASN B   344                                                      
+REMARK 465     VAL B   345                                                      
+REMARK 465     LYS B   346                                                      
+REMARK 465     ASP B   347                                                      
+REMARK 465     ALA B   348                                                      
+REMARK 465     ARG B   349                                                      
+REMARK 465     THR B   350                                                      
+REMARK 465     ASN B   351                                                      
+REMARK 465     VAL B   352                                                      
+REMARK 465     THR B   429                                                      
+REMARK 465     ALA B   430                                                      
+REMARK 465     MET C     1                                                      
+REMARK 465     ALA C   225                                                      
+REMARK 465     THR C   226                                                      
+REMARK 465     GLY C   227                                                      
+REMARK 465     ILE C   228                                                      
+REMARK 465     ALA C   314                                                      
+REMARK 465     LEU C   315                                                      
+REMARK 465     ASP C   316                                                      
+REMARK 465     ASP C   317                                                      
+REMARK 465     VAL C   318                                                      
+REMARK 465     SER C   319                                                      
+REMARK 465     LEU C   320                                                      
+REMARK 465     SER C   321                                                      
+REMARK 465     PRO C   322                                                      
+REMARK 465     GLU C   323                                                      
+REMARK 465     GLN C   324                                                      
+REMARK 465     ARG C   325                                                      
+REMARK 465     ALA C   326                                                      
+REMARK 465     TYR C   327                                                      
+REMARK 465     ALA C   328                                                      
+REMARK 465     ASN C   329                                                      
+REMARK 465     VAL C   330                                                      
+REMARK 465     ASN C   331                                                      
+REMARK 465     THR C   332                                                      
+REMARK 465     SER C   333                                                      
+REMARK 465     LEU C   334                                                      
+REMARK 465     ALA C   335                                                      
+REMARK 465     ASP C   336                                                      
+REMARK 465     ALA C   337                                                      
+REMARK 465     MET C   338                                                      
+REMARK 465     ALA C   339                                                      
+REMARK 465     VAL C   340                                                      
+REMARK 465     ASN C   341                                                      
+REMARK 465     ILE C   342                                                      
+REMARK 465     LEU C   343                                                      
+REMARK 465     ASN C   344                                                      
+REMARK 465     VAL C   345                                                      
+REMARK 465     LYS C   346                                                      
+REMARK 465     ASP C   347                                                      
+REMARK 465     ALA C   348                                                      
+REMARK 465     ARG C   349                                                      
+REMARK 465     THR C   350                                                      
+REMARK 465     ASN C   351                                                      
+REMARK 465     VAL C   352                                                      
+REMARK 465     THR C   429                                                      
+REMARK 465     ALA C   430                                                      
+REMARK 465     MET D     1                                                      
+REMARK 465     ALA D   225                                                      
+REMARK 465     THR D   226                                                      
+REMARK 465     GLY D   227                                                      
+REMARK 465     ILE D   228                                                      
+REMARK 465     ALA D   314                                                      
+REMARK 465     LEU D   315                                                      
+REMARK 465     ASP D   316                                                      
+REMARK 465     ASP D   317                                                      
+REMARK 465     VAL D   318                                                      
+REMARK 465     SER D   319                                                      
+REMARK 465     LEU D   320                                                      
+REMARK 465     SER D   321                                                      
+REMARK 465     PRO D   322                                                      
+REMARK 465     GLU D   323                                                      
+REMARK 465     GLN D   324                                                      
+REMARK 465     ARG D   325                                                      
+REMARK 465     ALA D   326                                                      
+REMARK 465     TYR D   327                                                      
+REMARK 465     ALA D   328                                                      
+REMARK 465     ASN D   329                                                      
+REMARK 465     VAL D   330                                                      
+REMARK 465     ASN D   331                                                      
+REMARK 465     THR D   332                                                      
+REMARK 465     SER D   333                                                      
+REMARK 465     LEU D   334                                                      
+REMARK 465     ALA D   335                                                      
+REMARK 465     ASP D   336                                                      
+REMARK 465     ALA D   337                                                      
+REMARK 465     MET D   338                                                      
+REMARK 465     ALA D   339                                                      
+REMARK 465     VAL D   340                                                      
+REMARK 465     ASN D   341                                                      
+REMARK 465     ILE D   342                                                      
+REMARK 465     LEU D   343                                                      
+REMARK 465     ASN D   344                                                      
+REMARK 465     VAL D   345                                                      
+REMARK 465     LYS D   346                                                      
+REMARK 465     ASP D   347                                                      
+REMARK 465     ALA D   348                                                      
+REMARK 465     ARG D   349                                                      
+REMARK 465     THR D   350                                                      
+REMARK 465     ASN D   351                                                      
+REMARK 465     VAL D   352                                                      
+REMARK 465     THR D   429                                                      
+REMARK 465     ALA D   430                                                      
+REMARK 465     MET E     1                                                      
+REMARK 465     ALA E   225                                                      
+REMARK 465     THR E   226                                                      
+REMARK 465     GLY E   227                                                      
+REMARK 465     ILE E   228                                                      
+REMARK 465     ALA E   314                                                      
+REMARK 465     LEU E   315                                                      
+REMARK 465     ASP E   316                                                      
+REMARK 465     ASP E   317                                                      
+REMARK 465     VAL E   318                                                      
+REMARK 465     SER E   319                                                      
+REMARK 465     LEU E   320                                                      
+REMARK 465     SER E   321                                                      
+REMARK 465     PRO E   322                                                      
+REMARK 465     GLU E   323                                                      
+REMARK 465     GLN E   324                                                      
+REMARK 465     ARG E   325                                                      
+REMARK 465     ALA E   326                                                      
+REMARK 465     TYR E   327                                                      
+REMARK 465     ALA E   328                                                      
+REMARK 465     ASN E   329                                                      
+REMARK 465     VAL E   330                                                      
+REMARK 465     ASN E   331                                                      
+REMARK 465     THR E   332                                                      
+REMARK 465     SER E   333                                                      
+REMARK 465     LEU E   334                                                      
+REMARK 465     ALA E   335                                                      
+REMARK 465     ASP E   336                                                      
+REMARK 465     ALA E   337                                                      
+REMARK 465     MET E   338                                                      
+REMARK 465     ALA E   339                                                      
+REMARK 465     VAL E   340                                                      
+REMARK 465     ASN E   341                                                      
+REMARK 465     ILE E   342                                                      
+REMARK 465     LEU E   343                                                      
+REMARK 465     ASN E   344                                                      
+REMARK 465     VAL E   345                                                      
+REMARK 465     LYS E   346                                                      
+REMARK 465     ASP E   347                                                      
+REMARK 465     ALA E   348                                                      
+REMARK 465     ARG E   349                                                      
+REMARK 465     THR E   350                                                      
+REMARK 465     ASN E   351                                                      
+REMARK 465     VAL E   352                                                      
+REMARK 465     THR E   429                                                      
+REMARK 465     ALA E   430                                                      
+REMARK 465     MET F     1                                                      
+REMARK 465     ALA F   225                                                      
+REMARK 465     THR F   226                                                      
+REMARK 465     GLY F   227                                                      
+REMARK 465     ILE F   228                                                      
+REMARK 465     ALA F   314                                                      
+REMARK 465     LEU F   315                                                      
+REMARK 465     ASP F   316                                                      
+REMARK 465     ASP F   317                                                      
+REMARK 465     VAL F   318                                                      
+REMARK 465     SER F   319                                                      
+REMARK 465     LEU F   320                                                      
+REMARK 465     SER F   321                                                      
+REMARK 465     PRO F   322                                                      
+REMARK 465     GLU F   323                                                      
+REMARK 465     GLN F   324                                                      
+REMARK 465     ARG F   325                                                      
+REMARK 465     ALA F   326                                                      
+REMARK 465     TYR F   327                                                      
+REMARK 465     ALA F   328                                                      
+REMARK 465     ASN F   329                                                      
+REMARK 465     VAL F   330                                                      
+REMARK 465     ASN F   331                                                      
+REMARK 465     THR F   332                                                      
+REMARK 465     SER F   333                                                      
+REMARK 465     LEU F   334                                                      
+REMARK 465     ALA F   335                                                      
+REMARK 465     ASP F   336                                                      
+REMARK 465     ALA F   337                                                      
+REMARK 465     MET F   338                                                      
+REMARK 465     ALA F   339                                                      
+REMARK 465     VAL F   340                                                      
+REMARK 465     ASN F   341                                                      
+REMARK 465     ILE F   342                                                      
+REMARK 465     LEU F   343                                                      
+REMARK 465     ASN F   344                                                      
+REMARK 465     VAL F   345                                                      
+REMARK 465     LYS F   346                                                      
+REMARK 465     ASP F   347                                                      
+REMARK 465     ALA F   348                                                      
+REMARK 465     ARG F   349                                                      
+REMARK 465     THR F   350                                                      
+REMARK 465     ASN F   351                                                      
+REMARK 465     VAL F   352                                                      
+REMARK 465     THR F   429                                                      
+REMARK 465     ALA F   430                                                      
+REMARK 465     MET G     1                                                      
+REMARK 465     ALA G   225                                                      
+REMARK 465     THR G   226                                                      
+REMARK 465     GLY G   227                                                      
+REMARK 465     ILE G   228                                                      
+REMARK 465     ALA G   314                                                      
+REMARK 465     LEU G   315                                                      
+REMARK 465     ASP G   316                                                      
+REMARK 465     ASP G   317                                                      
+REMARK 465     VAL G   318                                                      
+REMARK 465     SER G   319                                                      
+REMARK 465     LEU G   320                                                      
+REMARK 465     SER G   321                                                      
+REMARK 465     PRO G   322                                                      
+REMARK 465     GLU G   323                                                      
+REMARK 465     GLN G   324                                                      
+REMARK 465     ARG G   325                                                      
+REMARK 465     ALA G   326                                                      
+REMARK 465     TYR G   327                                                      
+REMARK 465     ALA G   328                                                      
+REMARK 465     ASN G   329                                                      
+REMARK 465     VAL G   330                                                      
+REMARK 465     ASN G   331                                                      
+REMARK 465     THR G   332                                                      
+REMARK 465     SER G   333                                                      
+REMARK 465     LEU G   334                                                      
+REMARK 465     ALA G   335                                                      
+REMARK 465     ASP G   336                                                      
+REMARK 465     ALA G   337                                                      
+REMARK 465     MET G   338                                                      
+REMARK 465     ALA G   339                                                      
+REMARK 465     VAL G   340                                                      
+REMARK 465     ASN G   341                                                      
+REMARK 465     ILE G   342                                                      
+REMARK 465     LEU G   343                                                      
+REMARK 465     ASN G   344                                                      
+REMARK 465     VAL G   345                                                      
+REMARK 465     LYS G   346                                                      
+REMARK 465     ASP G   347                                                      
+REMARK 465     ALA G   348                                                      
+REMARK 465     ARG G   349                                                      
+REMARK 465     THR G   350                                                      
+REMARK 465     ASN G   351                                                      
+REMARK 465     VAL G   352                                                      
+REMARK 465     THR G   429                                                      
+REMARK 465     ALA G   430                                                      
+REMARK 500                                                                      
+REMARK 500 GEOMETRY AND STEREOCHEMISTRY                                         
+REMARK 500 SUBTOPIC: CLOSE CONTACTS IN SAME ASYMMETRIC UNIT                     
+REMARK 500                                                                      
+REMARK 500 THE FOLLOWING ATOMS ARE IN CLOSE CONTACT.                            
+REMARK 500                                                                      
+REMARK 500  ATM1  RES C  SSEQI   ATM2  RES C  SSEQI           DISTANCE          
+REMARK 500   CA   ASN C   254     CA   GLY C   427              1.29            
+REMARK 500   CA   ASN A   254     CA   GLY A   427              1.29            
+REMARK 500   CA   ASN B   254     CA   GLY B   427              1.29            
+REMARK 500   CA   ASN G   254     CA   GLY G   427              1.29            
+REMARK 500   CA   ASN E   254     CA   GLY E   427              1.29            
+REMARK 500   CA   ASN F   254     CA   GLY F   427              1.29            
+REMARK 500   CA   ASN D   254     CA   GLY D   427              1.29            
+REMARK 500   CA   VAL D   306     CA   THR D   416              1.34            
+REMARK 500   CA   VAL F   306     CA   THR F   416              1.35            
+REMARK 500   CA   VAL A   306     CA   THR A   416              1.35            
+REMARK 500   CA   VAL B   306     CA   THR B   416              1.35            
+REMARK 500   CA   VAL G   306     CA   THR G   416              1.35            
+REMARK 500   CA   VAL C   306     CA   THR C   416              1.35            
+REMARK 500   CA   VAL E   306     CA   THR E   416              1.35            
+REMARK 500   CA   LYS F   237     CA   ARG F   417              1.36            
+REMARK 500   CA   LYS B   237     CA   ARG B   417              1.36            
+REMARK 500   CA   LYS E   237     CA   ARG E   417              1.36            
+REMARK 500   CA   LYS D   237     CA   ARG D   417              1.37            
+REMARK 500   CA   LYS A   237     CA   ARG A   417              1.37            
+REMARK 500   CA   LYS G   237     CA   ARG G   417              1.37            
+REMARK 500   CA   LYS C   237     CA   ARG C   417              1.37            
+REMARK 500   CA   VAL F   250     CA   GLY F   424              1.68            
+REMARK 500   CA   VAL D   250     CA   GLY D   424              1.68            
+REMARK 500   CA   VAL G   250     CA   GLY G   424              1.68            
+REMARK 500   CA   VAL E   250     CA   GLY E   424              1.68            
+REMARK 500   CA   VAL B   250     CA   GLY B   424              1.68            
+REMARK 500   CA   VAL C   250     CA   GLY C   424              1.68            
+REMARK 500   CA   VAL A   250     CA   GLY A   424              1.68            
+REMARK 500   CA   ASP B    65     CA   GLN B   234              2.11            
+REMARK 500   CA   ASP D    65     CA   GLN D   234              2.11            
+REMARK 500   CA   ASP F    65     CA   GLN F   234              2.11            
+REMARK 500   CA   ASP A    65     CA   GLN A   234              2.11            
+REMARK 500   CA   ASP E    65     CA   GLN E   234              2.11            
+REMARK 500   CA   ASP G    65     CA   GLN G   234              2.11            
+REMARK 500   CA   ASP C    65     CA   GLN C   234              2.11            
+REMARK 500   CA   THR B    34     CA   ARG B   190              2.15            
+REMARK 500   CA   THR E    34     CA   ARG E   190              2.15            
+REMARK 500   CA   THR G    34     CA   ARG G   190              2.15            
+REMARK 500   CA   THR D    34     CA   ARG D   190              2.15            
+REMARK 500   CA   THR C    34     CA   ARG C   190              2.15            
+REMARK 500   CA   THR F    34     CA   ARG F   190              2.15            
+REMARK 500   CA   THR A    34     CA   ARG A   190              2.15            
+REMARK 500                                                                      
+REMARK 500 REMARK: NULL                                                         
+REMARK 900                                                                      
+REMARK 900 RELATED ENTRIES                                                      
+REMARK 900 RELATED ID: EMD-5149   RELATED DB: EMDB                              
+REMARK 900 RELATED ID: 3IYH   RELATED DB: PDB                                   
+DBREF  3IYI A    1   430  UNP    P26747   VG05_BPP22       1    430             
+DBREF  3IYI B    1   430  UNP    P26747   VG05_BPP22       1    430             
+DBREF  3IYI C    1   430  UNP    P26747   VG05_BPP22       1    430             
+DBREF  3IYI D    1   430  UNP    P26747   VG05_BPP22       1    430             
+DBREF  3IYI E    1   430  UNP    P26747   VG05_BPP22       1    430             
+DBREF  3IYI F    1   430  UNP    P26747   VG05_BPP22       1    430             
+DBREF  3IYI G    1   430  UNP    P26747   VG05_BPP22       1    430             
+SEQRES   1 A  430  MET ALA LEU ASN GLU GLY GLN ILE VAL THR LEU ALA VAL          
+SEQRES   2 A  430  ASP GLU ILE ILE GLU THR ILE SER ALA ILE THR PRO MET          
+SEQRES   3 A  430  ALA GLN LYS ALA LYS LYS TYR THR PRO PRO ALA ALA SER          
+SEQRES   4 A  430  MET GLN ARG SER SER ASN THR ILE TRP MET PRO VAL GLU          
+SEQRES   5 A  430  GLN GLU SER PRO THR GLN GLU GLY TRP ASP LEU THR ASP          
+SEQRES   6 A  430  LYS ALA THR GLY LEU LEU GLU LEU ASN VAL ALA VAL ASN          
+SEQRES   7 A  430  MET GLY GLU PRO ASP ASN ASP PHE PHE GLN LEU ARG ALA          
+SEQRES   8 A  430  ASP ASP LEU ARG ASP GLU THR ALA TYR ARG ARG ARG ILE          
+SEQRES   9 A  430  GLN SER ALA ALA ARG LYS LEU ALA ASN ASN VAL GLU LEU          
+SEQRES  10 A  430  LYS VAL ALA ASN MET ALA ALA GLU MET GLY SER LEU VAL          
+SEQRES  11 A  430  ILE THR SER PRO ASP ALA ILE GLY THR ASN THR ALA ASP          
+SEQRES  12 A  430  ALA TRP ASN PHE VAL ALA ASP ALA GLU GLU ILE MET PHE          
+SEQRES  13 A  430  SER ARG GLU LEU ASN ARG ASP MET GLY THR SER TYR PHE          
+SEQRES  14 A  430  PHE ASN PRO GLN ASP TYR LYS LYS ALA GLY TYR ASP LEU          
+SEQRES  15 A  430  THR LYS ARG ASP ILE PHE GLY ARG ILE PRO GLU GLU ALA          
+SEQRES  16 A  430  TYR ARG ASP GLY THR ILE GLN ARG GLN VAL ALA GLY PHE          
+SEQRES  17 A  430  ASP ASP VAL LEU ARG SER PRO LYS LEU PRO VAL LEU THR          
+SEQRES  18 A  430  LYS SER THR ALA THR GLY ILE THR VAL SER GLY ALA GLN          
+SEQRES  19 A  430  SER PHE LYS PRO VAL ALA TRP GLN LEU ASP ASN ASP GLY          
+SEQRES  20 A  430  ASN LYS VAL ASN VAL ASP ASN ARG PHE ALA THR VAL THR          
+SEQRES  21 A  430  LEU SER ALA THR THR GLY MET LYS ARG GLY ASP LYS ILE          
+SEQRES  22 A  430  SER PHE ALA GLY VAL LYS PHE LEU GLY GLN MET ALA LYS          
+SEQRES  23 A  430  ASN VAL LEU ALA GLN ASP ALA THR PHE SER VAL VAL ARG          
+SEQRES  24 A  430  VAL VAL ASP GLY THR HIS VAL GLU ILE THR PRO LYS PRO          
+SEQRES  25 A  430  VAL ALA LEU ASP ASP VAL SER LEU SER PRO GLU GLN ARG          
+SEQRES  26 A  430  ALA TYR ALA ASN VAL ASN THR SER LEU ALA ASP ALA MET          
+SEQRES  27 A  430  ALA VAL ASN ILE LEU ASN VAL LYS ASP ALA ARG THR ASN          
+SEQRES  28 A  430  VAL PHE TRP ALA ASP ASP ALA ILE ARG ILE VAL SER GLN          
+SEQRES  29 A  430  PRO ILE PRO ALA ASN HIS GLU LEU PHE ALA GLY MET LYS          
+SEQRES  30 A  430  THR THR SER PHE SER ILE PRO ASP VAL GLY LEU ASN GLY          
+SEQRES  31 A  430  ILE PHE ALA THR GLN GLY ASP ILE SER THR LEU SER GLY          
+SEQRES  32 A  430  LEU CYS ARG ILE ALA LEU TRP TYR GLY VAL ASN ALA THR          
+SEQRES  33 A  430  ARG PRO GLU ALA ILE GLY VAL GLY LEU PRO GLY GLN THR          
+SEQRES  34 A  430  ALA                                                          
+SEQRES   1 B  430  MET ALA LEU ASN GLU GLY GLN ILE VAL THR LEU ALA VAL          
+SEQRES   2 B  430  ASP GLU ILE ILE GLU THR ILE SER ALA ILE THR PRO MET          
+SEQRES   3 B  430  ALA GLN LYS ALA LYS LYS TYR THR PRO PRO ALA ALA SER          
+SEQRES   4 B  430  MET GLN ARG SER SER ASN THR ILE TRP MET PRO VAL GLU          
+SEQRES   5 B  430  GLN GLU SER PRO THR GLN GLU GLY TRP ASP LEU THR ASP          
+SEQRES   6 B  430  LYS ALA THR GLY LEU LEU GLU LEU ASN VAL ALA VAL ASN          
+SEQRES   7 B  430  MET GLY GLU PRO ASP ASN ASP PHE PHE GLN LEU ARG ALA          
+SEQRES   8 B  430  ASP ASP LEU ARG ASP GLU THR ALA TYR ARG ARG ARG ILE          
+SEQRES   9 B  430  GLN SER ALA ALA ARG LYS LEU ALA ASN ASN VAL GLU LEU          
+SEQRES  10 B  430  LYS VAL ALA ASN MET ALA ALA GLU MET GLY SER LEU VAL          
+SEQRES  11 B  430  ILE THR SER PRO ASP ALA ILE GLY THR ASN THR ALA ASP          
+SEQRES  12 B  430  ALA TRP ASN PHE VAL ALA ASP ALA GLU GLU ILE MET PHE          
+SEQRES  13 B  430  SER ARG GLU LEU ASN ARG ASP MET GLY THR SER TYR PHE          
+SEQRES  14 B  430  PHE ASN PRO GLN ASP TYR LYS LYS ALA GLY TYR ASP LEU          
+SEQRES  15 B  430  THR LYS ARG ASP ILE PHE GLY ARG ILE PRO GLU GLU ALA          
+SEQRES  16 B  430  TYR ARG ASP GLY THR ILE GLN ARG GLN VAL ALA GLY PHE          
+SEQRES  17 B  430  ASP ASP VAL LEU ARG SER PRO LYS LEU PRO VAL LEU THR          
+SEQRES  18 B  430  LYS SER THR ALA THR GLY ILE THR VAL SER GLY ALA GLN          
+SEQRES  19 B  430  SER PHE LYS PRO VAL ALA TRP GLN LEU ASP ASN ASP GLY          
+SEQRES  20 B  430  ASN LYS VAL ASN VAL ASP ASN ARG PHE ALA THR VAL THR          
+SEQRES  21 B  430  LEU SER ALA THR THR GLY MET LYS ARG GLY ASP LYS ILE          
+SEQRES  22 B  430  SER PHE ALA GLY VAL LYS PHE LEU GLY GLN MET ALA LYS          
+SEQRES  23 B  430  ASN VAL LEU ALA GLN ASP ALA THR PHE SER VAL VAL ARG          
+SEQRES  24 B  430  VAL VAL ASP GLY THR HIS VAL GLU ILE THR PRO LYS PRO          
+SEQRES  25 B  430  VAL ALA LEU ASP ASP VAL SER LEU SER PRO GLU GLN ARG          
+SEQRES  26 B  430  ALA TYR ALA ASN VAL ASN THR SER LEU ALA ASP ALA MET          
+SEQRES  27 B  430  ALA VAL ASN ILE LEU ASN VAL LYS ASP ALA ARG THR ASN          
+SEQRES  28 B  430  VAL PHE TRP ALA ASP ASP ALA ILE ARG ILE VAL SER GLN          
+SEQRES  29 B  430  PRO ILE PRO ALA ASN HIS GLU LEU PHE ALA GLY MET LYS          
+SEQRES  30 B  430  THR THR SER PHE SER ILE PRO ASP VAL GLY LEU ASN GLY          
+SEQRES  31 B  430  ILE PHE ALA THR GLN GLY ASP ILE SER THR LEU SER GLY          
+SEQRES  32 B  430  LEU CYS ARG ILE ALA LEU TRP TYR GLY VAL ASN ALA THR          
+SEQRES  33 B  430  ARG PRO GLU ALA ILE GLY VAL GLY LEU PRO GLY GLN THR          
+SEQRES  34 B  430  ALA                                                          
+SEQRES   1 C  430  MET ALA LEU ASN GLU GLY GLN ILE VAL THR LEU ALA VAL          
+SEQRES   2 C  430  ASP GLU ILE ILE GLU THR ILE SER ALA ILE THR PRO MET          
+SEQRES   3 C  430  ALA GLN LYS ALA LYS LYS TYR THR PRO PRO ALA ALA SER          
+SEQRES   4 C  430  MET GLN ARG SER SER ASN THR ILE TRP MET PRO VAL GLU          
+SEQRES   5 C  430  GLN GLU SER PRO THR GLN GLU GLY TRP ASP LEU THR ASP          
+SEQRES   6 C  430  LYS ALA THR GLY LEU LEU GLU LEU ASN VAL ALA VAL ASN          
+SEQRES   7 C  430  MET GLY GLU PRO ASP ASN ASP PHE PHE GLN LEU ARG ALA          
+SEQRES   8 C  430  ASP ASP LEU ARG ASP GLU THR ALA TYR ARG ARG ARG ILE          
+SEQRES   9 C  430  GLN SER ALA ALA ARG LYS LEU ALA ASN ASN VAL GLU LEU          
+SEQRES  10 C  430  LYS VAL ALA ASN MET ALA ALA GLU MET GLY SER LEU VAL          
+SEQRES  11 C  430  ILE THR SER PRO ASP ALA ILE GLY THR ASN THR ALA ASP          
+SEQRES  12 C  430  ALA TRP ASN PHE VAL ALA ASP ALA GLU GLU ILE MET PHE          
+SEQRES  13 C  430  SER ARG GLU LEU ASN ARG ASP MET GLY THR SER TYR PHE          
+SEQRES  14 C  430  PHE ASN PRO GLN ASP TYR LYS LYS ALA GLY TYR ASP LEU          
+SEQRES  15 C  430  THR LYS ARG ASP ILE PHE GLY ARG ILE PRO GLU GLU ALA          
+SEQRES  16 C  430  TYR ARG ASP GLY THR ILE GLN ARG GLN VAL ALA GLY PHE          
+SEQRES  17 C  430  ASP ASP VAL LEU ARG SER PRO LYS LEU PRO VAL LEU THR          
+SEQRES  18 C  430  LYS SER THR ALA THR GLY ILE THR VAL SER GLY ALA GLN          
+SEQRES  19 C  430  SER PHE LYS PRO VAL ALA TRP GLN LEU ASP ASN ASP GLY          
+SEQRES  20 C  430  ASN LYS VAL ASN VAL ASP ASN ARG PHE ALA THR VAL THR          
+SEQRES  21 C  430  LEU SER ALA THR THR GLY MET LYS ARG GLY ASP LYS ILE          
+SEQRES  22 C  430  SER PHE ALA GLY VAL LYS PHE LEU GLY GLN MET ALA LYS          
+SEQRES  23 C  430  ASN VAL LEU ALA GLN ASP ALA THR PHE SER VAL VAL ARG          
+SEQRES  24 C  430  VAL VAL ASP GLY THR HIS VAL GLU ILE THR PRO LYS PRO          
+SEQRES  25 C  430  VAL ALA LEU ASP ASP VAL SER LEU SER PRO GLU GLN ARG          
+SEQRES  26 C  430  ALA TYR ALA ASN VAL ASN THR SER LEU ALA ASP ALA MET          
+SEQRES  27 C  430  ALA VAL ASN ILE LEU ASN VAL LYS ASP ALA ARG THR ASN          
+SEQRES  28 C  430  VAL PHE TRP ALA ASP ASP ALA ILE ARG ILE VAL SER GLN          
+SEQRES  29 C  430  PRO ILE PRO ALA ASN HIS GLU LEU PHE ALA GLY MET LYS          
+SEQRES  30 C  430  THR THR SER PHE SER ILE PRO ASP VAL GLY LEU ASN GLY          
+SEQRES  31 C  430  ILE PHE ALA THR GLN GLY ASP ILE SER THR LEU SER GLY          
+SEQRES  32 C  430  LEU CYS ARG ILE ALA LEU TRP TYR GLY VAL ASN ALA THR          
+SEQRES  33 C  430  ARG PRO GLU ALA ILE GLY VAL GLY LEU PRO GLY GLN THR          
+SEQRES  34 C  430  ALA                                                          
+SEQRES   1 D  430  MET ALA LEU ASN GLU GLY GLN ILE VAL THR LEU ALA VAL          
+SEQRES   2 D  430  ASP GLU ILE ILE GLU THR ILE SER ALA ILE THR PRO MET          
+SEQRES   3 D  430  ALA GLN LYS ALA LYS LYS TYR THR PRO PRO ALA ALA SER          
+SEQRES   4 D  430  MET GLN ARG SER SER ASN THR ILE TRP MET PRO VAL GLU          
+SEQRES   5 D  430  GLN GLU SER PRO THR GLN GLU GLY TRP ASP LEU THR ASP          
+SEQRES   6 D  430  LYS ALA THR GLY LEU LEU GLU LEU ASN VAL ALA VAL ASN          
+SEQRES   7 D  430  MET GLY GLU PRO ASP ASN ASP PHE PHE GLN LEU ARG ALA          
+SEQRES   8 D  430  ASP ASP LEU ARG ASP GLU THR ALA TYR ARG ARG ARG ILE          
+SEQRES   9 D  430  GLN SER ALA ALA ARG LYS LEU ALA ASN ASN VAL GLU LEU          
+SEQRES  10 D  430  LYS VAL ALA ASN MET ALA ALA GLU MET GLY SER LEU VAL          
+SEQRES  11 D  430  ILE THR SER PRO ASP ALA ILE GLY THR ASN THR ALA ASP          
+SEQRES  12 D  430  ALA TRP ASN PHE VAL ALA ASP ALA GLU GLU ILE MET PHE          
+SEQRES  13 D  430  SER ARG GLU LEU ASN ARG ASP MET GLY THR SER TYR PHE          
+SEQRES  14 D  430  PHE ASN PRO GLN ASP TYR LYS LYS ALA GLY TYR ASP LEU          
+SEQRES  15 D  430  THR LYS ARG ASP ILE PHE GLY ARG ILE PRO GLU GLU ALA          
+SEQRES  16 D  430  TYR ARG ASP GLY THR ILE GLN ARG GLN VAL ALA GLY PHE          
+SEQRES  17 D  430  ASP ASP VAL LEU ARG SER PRO LYS LEU PRO VAL LEU THR          
+SEQRES  18 D  430  LYS SER THR ALA THR GLY ILE THR VAL SER GLY ALA GLN          
+SEQRES  19 D  430  SER PHE LYS PRO VAL ALA TRP GLN LEU ASP ASN ASP GLY          
+SEQRES  20 D  430  ASN LYS VAL ASN VAL ASP ASN ARG PHE ALA THR VAL THR          
+SEQRES  21 D  430  LEU SER ALA THR THR GLY MET LYS ARG GLY ASP LYS ILE          
+SEQRES  22 D  430  SER PHE ALA GLY VAL LYS PHE LEU GLY GLN MET ALA LYS          
+SEQRES  23 D  430  ASN VAL LEU ALA GLN ASP ALA THR PHE SER VAL VAL ARG          
+SEQRES  24 D  430  VAL VAL ASP GLY THR HIS VAL GLU ILE THR PRO LYS PRO          
+SEQRES  25 D  430  VAL ALA LEU ASP ASP VAL SER LEU SER PRO GLU GLN ARG          
+SEQRES  26 D  430  ALA TYR ALA ASN VAL ASN THR SER LEU ALA ASP ALA MET          
+SEQRES  27 D  430  ALA VAL ASN ILE LEU ASN VAL LYS ASP ALA ARG THR ASN          
+SEQRES  28 D  430  VAL PHE TRP ALA ASP ASP ALA ILE ARG ILE VAL SER GLN          
+SEQRES  29 D  430  PRO ILE PRO ALA ASN HIS GLU LEU PHE ALA GLY MET LYS          
+SEQRES  30 D  430  THR THR SER PHE SER ILE PRO ASP VAL GLY LEU ASN GLY          
+SEQRES  31 D  430  ILE PHE ALA THR GLN GLY ASP ILE SER THR LEU SER GLY          
+SEQRES  32 D  430  LEU CYS ARG ILE ALA LEU TRP TYR GLY VAL ASN ALA THR          
+SEQRES  33 D  430  ARG PRO GLU ALA ILE GLY VAL GLY LEU PRO GLY GLN THR          
+SEQRES  34 D  430  ALA                                                          
+SEQRES   1 E  430  MET ALA LEU ASN GLU GLY GLN ILE VAL THR LEU ALA VAL          
+SEQRES   2 E  430  ASP GLU ILE ILE GLU THR ILE SER ALA ILE THR PRO MET          
+SEQRES   3 E  430  ALA GLN LYS ALA LYS LYS TYR THR PRO PRO ALA ALA SER          
+SEQRES   4 E  430  MET GLN ARG SER SER ASN THR ILE TRP MET PRO VAL GLU          
+SEQRES   5 E  430  GLN GLU SER PRO THR GLN GLU GLY TRP ASP LEU THR ASP          
+SEQRES   6 E  430  LYS ALA THR GLY LEU LEU GLU LEU ASN VAL ALA VAL ASN          
+SEQRES   7 E  430  MET GLY GLU PRO ASP ASN ASP PHE PHE GLN LEU ARG ALA          
+SEQRES   8 E  430  ASP ASP LEU ARG ASP GLU THR ALA TYR ARG ARG ARG ILE          
+SEQRES   9 E  430  GLN SER ALA ALA ARG LYS LEU ALA ASN ASN VAL GLU LEU          
+SEQRES  10 E  430  LYS VAL ALA ASN MET ALA ALA GLU MET GLY SER LEU VAL          
+SEQRES  11 E  430  ILE THR SER PRO ASP ALA ILE GLY THR ASN THR ALA ASP          
+SEQRES  12 E  430  ALA TRP ASN PHE VAL ALA ASP ALA GLU GLU ILE MET PHE          
+SEQRES  13 E  430  SER ARG GLU LEU ASN ARG ASP MET GLY THR SER TYR PHE          
+SEQRES  14 E  430  PHE ASN PRO GLN ASP TYR LYS LYS ALA GLY TYR ASP LEU          
+SEQRES  15 E  430  THR LYS ARG ASP ILE PHE GLY ARG ILE PRO GLU GLU ALA          
+SEQRES  16 E  430  TYR ARG ASP GLY THR ILE GLN ARG GLN VAL ALA GLY PHE          
+SEQRES  17 E  430  ASP ASP VAL LEU ARG SER PRO LYS LEU PRO VAL LEU THR          
+SEQRES  18 E  430  LYS SER THR ALA THR GLY ILE THR VAL SER GLY ALA GLN          
+SEQRES  19 E  430  SER PHE LYS PRO VAL ALA TRP GLN LEU ASP ASN ASP GLY          
+SEQRES  20 E  430  ASN LYS VAL ASN VAL ASP ASN ARG PHE ALA THR VAL THR          
+SEQRES  21 E  430  LEU SER ALA THR THR GLY MET LYS ARG GLY ASP LYS ILE          
+SEQRES  22 E  430  SER PHE ALA GLY VAL LYS PHE LEU GLY GLN MET ALA LYS          
+SEQRES  23 E  430  ASN VAL LEU ALA GLN ASP ALA THR PHE SER VAL VAL ARG          
+SEQRES  24 E  430  VAL VAL ASP GLY THR HIS VAL GLU ILE THR PRO LYS PRO          
+SEQRES  25 E  430  VAL ALA LEU ASP ASP VAL SER LEU SER PRO GLU GLN ARG          
+SEQRES  26 E  430  ALA TYR ALA ASN VAL ASN THR SER LEU ALA ASP ALA MET          
+SEQRES  27 E  430  ALA VAL ASN ILE LEU ASN VAL LYS ASP ALA ARG THR ASN          
+SEQRES  28 E  430  VAL PHE TRP ALA ASP ASP ALA ILE ARG ILE VAL SER GLN          
+SEQRES  29 E  430  PRO ILE PRO ALA ASN HIS GLU LEU PHE ALA GLY MET LYS          
+SEQRES  30 E  430  THR THR SER PHE SER ILE PRO ASP VAL GLY LEU ASN GLY          
+SEQRES  31 E  430  ILE PHE ALA THR GLN GLY ASP ILE SER THR LEU SER GLY          
+SEQRES  32 E  430  LEU CYS ARG ILE ALA LEU TRP TYR GLY VAL ASN ALA THR          
+SEQRES  33 E  430  ARG PRO GLU ALA ILE GLY VAL GLY LEU PRO GLY GLN THR          
+SEQRES  34 E  430  ALA                                                          
+SEQRES   1 F  430  MET ALA LEU ASN GLU GLY GLN ILE VAL THR LEU ALA VAL          
+SEQRES   2 F  430  ASP GLU ILE ILE GLU THR ILE SER ALA ILE THR PRO MET          
+SEQRES   3 F  430  ALA GLN LYS ALA LYS LYS TYR THR PRO PRO ALA ALA SER          
+SEQRES   4 F  430  MET GLN ARG SER SER ASN THR ILE TRP MET PRO VAL GLU          
+SEQRES   5 F  430  GLN GLU SER PRO THR GLN GLU GLY TRP ASP LEU THR ASP          
+SEQRES   6 F  430  LYS ALA THR GLY LEU LEU GLU LEU ASN VAL ALA VAL ASN          
+SEQRES   7 F  430  MET GLY GLU PRO ASP ASN ASP PHE PHE GLN LEU ARG ALA          
+SEQRES   8 F  430  ASP ASP LEU ARG ASP GLU THR ALA TYR ARG ARG ARG ILE          
+SEQRES   9 F  430  GLN SER ALA ALA ARG LYS LEU ALA ASN ASN VAL GLU LEU          
+SEQRES  10 F  430  LYS VAL ALA ASN MET ALA ALA GLU MET GLY SER LEU VAL          
+SEQRES  11 F  430  ILE THR SER PRO ASP ALA ILE GLY THR ASN THR ALA ASP          
+SEQRES  12 F  430  ALA TRP ASN PHE VAL ALA ASP ALA GLU GLU ILE MET PHE          
+SEQRES  13 F  430  SER ARG GLU LEU ASN ARG ASP MET GLY THR SER TYR PHE          
+SEQRES  14 F  430  PHE ASN PRO GLN ASP TYR LYS LYS ALA GLY TYR ASP LEU          
+SEQRES  15 F  430  THR LYS ARG ASP ILE PHE GLY ARG ILE PRO GLU GLU ALA          
+SEQRES  16 F  430  TYR ARG ASP GLY THR ILE GLN ARG GLN VAL ALA GLY PHE          
+SEQRES  17 F  430  ASP ASP VAL LEU ARG SER PRO LYS LEU PRO VAL LEU THR          
+SEQRES  18 F  430  LYS SER THR ALA THR GLY ILE THR VAL SER GLY ALA GLN          
+SEQRES  19 F  430  SER PHE LYS PRO VAL ALA TRP GLN LEU ASP ASN ASP GLY          
+SEQRES  20 F  430  ASN LYS VAL ASN VAL ASP ASN ARG PHE ALA THR VAL THR          
+SEQRES  21 F  430  LEU SER ALA THR THR GLY MET LYS ARG GLY ASP LYS ILE          
+SEQRES  22 F  430  SER PHE ALA GLY VAL LYS PHE LEU GLY GLN MET ALA LYS          
+SEQRES  23 F  430  ASN VAL LEU ALA GLN ASP ALA THR PHE SER VAL VAL ARG          
+SEQRES  24 F  430  VAL VAL ASP GLY THR HIS VAL GLU ILE THR PRO LYS PRO          
+SEQRES  25 F  430  VAL ALA LEU ASP ASP VAL SER LEU SER PRO GLU GLN ARG          
+SEQRES  26 F  430  ALA TYR ALA ASN VAL ASN THR SER LEU ALA ASP ALA MET          
+SEQRES  27 F  430  ALA VAL ASN ILE LEU ASN VAL LYS ASP ALA ARG THR ASN          
+SEQRES  28 F  430  VAL PHE TRP ALA ASP ASP ALA ILE ARG ILE VAL SER GLN          
+SEQRES  29 F  430  PRO ILE PRO ALA ASN HIS GLU LEU PHE ALA GLY MET LYS          
+SEQRES  30 F  430  THR THR SER PHE SER ILE PRO ASP VAL GLY LEU ASN GLY          
+SEQRES  31 F  430  ILE PHE ALA THR GLN GLY ASP ILE SER THR LEU SER GLY          
+SEQRES  32 F  430  LEU CYS ARG ILE ALA LEU TRP TYR GLY VAL ASN ALA THR          
+SEQRES  33 F  430  ARG PRO GLU ALA ILE GLY VAL GLY LEU PRO GLY GLN THR          
+SEQRES  34 F  430  ALA                                                          
+SEQRES   1 G  430  MET ALA LEU ASN GLU GLY GLN ILE VAL THR LEU ALA VAL          
+SEQRES   2 G  430  ASP GLU ILE ILE GLU THR ILE SER ALA ILE THR PRO MET          
+SEQRES   3 G  430  ALA GLN LYS ALA LYS LYS TYR THR PRO PRO ALA ALA SER          
+SEQRES   4 G  430  MET GLN ARG SER SER ASN THR ILE TRP MET PRO VAL GLU          
+SEQRES   5 G  430  GLN GLU SER PRO THR GLN GLU GLY TRP ASP LEU THR ASP          
+SEQRES   6 G  430  LYS ALA THR GLY LEU LEU GLU LEU ASN VAL ALA VAL ASN          
+SEQRES   7 G  430  MET GLY GLU PRO ASP ASN ASP PHE PHE GLN LEU ARG ALA          
+SEQRES   8 G  430  ASP ASP LEU ARG ASP GLU THR ALA TYR ARG ARG ARG ILE          
+SEQRES   9 G  430  GLN SER ALA ALA ARG LYS LEU ALA ASN ASN VAL GLU LEU          
+SEQRES  10 G  430  LYS VAL ALA ASN MET ALA ALA GLU MET GLY SER LEU VAL          
+SEQRES  11 G  430  ILE THR SER PRO ASP ALA ILE GLY THR ASN THR ALA ASP          
+SEQRES  12 G  430  ALA TRP ASN PHE VAL ALA ASP ALA GLU GLU ILE MET PHE          
+SEQRES  13 G  430  SER ARG GLU LEU ASN ARG ASP MET GLY THR SER TYR PHE          
+SEQRES  14 G  430  PHE ASN PRO GLN ASP TYR LYS LYS ALA GLY TYR ASP LEU          
+SEQRES  15 G  430  THR LYS ARG ASP ILE PHE GLY ARG ILE PRO GLU GLU ALA          
+SEQRES  16 G  430  TYR ARG ASP GLY THR ILE GLN ARG GLN VAL ALA GLY PHE          
+SEQRES  17 G  430  ASP ASP VAL LEU ARG SER PRO LYS LEU PRO VAL LEU THR          
+SEQRES  18 G  430  LYS SER THR ALA THR GLY ILE THR VAL SER GLY ALA GLN          
+SEQRES  19 G  430  SER PHE LYS PRO VAL ALA TRP GLN LEU ASP ASN ASP GLY          
+SEQRES  20 G  430  ASN LYS VAL ASN VAL ASP ASN ARG PHE ALA THR VAL THR          
+SEQRES  21 G  430  LEU SER ALA THR THR GLY MET LYS ARG GLY ASP LYS ILE          
+SEQRES  22 G  430  SER PHE ALA GLY VAL LYS PHE LEU GLY GLN MET ALA LYS          
+SEQRES  23 G  430  ASN VAL LEU ALA GLN ASP ALA THR PHE SER VAL VAL ARG          
+SEQRES  24 G  430  VAL VAL ASP GLY THR HIS VAL GLU ILE THR PRO LYS PRO          
+SEQRES  25 G  430  VAL ALA LEU ASP ASP VAL SER LEU SER PRO GLU GLN ARG          
+SEQRES  26 G  430  ALA TYR ALA ASN VAL ASN THR SER LEU ALA ASP ALA MET          
+SEQRES  27 G  430  ALA VAL ASN ILE LEU ASN VAL LYS ASP ALA ARG THR ASN          
+SEQRES  28 G  430  VAL PHE TRP ALA ASP ASP ALA ILE ARG ILE VAL SER GLN          
+SEQRES  29 G  430  PRO ILE PRO ALA ASN HIS GLU LEU PHE ALA GLY MET LYS          
+SEQRES  30 G  430  THR THR SER PHE SER ILE PRO ASP VAL GLY LEU ASN GLY          
+SEQRES  31 G  430  ILE PHE ALA THR GLN GLY ASP ILE SER THR LEU SER GLY          
+SEQRES  32 G  430  LEU CYS ARG ILE ALA LEU TRP TYR GLY VAL ASN ALA THR          
+SEQRES  33 G  430  ARG PRO GLU ALA ILE GLY VAL GLY LEU PRO GLY GLN THR          
+SEQRES  34 G  430  ALA                                                          
+CRYST1    1.000    1.000    1.000  90.00  90.00  90.00 P 1           1          
+ORIGX1      1.000000  0.000000  0.000000        0.00000                         
+ORIGX2      0.000000  1.000000  0.000000        0.00000                         
+ORIGX3      0.000000  0.000000  1.000000        0.00000                         
+SCALE1      1.000000  0.000000  0.000000        0.00000                         
+SCALE2      0.000000  1.000000  0.000000        0.00000                         
+SCALE3      0.000000  0.000000  1.000000        0.00000                         
+ATOM      1  CA  ALA A   2      61.238 100.098 209.738  1.00 700.00           C 
+ATOM      2  CA  LEU A   3      60.793  99.625 205.765  1.00 700.00           C 
+ATOM      3  CA  ASN A   4      58.341 102.981 207.339  1.00 700.00           C 
+ATOM      4  CA  GLU A   5      60.586 105.202 209.039  1.00 700.00           C 
+ATOM      5  CA  GLY A   6      63.160 105.522 205.765  1.00 700.00           C 
+ATOM      6  CA  GLN A   7      59.690 105.911 203.946  1.00 700.00           C 
+ATOM      7  CA  ILE A   8      59.746 108.319 206.959  1.00 700.00           C 
+ATOM      8  CA  VAL A   9      61.824 110.341 206.893  1.00 700.00           C 
+ATOM      9  CA  THR A  10      62.670 110.340 203.456  1.00 700.00           C 
+ATOM     10  CA  LEU A  11      59.805 112.026 201.255  1.00 700.00           C 
+ATOM     11  CA  ALA A  12      60.838 112.914 205.312  1.00 700.00           C 
+ATOM     12  CA  VAL A  13      57.564 116.978 202.947  1.00 700.00           C 
+ATOM     13  CA  ASP A  14      56.763 119.233 204.810  1.00 300.00           C 
+ATOM     14  CA  GLU A  15      53.282 117.969 205.849  1.00 300.00           C 
+ATOM     15  CA  ILE A  16      52.838 117.314 210.070  1.00 300.00           C 
+ATOM     16  CA  ILE A  17      51.251 113.271 209.575  1.00 300.00           C 
+ATOM     17  CA  GLU A  18      49.964 112.354 206.919  1.00 362.00           C 
+ATOM     18  CA  THR A  19      49.744 109.173 206.039  1.00 302.74           C 
+ATOM     19  CA  ILE A  20      52.932 106.831 207.310  1.00 700.00           C 
+ATOM     20  CA  SER A  21      53.540 108.876 211.170  1.00 700.00           C 
+ATOM     21  CA  ALA A  22      51.352 106.353 212.100  1.00 700.00           C 
+ATOM     22  CA  ILE A  23      51.873 103.560 210.854  1.00 700.00           C 
+ATOM     23  CA  THR A  24      55.833 102.781 211.577  1.00 700.00           C 
+ATOM     24  CA  PRO A  25      55.584 104.282 214.877  1.00 700.00           C 
+ATOM     25  CA  MET A  26      52.696 101.516 214.915  1.00 700.00           C 
+ATOM     26  CA  ALA A  27      54.274  98.367 212.478  1.00 700.00           C 
+ATOM     27  CA  GLN A  28      57.711 100.641 216.321  1.00 700.00           C 
+ATOM     28  CA  LYS A  29      55.262  99.479 218.634  1.00 700.00           C 
+ATOM     29  CA  ALA A  30      53.377  96.545 218.415  1.00 700.00           C 
+ATOM     30  CA  LYS A  31      57.367  96.843 217.775  1.00 700.00           C 
+ATOM     31  CA  LYS A  32      59.384  95.054 220.558  1.00 700.00           C 
+ATOM     32  CA  TYR A  33      62.488  94.109 220.137  1.00 700.00           C 
+ATOM     33  CA  THR A  34      64.979  92.193 223.901  1.00 700.00           C 
+ATOM     34  CA  PRO A  35      61.223  89.683 225.509  1.00 700.00           C 
+ATOM     35  CA  PRO A  36      58.318  92.821 226.266  1.00 700.00           C 
+ATOM     36  CA  ALA A  37      58.665  92.336 230.471  1.00 700.00           C 
+ATOM     37  CA  ALA A  38      56.164  95.170 228.443  1.00 700.00           C 
+ATOM     38  CA  SER A  39      54.450  90.790 226.527  1.00 700.00           C 
+ATOM     39  CA  MET A  40      53.757  89.319 229.777  1.00 700.00           C 
+ATOM     40  CA  GLN A  41      52.139  93.063 231.529  1.00 700.00           C 
+ATOM     41  CA  ARG A  42      48.755  92.491 228.892  1.00 700.00           C 
+ATOM     42  CA  SER A  43      48.664  93.330 226.785  1.00 700.00           C 
+ATOM     43  CA  SER A  44      50.866  96.361 224.784  1.00 700.00           C 
+ATOM     44  CA  ASN A  45      47.340  97.982 225.480  1.00 700.00           C 
+ATOM     45  CA  THR A  46      44.159  97.215 226.562  1.00 700.00           C 
+ATOM     46  CA  ILE A  47      44.237 100.299 223.440  1.00 700.00           C 
+ATOM     47  CA  TRP A  48      42.120 102.888 222.525  1.00 300.00           C 
+ATOM     48  CA  MET A  49      42.382 102.103 227.153  0.00 300.00           C 
+ATOM     49  CA  PRO A  50      38.460 100.644 227.697  0.00 300.00           C 
+ATOM     50  CA  VAL A  51      36.470 102.113 227.894  0.00 300.00           C 
+ATOM     51  CA  GLU A  52      38.595 104.612 226.665  0.00 300.00           C 
+ATOM     52  CA  GLN A  53      35.924 107.388 226.811  0.00 300.00           C 
+ATOM     53  CA  GLU A  54      39.705 111.212 227.727  0.00 300.00           C 
+ATOM     54  CA  SER A  55      41.260 109.328 231.498  0.00 300.00           C 
+ATOM     55  CA  PRO A  56      39.029 105.000 230.791  0.00 300.00           C 
+ATOM     56  CA  THR A  57      38.054 104.645 235.219  0.00 300.00           C 
+ATOM     57  CA  GLN A  58      39.388 101.140 235.823  0.00 300.00           C 
+ATOM     58  CA  GLU A  59      39.381  98.515 240.038  0.00 300.00           C 
+ATOM     59  CA  GLY A  60      41.701  98.458 241.458  0.00 300.00           C 
+ATOM     60  CA  TRP A  61      41.970  94.284 243.461  0.00 300.00           C 
+ATOM     61  CA  ASP A  62      42.008  97.045 247.866  0.00 300.00           C 
+ATOM     62  CA  LEU A  63      44.685  94.014 247.957  0.00 300.00           C 
+ATOM     63  CA  THR A  64      45.448  94.406 252.539  0.00 300.00           C 
+ATOM     64  CA  ASP A  65      48.868  92.334 253.726  0.00 300.00           C 
+ATOM     65  CA  LYS A  66      47.341  90.663 256.683  0.00 300.00           C 
+ATOM     66  CA  ALA A  67      45.403  88.229 255.556  0.00 300.00           C 
+ATOM     67  CA  THR A  68      42.889  89.191 259.188  0.00 300.00           C 
+ATOM     68  CA  GLY A  69      44.162  90.720 258.098  0.00 300.00           C 
+ATOM     69  CA  LEU A  70      40.944  91.314 255.501  0.00 300.00           C 
+ATOM     70  CA  LEU A  71      40.490  87.656 253.945  0.00 300.00           C 
+ATOM     71  CA  GLU A  72      40.342  88.983 250.814  0.00 300.00           C 
+ATOM     72  CA  LEU A  73      41.358  92.411 247.407  0.00 300.00           C 
+ATOM     73  CA  ASN A  74      38.608  95.561 248.550  0.00 300.00           C 
+ATOM     74  CA  VAL A  75      37.713  96.880 245.092  0.00 300.00           C 
+ATOM     75  CA  ALA A  76      38.318 101.392 244.837  0.00 300.00           C 
+ATOM     76  CA  VAL A  77      36.150 102.370 241.843  0.00 300.00           C 
+ATOM     77  CA  ASN A  78      39.956 104.084 240.716  0.00 300.00           C 
+ATOM     78  CA  MET A  79      40.370 106.716 237.517  0.00 300.00           C 
+ATOM     79  CA  GLY A  80      43.922 106.344 235.297  0.00 300.00           C 
+ATOM     80  CA  GLU A  81      44.474 108.843 231.628  0.00 300.00           C 
+ATOM     81  CA  PRO A  82      46.056 109.424 229.894  0.00 300.00           C 
+ATOM     82  CA  ASP A  83      49.462 110.870 229.955  0.00 300.00           C 
+ATOM     83  CA  ASN A  84      51.511 111.378 227.007  0.00 300.00           C 
+ATOM     84  CA  ASP A  85      54.919 110.297 225.869  0.00 300.00           C 
+ATOM     85  CA  PHE A  86      57.937 112.421 223.799  0.00 300.00           C 
+ATOM     86  CA  PHE A  87      60.238 112.928 221.775  0.00 300.00           C 
+ATOM     87  CA  GLN A  88      62.126 114.375 219.602  0.00 300.00           C 
+ATOM     88  CA  LEU A  89      65.646 115.944 218.086  0.00 300.00           C 
+ATOM     89  CA  ARG A  90      67.128 117.818 216.019  0.00 300.00           C 
+ATOM     90  CA  ALA A  91      67.242 115.434 212.897  0.00 300.00           C 
+ATOM     91  CA  ASP A  92      68.466 116.210 209.003  0.00 300.00           C 
+ATOM     92  CA  ASP A  93      65.368 118.179 207.518  0.00 300.00           C 
+ATOM     93  CA  LEU A  94      66.623 117.986 204.050  0.00 300.00           C 
+ATOM     94  CA  ARG A  95      67.773 117.238 200.658  0.00 300.00           C 
+ATOM     95  CA  ASP A  96      65.617 114.537 202.153  0.00 300.00           C 
+ATOM     96  CA  GLU A  97      65.094 112.187 198.651  0.00 300.00           C 
+ATOM     97  CA  THR A  98      68.524 110.488 200.959  0.00 300.00           C 
+ATOM     98  CA  ALA A  99      68.281 107.676 204.295  0.00 300.00           C 
+ATOM     99  CA  TYR A 100      69.709 109.071 205.934  0.00 300.00           C 
+ATOM    100  CA  ARG A 101      66.612 109.449 208.067  0.00 300.00           C 
+ATOM    101  CA  ARG A 102      65.177 107.036 206.951  0.00 300.00           C 
+ATOM    102  CA  ARG A 103      67.051 104.942 208.930  0.00 300.00           C 
+ATOM    103  CA  ILE A 104      67.726 108.335 210.904  0.00 300.00           C 
+ATOM    104  CA  GLN A 105      64.929 107.529 212.722  0.00 300.00           C 
+ATOM    105  CA  SER A 106      66.990 104.275 212.924  0.00 300.00           C 
+ATOM    106  CA  ALA A 107      69.335 104.048 215.203  0.00 300.00           C 
+ATOM    107  CA  ALA A 108      68.240 108.038 216.716  0.00 300.00           C 
+ATOM    108  CA  ARG A 109      64.610 108.174 217.009  0.00 300.00           C 
+ATOM    109  CA  LYS A 110      63.227 103.348 217.068  0.00 300.00           C 
+ATOM    110  CA  LEU A 111      67.066 102.935 219.565  0.00 300.00           C 
+ATOM    111  CA  ALA A 112      66.961 106.244 221.614  0.00 300.00           C 
+ATOM    112  CA  ASN A 113      61.701 105.496 221.954  0.00 300.00           C 
+ATOM    113  CA  ASN A 114      62.369 101.419 222.205  0.00 300.00           C 
+ATOM    114  CA  VAL A 115      65.078 101.992 224.815  0.00 300.00           C 
+ATOM    115  CA  GLU A 116      63.520 105.267 227.243  0.00 300.00           C 
+ATOM    116  CA  LEU A 117      60.907 101.681 227.051  0.00 300.00           C 
+ATOM    117  CA  LYS A 118      63.106  99.691 230.490  0.00 300.00           C 
+ATOM    118  CA  VAL A 119      62.710 102.781 231.996  0.00 300.00           C 
+ATOM    119  CA  ALA A 120      59.336 102.751 231.583  0.00 300.00           C 
+ATOM    120  CA  ASN A 121      58.284  99.316 232.639  0.00 300.00           C 
+ATOM    121  CA  MET A 122      61.172  99.333 234.634  0.00 300.00           C 
+ATOM    122  CA  ALA A 123      60.553 101.347 237.835  0.00 300.00           C 
+ATOM    123  CA  ALA A 124      56.389 100.023 236.120  0.00 300.00           C 
+ATOM    124  CA  GLU A 125      56.369  97.977 238.855  0.00 300.00           C 
+ATOM    125  CA  MET A 126      59.743 100.305 241.789  0.00 300.00           C 
+ATOM    126  CA  GLY A 127      57.454 102.479 241.984  0.00 300.00           C 
+ATOM    127  CA  SER A 128      55.122 100.106 243.665  0.00 300.00           C 
+ATOM    128  CA  LEU A 129      53.391  96.825 243.182  0.00 300.00           C 
+ATOM    129  CA  VAL A 130      53.863  95.434 247.920  0.00 300.00           C 
+ATOM    130  CA  ILE A 131      55.348  93.959 249.564  0.00 300.00           C 
+ATOM    131  CA  THR A 132      54.752  89.879 252.220  0.00 300.00           C 
+ATOM    132  CA  SER A 133      55.902  88.816 255.338  0.00 300.00           C 
+ATOM    133  CA  PRO A 134      59.908  91.211 255.054  0.00 300.00           C 
+ATOM    134  CA  ASP A 135      62.036  88.580 256.385  0.00 300.00           C 
+ATOM    135  CA  ALA A 136      60.846  85.539 253.954  0.00 300.00           C 
+ATOM    136  CA  ILE A 137      61.646  88.587 251.397  0.00 300.00           C 
+ATOM    137  CA  GLY A 138      63.508  88.588 249.997  0.00 300.00           C 
+ATOM    138  CA  THR A 139      67.914  89.580 247.239  0.00 300.00           C 
+ATOM    139  CA  ASN A 140      70.321  87.534 247.714  0.00 300.00           C 
+ATOM    140  CA  THR A 141      71.070  86.301 250.802  0.00 300.00           C 
+ATOM    141  CA  ALA A 142      71.352  82.168 249.606  0.00 300.00           C 
+ATOM    142  CA  ASP A 143      71.332  81.581 246.325  0.00 300.00           C 
+ATOM    143  CA  ALA A 144      68.685  83.235 244.488  0.00 300.00           C 
+ATOM    144  CA  TRP A 145      65.693  79.604 243.458  0.00 300.00           C 
+ATOM    145  CA  ASN A 146      64.849  78.832 246.513  0.00 300.00           C 
+ATOM    146  CA  PHE A 147      64.159  83.151 247.611  0.00 300.00           C 
+ATOM    147  CA  VAL A 148      60.855  83.017 244.640  0.00 300.00           C 
+ATOM    148  CA  ALA A 149      60.584  79.406 246.070  0.00 300.00           C 
+ATOM    149  CA  ASP A 150      60.019  80.914 249.331  0.00 300.00           C 
+ATOM    150  CA  ALA A 151      58.879  83.798 247.347  0.00 300.00           C 
+ATOM    151  CA  GLU A 152      56.129  81.148 246.069  0.00 300.00           C 
+ATOM    152  CA  GLU A 153      54.754  79.977 249.386  0.00 300.00           C 
+ATOM    153  CA  ILE A 154      53.776  84.250 250.851  0.00 300.00           C 
+ATOM    154  CA  MET A 155      52.008  84.671 248.217  0.00 300.00           C 
+ATOM    155  CA  PHE A 156      49.504  79.891 250.044  0.00 300.00           C 
+ATOM    156  CA  SER A 157      50.327  81.698 252.206  0.00 300.00           C 
+ATOM    157  CA  ARG A 158      48.010  84.896 252.486  0.00 300.00           C 
+ATOM    158  CA  GLU A 159      46.654  85.088 250.043  0.00 300.00           C 
+ATOM    159  CA  LEU A 160      49.527  88.017 248.395  0.00 300.00           C 
+ATOM    160  CA  ASN A 161      49.237  86.696 244.942  0.00 300.00           C 
+ATOM    161  CA  ARG A 162      45.825  83.950 245.939  0.00 300.00           C 
+ATOM    162  CA  ASP A 163      47.536  82.692 242.678  0.00 300.00           C 
+ATOM    163  CA  MET A 164      49.420  84.182 240.846  0.00 300.00           C 
+ATOM    164  CA  GLY A 165      53.195  85.041 241.199  0.00 300.00           C 
+ATOM    165  CA  THR A 166      53.110  85.420 238.197  0.00 300.00           C 
+ATOM    166  CA  SER A 167      56.914  86.900 237.030  0.00 300.00           C 
+ATOM    167  CA  TYR A 168      59.349  88.448 238.437  0.00 300.00           C 
+ATOM    168  CA  PHE A 169      61.505  91.828 237.072  0.00 300.00           C 
+ATOM    169  CA  PHE A 170      63.736  91.351 238.204  0.00 300.00           C 
+ATOM    170  CA  ASN A 171      68.425  93.231 239.192  0.00 300.00           C 
+ATOM    171  CA  PRO A 172      69.903  94.633 237.175  0.00 300.00           C 
+ATOM    172  CA  GLN A 173      73.866  93.760 239.238  0.00 300.00           C 
+ATOM    173  CA  ASP A 174      71.994  89.958 239.104  0.00 300.00           C 
+ATOM    174  CA  TYR A 175      71.838  90.317 235.216  0.00 300.00           C 
+ATOM    175  CA  LYS A 176      76.595  91.487 235.167  0.00 300.00           C 
+ATOM    176  CA  LYS A 177      77.374  89.974 237.535  0.00 300.00           C 
+ATOM    177  CA  ALA A 178      74.716  85.839 235.531  0.00 300.00           C 
+ATOM    178  CA  GLY A 179      75.539  88.400 231.137  0.00 300.00           C 
+ATOM    179  CA  TYR A 180      73.337  87.620 228.766  0.00 300.00           C 
+ATOM    180  CA  ASP A 181      70.588  86.017 227.336  0.00 300.00           C 
+ATOM    181  CA  LEU A 182      70.102  82.635 225.488  0.00 300.00           C 
+ATOM    182  CA  THR A 183      72.989  80.997 224.666  0.00 300.00           C 
+ATOM    183  CA  LYS A 184      74.338  82.639 221.895  0.00 300.00           C 
+ATOM    184  CA  ARG A 185      73.733  86.309 222.178  0.00 300.00           C 
+ATOM    185  CA  ASP A 186      73.595  90.408 220.538  0.00 300.00           C 
+ATOM    186  CA  ILE A 187      73.702  93.349 222.538  0.00 300.00           C 
+ATOM    187  CA  PHE A 188      70.088  93.713 224.776  0.00 300.00           C 
+ATOM    188  CA  GLY A 189      68.535  89.489 224.733  0.00 300.00           C 
+ATOM    189  CA  ARG A 190      66.213  91.777 222.722  0.00 300.00           C 
+ATOM    190  CA  ILE A 191      68.312  90.151 219.393  0.00 300.00           C 
+ATOM    191  CA  PRO A 192      68.725  86.801 220.683  0.00 300.00           C 
+ATOM    192  CA  GLU A 193      64.876  87.138 222.484  0.00 300.00           C 
+ATOM    193  CA  GLU A 194      64.142  89.236 218.682  0.00 300.00           C 
+ATOM    194  CA  ALA A 195      65.293  85.378 218.023  0.00 300.00           C 
+ATOM    195  CA  TYR A 196      63.241  83.091 220.840  0.00 300.00           C 
+ATOM    196  CA  ARG A 197      62.643  83.942 222.479  0.00 300.00           C 
+ATOM    197  CA  ASP A 198      59.156  84.650 226.418  0.00 300.00           C 
+ATOM    198  CA  GLY A 199      61.782  87.363 225.062  0.00 300.00           C 
+ATOM    199  CA  THR A 200      61.431  88.458 228.734  0.00 300.00           C 
+ATOM    200  CA  ILE A 201      62.224  85.124 230.093  0.00 300.00           C 
+ATOM    201  CA  GLN A 202      64.403  84.047 228.677  0.00 300.00           C 
+ATOM    202  CA  ARG A 203      66.209  86.164 228.089  0.00 300.00           C 
+ATOM    203  CA  GLN A 204      67.260  86.820 231.521  0.00 300.00           C 
+ATOM    204  CA  VAL A 205      68.745  84.015 229.856  0.00 300.00           C 
+ATOM    205  CA  ALA A 206      67.715  82.029 233.790  0.00 300.00           C 
+ATOM    206  CA  GLY A 207      68.241  83.427 236.832  0.00 300.00           C 
+ATOM    207  CA  PHE A 208      71.745  82.922 238.010  0.00 300.00           C 
+ATOM    208  CA  ASP A 209      71.650  84.306 240.412  0.00 300.00           C 
+ATOM    209  CA  ASP A 210      70.190  86.706 240.220  0.00 300.00           C 
+ATOM    210  CA  VAL A 211      66.434  85.225 240.920  0.00 300.00           C 
+ATOM    211  CA  LEU A 212      65.282  81.335 239.096  0.00 300.00           C 
+ATOM    212  CA  ARG A 213      62.376  81.335 236.954  0.00 300.00           C 
+ATOM    213  CA  SER A 214      58.674  79.695 238.020  0.00 300.00           C 
+ATOM    214  CA  PRO A 215      55.858  79.165 234.896  0.00 300.00           C 
+ATOM    215  CA  LYS A 216      55.132  81.099 236.412  0.00 300.00           C 
+ATOM    216  CA  LEU A 217      56.133  83.758 237.141  0.00 300.00           C 
+ATOM    217  CA  PRO A 218      58.989  83.570 234.506  0.00 300.00           C 
+ATOM    218  CA  VAL A 219      61.608  86.645 234.137  0.00 300.00           C 
+ATOM    219  CA  LEU A 220      62.240  89.628 232.967  0.00 300.00           C 
+ATOM    220  CA  THR A 221      66.426  91.398 234.022  0.00 300.00           C 
+ATOM    221  CA  LYS A 222      65.735  95.026 233.145  0.00 300.00           C 
+ATOM    222  CA  SER A 223      66.581  97.418 233.988  0.00 300.00           C 
+ATOM    223  CA  THR A 224      65.880  99.167 238.433  0.00 300.00           C 
+ATOM    224  CA  THR A 229      59.259  99.794 247.467  1.00 300.00           C 
+ATOM    225  CA  VAL A 230      57.021  99.700 250.477  1.00 300.00           C 
+ATOM    226  CA  SER A 231      54.953  96.167 249.704  1.00 700.00           C 
+ATOM    227  CA  GLY A 232      53.421  95.239 252.479  1.00 700.00           C 
+ATOM    228  CA  ALA A 233      51.632  91.539 253.681  1.00 300.00           C 
+ATOM    229  CA  GLN A 234      50.218  91.114 253.986  1.00 700.00           C 
+ATOM    230  CA  SER A 235      51.005  90.758 251.219  1.00 608.93           C 
+ATOM    231  CA  PHE A 236      50.077  94.755 250.264  1.00 700.00           C 
+ATOM    232  CA  LYS A 237      49.460  97.564 252.713  1.00 700.00           C 
+ATOM    233  CA  PRO A 238      45.477  98.205 253.765  1.00 700.00           C 
+ATOM    234  CA  VAL A 239      46.793  95.254 255.633  1.00 700.00           C 
+ATOM    235  CA  ALA A 240      44.362  93.363 259.427  1.00 700.00           C 
+ATOM    236  CA  TRP A 241      46.242  93.900 263.263  1.00 700.00           C 
+ATOM    237  CA  GLN A 242      46.207  91.749 266.127  1.00 700.00           C 
+ATOM    238  CA  LEU A 243      49.134  89.818 262.991  1.00 700.00           C 
+ATOM    239  CA  ASP A 244      51.542  91.125 261.345  1.00 700.00           C 
+ATOM    240  CA  ASN A 245      51.631  94.678 259.514  1.00 700.00           C 
+ATOM    241  CA  ASP A 246      54.732  94.108 258.737  1.00 300.00           C 
+ATOM    242  CA  GLY A 247      57.336  96.326 255.600  1.00 300.00           C 
+ATOM    243  CA  ASN A 248      59.235  94.869 253.038  1.00 699.37           C 
+ATOM    244  CA  LYS A 249      60.984  97.353 251.530  1.00 700.00           C 
+ATOM    245  CA  VAL A 250      63.041  95.995 248.248  1.00 700.00           C 
+ATOM    246  CA  ASN A 251      66.643  98.605 246.470  1.00 700.00           C 
+ATOM    247  CA  VAL A 252      67.751  95.058 246.343  1.00 700.00           C 
+ATOM    248  CA  ASP A 253      67.704  94.814 250.696  1.00 700.00           C 
+ATOM    249  CA  ASN A 254      70.258  92.881 251.339  1.00 700.00           C 
+ATOM    250  CA  ARG A 255      71.348  90.252 253.164  1.00 301.46           C 
+ATOM    251  CA  PHE A 256      74.025  92.713 254.136  1.00 300.00           C 
+ATOM    252  CA  ALA A 257      70.806  95.855 254.865  1.00 700.00           C 
+ATOM    253  CA  THR A 258      67.678  94.329 254.777  1.00 683.26           C 
+ATOM    254  CA  VAL A 259      67.546  97.844 257.739  1.00 300.00           C 
+ATOM    255  CA  THR A 260      65.056  99.151 258.296  1.00 300.00           C 
+ATOM    256  CA  LEU A 261      63.664 102.919 259.053  1.00 300.00           C 
+ATOM    257  CA  SER A 262      60.212 103.125 259.696  1.00 300.00           C 
+ATOM    258  CA  ALA A 263      58.775 106.324 258.312  1.00 300.00           C 
+ATOM    259  CA  THR A 264      54.574 106.979 259.355  1.00 300.00           C 
+ATOM    260  CA  THR A 265      52.887 109.595 256.754  1.00 300.00           C 
+ATOM    261  CA  GLY A 266      55.517 109.191 255.649  0.00 300.00           C 
+ATOM    262  CA  MET A 267      57.118 113.138 256.773  1.00 300.00           C 
+ATOM    263  CA  LYS A 268      56.748 112.264 260.345  1.00 300.00           C 
+ATOM    264  CA  ARG A 269      60.270 109.423 261.605  0.00 300.00           C 
+ATOM    265  CA  GLY A 270      57.996 105.862 263.483  0.00 300.00           C 
+ATOM    266  CA  ASP A 271      59.586 103.624 265.694  0.00 300.00           C 
+ATOM    267  CA  LYS A 272      61.732 102.750 262.987  0.00 300.00           C 
+ATOM    268  CA  ILE A 273      63.499 101.647 266.054  0.00 300.00           C 
+ATOM    269  CA  SER A 274      60.880  99.517 266.377  0.00 300.00           C 
+ATOM    270  CA  PHE A 275      62.768  96.312 264.597  0.00 300.00           C 
+ATOM    271  CA  ALA A 276      65.629  95.478 267.006  1.00 300.00           C 
+ATOM    272  CA  GLY A 277      67.447  92.533 267.281  1.00 300.00           C 
+ATOM    273  CA  VAL A 278      67.770  92.881 264.821  1.00 300.00           C 
+ATOM    274  CA  LYS A 279      67.906  94.145 261.885  1.00 300.00           C 
+ATOM    275  CA  PHE A 280      65.987  93.289 260.012  1.00 300.00           C 
+ATOM    276  CA  LEU A 281      64.158  93.839 256.675  1.00 700.00           C 
+ATOM    277  CA  GLY A 282      62.358  91.618 254.866  1.00 300.00           C 
+ATOM    278  CA  GLN A 283      63.120  94.831 251.384  1.00 700.00           C 
+ATOM    279  CA  MET A 284      66.045  96.727 252.235  1.00 700.00           C 
+ATOM    280  CA  ALA A 285      63.822  99.402 253.550  1.00 300.00           C 
+ATOM    281  CA  LYS A 286      63.684 102.172 251.361  1.00 300.00           C 
+ATOM    282  CA  ASN A 287      65.113 104.079 254.821  1.00 300.00           C 
+ATOM    283  CA  VAL A 288      66.528 101.152 257.122  1.00 300.00           C 
+ATOM    284  CA  LEU A 289      67.414  99.719 253.547  1.00 300.00           C 
+ATOM    285  CA  ALA A 290      72.002 101.319 254.763  0.00 300.00           C 
+ATOM    286  CA  GLN A 291      73.826 101.969 252.669  0.00 300.00           C 
+ATOM    287  CA  ASP A 292      76.734 101.137 255.384  0.00 300.00           C 
+ATOM    288  CA  ALA A 293      75.039 100.129 257.108  1.00 700.00           C 
+ATOM    289  CA  THR A 294      75.506  99.994 260.865  1.00 700.00           C 
+ATOM    290  CA  PHE A 295      72.356 100.004 264.574  1.00 700.00           C 
+ATOM    291  CA  SER A 296      72.416 100.800 267.457  1.00 472.90           C 
+ATOM    292  CA  VAL A 297      70.757  99.001 271.075  1.00 700.00           C 
+ATOM    293  CA  VAL A 298      69.257 101.755 273.038  1.00 598.04           C 
+ATOM    294  CA  ARG A 299      72.108  99.472 275.498  1.00 700.00           C 
+ATOM    295  CA  VAL A 300      75.170  98.583 273.283  1.00 700.00           C 
+ATOM    296  CA  VAL A 301      75.867 101.258 270.327  1.00 300.00           C 
+ATOM    297  CA  ASP A 302      76.948 101.318 266.611  1.00 300.00           C 
+ATOM    298  CA  GLY A 303      79.406  98.477 264.741  1.00 700.00           C 
+ATOM    299  CA  THR A 304      81.188  98.714 261.987  1.00 700.00           C 
+ATOM    300  CA  HIS A 305      79.957  99.357 258.524  1.00 300.00           C 
+ATOM    301  CA  VAL A 306      78.327  96.759 255.969  1.00 700.00           C 
+ATOM    302  CA  GLU A 307      78.615  97.521 253.077  1.00 700.00           C 
+ATOM    303  CA  ILE A 308      73.498  95.823 252.606  1.00 700.00           C 
+ATOM    304  CA  THR A 309      74.716  97.000 249.623  1.00 700.00           C 
+ATOM    305  CA  PRO A 310      71.807  95.257 248.644  1.00 700.00           C 
+ATOM    306  CA  LYS A 311      70.778  92.255 245.908  1.00 700.00           C 
+ATOM    307  CA  PRO A 312      68.286  91.490 243.333  1.00 700.00           C 
+ATOM    308  CA  VAL A 313      67.963  87.217 243.460  1.00 700.00           C 
+ATOM    309  CA  PHE A 353      80.391  91.986 272.144  0.00 300.00           C 
+ATOM    310  CA  TRP A 354      81.072  88.862 270.907  0.00 300.00           C 
+ATOM    311  CA  ALA A 355      83.051  88.458 267.739  0.00 300.00           C 
+ATOM    312  CA  ASP A 356      82.789  84.956 265.583  0.00 300.00           C 
+ATOM    313  CA  ASP A 357      85.128  84.852 262.255  0.00 300.00           C 
+ATOM    314  CA  ALA A 358      86.822  81.061 259.770  0.00 300.00           C 
+ATOM    315  CA  ILE A 359      88.886  83.530 261.161  0.00 300.00           C 
+ATOM    316  CA  ARG A 360      91.622  80.225 259.726  0.00 300.00           C 
+ATOM    317  CA  ILE A 361      90.227  81.952 256.618  0.00 300.00           C 
+ATOM    318  CA  VAL A 362      88.773  85.094 257.960  0.00 300.00           C 
+ATOM    319  CA  SER A 363      91.806  87.178 257.310  0.00 300.00           C 
+ATOM    320  CA  GLN A 364      94.801  87.441 258.221  0.00 300.00           C 
+ATOM    321  CA  PRO A 365      99.073  89.536 260.019  0.00 300.00           C 
+ATOM    322  CA  ILE A 366     101.418  89.761 258.225  0.00 300.00           C 
+ATOM    323  CA  PRO A 367     104.255  90.927 260.507  0.00 300.00           C 
+ATOM    324  CA  ALA A 368     108.595  93.471 257.115  0.00 300.00           C 
+ATOM    325  CA  ASN A 369     109.105  92.791 260.442  0.00 300.00           C 
+ATOM    326  CA  HIS A 370     109.817  91.486 264.046  0.00 300.00           C 
+ATOM    327  CA  GLU A 371     109.530  93.145 267.216  0.00 300.00           C 
+ATOM    328  CA  LEU A 372     112.744  95.207 267.934  0.00 300.00           C 
+ATOM    329  CA  PHE A 373     114.798  97.559 271.417  0.00 300.00           C 
+ATOM    330  CA  ALA A 374     116.075 100.297 270.753  0.00 300.00           C 
+ATOM    331  CA  GLY A 375     117.167 102.803 273.200  0.00 300.00           C 
+ATOM    332  CA  MET A 376     118.357 106.599 272.184  0.00 300.00           C 
+ATOM    333  CA  LYS A 377     122.276 106.551 272.120  0.00 300.00           C 
+ATOM    334  CA  THR A 378     120.876 110.371 273.097  0.00 300.00           C 
+ATOM    335  CA  THR A 379     118.597 110.358 272.977  0.00 300.00           C 
+ATOM    336  CA  SER A 380     118.525 111.934 277.194  0.00 300.00           C 
+ATOM    337  CA  PHE A 381     121.523 110.885 278.390  0.00 300.00           C 
+ATOM    338  CA  SER A 382     123.468 108.592 276.733  0.00 300.00           C 
+ATOM    339  CA  ILE A 383     124.697 106.362 279.435  0.00 300.00           C 
+ATOM    340  CA  PRO A 384     127.678 109.582 278.074  0.00 300.00           C 
+ATOM    341  CA  ASP A 385     125.665 112.601 280.340  0.00 300.00           C 
+ATOM    342  CA  VAL A 386     124.391 116.029 276.273  0.00 300.00           C 
+ATOM    343  CA  GLY A 387     123.069 117.318 279.286  0.00 300.00           C 
+ATOM    344  CA  LEU A 388     118.925 118.767 280.703  0.00 300.00           C 
+ATOM    345  CA  ASN A 389     119.340 123.502 278.273  0.00 300.00           C 
+ATOM    346  CA  GLY A 390     119.722 122.875 281.104  0.00 300.00           C 
+ATOM    347  CA  ILE A 391     119.803 121.217 284.101  0.00 300.00           C 
+ATOM    348  CA  PHE A 392     123.366 120.344 284.691  0.00 300.00           C 
+ATOM    349  CA  ALA A 393     123.836 118.054 280.487  0.00 300.00           C 
+ATOM    350  CA  THR A 394     121.226 115.375 281.678  0.00 300.00           C 
+ATOM    351  CA  GLN A 395     119.557 114.735 285.274  0.00 300.00           C 
+ATOM    352  CA  GLY A 396     118.335 110.782 285.189  0.00 300.00           C 
+ATOM    353  CA  ASP A 397     120.723 109.065 281.217  0.00 300.00           C 
+ATOM    354  CA  ILE A 398     119.838 106.600 280.620  0.00 300.00           C 
+ATOM    355  CA  SER A 399     118.134 106.967 278.132  0.00 300.00           C 
+ATOM    356  CA  THR A 400     115.510 105.906 275.581  0.00 300.00           C 
+ATOM    357  CA  LEU A 401     114.396 102.716 275.486  0.00 300.00           C 
+ATOM    358  CA  SER A 402     111.873 101.424 272.010  0.00 300.00           C 
+ATOM    359  CA  GLY A 403     110.085  99.118 270.215  0.00 300.00           C 
+ATOM    360  CA  LEU A 404     108.376  97.916 267.833  0.00 300.00           C 
+ATOM    361  CA  CYS A 405     107.323  96.444 264.900  0.00 300.00           C 
+ATOM    362  CA  ARG A 406     107.296  96.981 260.926  0.00 300.00           C 
+ATOM    363  CA  ILE A 407     103.037  95.142 260.641  0.00 300.00           C 
+ATOM    364  CA  ALA A 408     100.237  94.215 258.892  0.00 300.00           C 
+ATOM    365  CA  LEU A 409      95.935  92.823 258.877  0.00 300.00           C 
+ATOM    366  CA  TRP A 410      94.929  92.945 256.642  0.00 300.00           C 
+ATOM    367  CA  TYR A 411      90.929  92.258 255.650  0.00 300.00           C 
+ATOM    368  CA  GLY A 412      88.954  94.048 253.510  0.00 300.00           C 
+ATOM    369  CA  VAL A 413      85.343  91.480 255.900  0.00 300.00           C 
+ATOM    370  CA  ASN A 414      83.617  93.134 253.772  0.00 300.00           C 
+ATOM    371  CA  ALA A 415      82.353  94.820 257.987  0.00 300.00           C 
+ATOM    372  CA  THR A 416      78.897  95.598 255.559  0.00 300.00           C 
+ATOM    373  CA  ARG A 417      76.734  92.121 254.919  0.00 300.00           C 
+ATOM    374  CA  PRO A 418      77.770  89.313 257.365  0.00 300.00           C 
+ATOM    375  CA  GLU A 419      80.498  87.846 257.167  0.00 300.00           C 
+ATOM    376  CA  ALA A 420      83.096  85.946 256.154  0.00 300.00           C 
+ATOM    377  CA  ILE A 421      84.458  87.461 260.405  0.00 300.00           C 
+ATOM    378  CA  GLY A 422      80.258  89.425 262.198  0.00 300.00           C 
+ATOM    379  CA  VAL A 423      80.017  91.963 264.990  0.00 300.00           C 
+ATOM    380  CA  GLY A 424      77.231  92.534 267.657  0.00 300.00           C 
+ATOM    381  CA  LEU A 425      75.988  91.772 270.261  0.00 300.00           C 
+ATOM    382  CA  PRO A 426      74.486  90.735 272.486  0.00 300.00           C 
+ATOM    383  CA  GLY A 427      71.360  90.634 274.601  0.00 300.00           C 
+ATOM    384  CA  GLN A 428      72.362  90.479 278.963  0.00 300.00           C 
+TER     385      GLN A 428                                                      
+TER     770      GLN B 428                                                      
+TER    1155      GLN C 428                                                      
+TER    1540      GLN D 428                                                      
+TER    1925      GLN E 428                                                      
+TER    2310      GLN F 428                                                      
+TER    2695      GLN G 428                                                      
+MASTER      658    0    0    0    0    0    0    6 2688    7    0  238          
+END                                                                             

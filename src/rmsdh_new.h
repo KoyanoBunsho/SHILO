@@ -9,6 +9,7 @@
 #include <memory>
 #include <numeric>
 #include <omp.h>
+#include <random>
 #include <unordered_map>
 constexpr double INF = std::numeric_limits<double>::infinity();
 constexpr double eps = std::numeric_limits<double>::epsilon();
@@ -425,7 +426,7 @@ public:
     }
     long long monotonicity_cnt = 0;
     long long total_cnt = 0;
-#pragma omp parallel for reduction(+:monotonicity_cnt, total_cnt) num_threads(1000)
+#pragma omp parallel for reduction(+:monotonicity_cnt, total_cnt) num_threads(80)
     for (int j = 2; j <= n; j++) {
       for (int i = 1; i < j; i++) {
         for (int l = 2; l < i; l++) {
@@ -517,10 +518,6 @@ public:
     double rmsdh_result;
     hinge_index_vec =
         backTrackDPKFor(backtracking_table, hinge_index_vec, n + 1);
-    int hinge_index_vec_size = (int)hinge_index_vec.size();
-    for (int i = 0; i < hinge_index_vec_size; i++) {
-      hinge_index_vec[i];
-    }
     RMSDhHingeCnt rmsdh_hinge_cnt_result;
     if (is_postprocessing) {
       RMSDhHingeCnt rmsdh_hinge_cnt_result =
@@ -591,10 +588,6 @@ public:
     }
     hinge_index_vec =
         backTrackDPKFor(backtracking_table, hinge_index_vec, n + 1);
-    int hinge_index_vec_size = (int)hinge_index_vec.size();
-    for (int i = 0; i < hinge_index_vec_size; i++) {
-      hinge_index_vec[i];
-    }
     AblationResult rmsdh_hinge_cnt_result;
     rmsdh_hinge_cnt_result =
         RMSDhkPostProcessingLoop(hinge_index_vec, hinge_num);
@@ -670,6 +663,19 @@ ConformationPair MoveToOrigin(Eigen::Matrix3Xd P, Eigen::Matrix3Xd Q,
   PQ_pair.P = X;
   PQ_pair.Q = Y;
   return PQ_pair;
+}
+std::vector<int> selectRandomHinges(int n, int k) {
+  std::vector<int> hinges;
+  for (int i = 1; i <= n; ++i) {
+    hinges.push_back(i);
+  }
+  std::random_device rd;
+
+  std::mt19937 g(rd());
+  std::shuffle(hinges.begin(), hinges.end(), g);
+  hinges.resize(k);
+  std::sort(hinges.begin(), hinges.end());
+  return hinges;
 }
 
 #endif
