@@ -15,26 +15,26 @@ def main():
         "rmsdh_result/simulation_sh_lo_combined.csv"
     )
     simulation_sh_df = read_simulation_data("rmsdh_result/simulation_sh_combined.csv")
-    """simulation_r_ilo_df = read_simulation_data(
+    simulation_r_ilo_df = read_simulation_data(
         "rmsdh_result/simulation_r_ilo_combined.csv"
     )
     simulation_r_lo_df = read_simulation_data(
         "rmsdh_result/simulation_r_lo_combined.csv"
-    )"""
+    )
     simulation_shibuya_df = read_simulation_data(
         "rmsdh_result/simulation_shibuya_combined.csv"
     )
     """simulation_dyndom_df = read_fatcat_dyndom_data(
         "dyndom_simulation_hinge_count_result.csv",
-        "dyndom_simulation_result/dyndom_simulation_execution_time.csv",
+        "dyndom_simulation_result/dyndom_simulation_execution_time_improved.csv",
     )
     simulation_fatcat_df = read_fatcat_dyndom_data(
         "fatcat_simulation_hinge_count_result.csv",
-        "fatcat_simulation_execution_time.csv",
+        "fatcat_simulation_execution_time_improved.csv",
     )"""
     df_dict = {}
-    """df_dict["R + LO"] = simulation_r_lo_df
-    df_dict["R + ILO"] = simulation_r_ilo_df"""
+    df_dict["R + LO"] = simulation_r_lo_df
+    df_dict["R + ILO"] = simulation_r_ilo_df
     df_dict["SH"] = simulation_sh_df
     df_dict["SH + LO"] = simulation_sh_lo_df
     df_dict["SH + ILO"] = simulation_sh_ilo_df
@@ -135,8 +135,8 @@ def plot_hinge_detection_accuracy(df_dict):
     precision_label = "Precision"
     recall_label = "Recall"
     f_measure_order = [
-        # "R + LO",
-        # "R + ILO",
+        "R + LO",
+        "R + ILO",
         "SH",
         "SH + LO",
         "SH + ILO",
@@ -145,8 +145,8 @@ def plot_hinge_detection_accuracy(df_dict):
         # "DynDom",
     ]
     precision_order = [
-        # "R + LO",
-        # "R + ILO",
+        "R + LO",
+        "R + ILO",
         "SH",
         "SH + LO",
         "SH + ILO",
@@ -155,8 +155,8 @@ def plot_hinge_detection_accuracy(df_dict):
         # "DynDom",
     ]
     recall_order = [
-        # "R + LO",
-        # "R + ILO",
+        "R + LO",
+        "R + ILO",
         "SH",
         "SH + LO",
         "SH + ILO",
@@ -181,11 +181,11 @@ def plot_hinge_detection_accuracy(df_dict):
         recall_res = []
         f_measure_res = []
         acc_df = df_dict[acc_method]
-        res_acc = calc_acc_df(
+        res_acc = calc_acc_df_multi(
             acc_df["actual_hinge_indices"]
             .reset_index()
             .rename(columns={"actual_hinge_indices": "hinge_index"}),
-            acc_df["hinge_index"].reset_index(),
+            acc_df.reset_index(),
         )
         f_measure = res_acc["F-measure_distance_3"]
         precision = res_acc["Precision_distance_3"]
@@ -194,13 +194,13 @@ def plot_hinge_detection_accuracy(df_dict):
         all_precision[precision_method] = precision
         all_recall[recall_method] = recall
 
-        for cnt in range(2, 11):
+        for cnt in range(2, 6):
             tmp_acc = acc_df[acc_df["actual_hinge_cnt"] == cnt]
-            res_acc = calc_acc_df(
+            res_acc = calc_acc_df_multi(
                 tmp_acc["actual_hinge_indices"]
                 .reset_index()
                 .rename(columns={"actual_hinge_indices": "hinge_index"}),
-                tmp_acc["hinge_index"].reset_index(),
+                tmp_acc.reset_index(),
             )
             f_measure = res_acc["F-measure_distance_3"]
             precision = res_acc["Precision_distance_3"]
@@ -393,15 +393,12 @@ def calc_acc_df(df, heuristic_df):
     return f_measure_dict
 
 
-"""
 def calc_acc_df_multi(true_df, pred_df):
     metrics_list = []
     hinge_cols = [f"{i}_hinge_index" for i in range(100)]
-    if not pred_df.columns.str.contains("0_hinge_index"):
-        # ここがバグッテル
+    if not pred_df.columns.str.contains("0_hinge_index").any():
         return calc_acc_df(true_df, pred_df)
-    for col in hinge_cols:
-        # ガベコレしないと途中で落ちる
+    for col in tqdm(hinge_cols):
         temp_pred = pred_df[[col]].copy().rename(columns={col: "hinge_index"})
         metrics = calc_acc_df(
             true_df.reset_index(drop=True), temp_pred.reset_index(drop=True)
@@ -412,8 +409,6 @@ def calc_acc_df_multi(true_df, pred_df):
     for key in keys:
         avg_metrics[key] = sum(m[key] for m in metrics_list) / len(metrics_list)
     return avg_metrics
-
-"""
 
 
 def format_stats(stats):

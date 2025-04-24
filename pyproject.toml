@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "mphk"
+name = "shilo"
 version = "0.1.0"
 description = ""
 authors = ["KoyanoBunsho <buna40950@gmail.com>"]
@@ -13,6 +13,7 @@ seaborn = "^0.12.2"
 biopandas = "^0.4.1"
 kneed = "^0.8.5"
 notebook = "^7.3.2"
+tqdm = "^4.67.1"
 
 [tool.poetry.group.dev.dependencies]
 numpy = "^1.26.0"

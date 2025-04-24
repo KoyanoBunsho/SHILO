@@ -33,7 +33,8 @@ def main():
         print(f"k = {k}: Average Computation Time = {avg_time:.3f} s" if avg_time is not None else f"k = {k}: No data")
     
     # プロットの作成
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(6, 6))
+    plt.xlim(2, 5)
     plt.plot(ks, avg_times, marker='o', linestyle='-')
     plt.ylabel("Computation Time (s)")
     plt.xticks(ks)
