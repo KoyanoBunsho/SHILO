@@ -457,7 +457,7 @@ public:
         delta_g_dp[i][j] = calcSDij(i, j);
       }
     }
-    long long delta_g = 0.0;
+    double delta_g = 0.0;
 #pragma omp parallel for collapse(4) reduction(max : delta_g) num_threads(80)
     for (int i = 1; i < n; i++) {
       for (int j = i + 1; j < n; j++) {
