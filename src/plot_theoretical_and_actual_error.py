@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import os
 
@@ -8,135 +9,217 @@ plt.rcParams["font.size"] = 18
 
 def main():
     os.makedirs("figures", exist_ok=True)
-    # theoretical_and_actual_errorをPlotするように書き換える
+
+    # valid PDB pairs
     ok_pdb = pd.read_csv("../notebooks/ok_pdb.csv")
     ok_pdb["p_pdb_id"] = ok_pdb["p_pdb_id"].str.lower()
     ok_pdb["q_pdb_id"] = ok_pdb["q_pdb_id"].str.lower()
-    ok_keys = set(
-        zip(
-            ok_pdb["p_pdb_id"],
-            ok_pdb["q_pdb_id"],
-        )
-    )
+    ok_keys = set(zip(ok_pdb["p_pdb_id"], ok_pdb["q_pdb_id"]))
 
-    # 解析対象の k 値
     k_values = [2, 3, 4, 5]
 
-    # ---------------------------
-    # SH+ILO Combined のデータ
-    # ---------------------------
-    simulation_sh_ilo_df = read_simulation_data(
-        "rmsdh_result/simulation_sh_ilo_combined.csv"
-    )
-    shilo_avgs = []
-    shilo_maxs = []
-    for k in k_values:
-        shilo_subset = simulation_sh_ilo_df[simulation_sh_ilo_df["k"] == k]
-        s_avg, s_max = compute_metrics(shilo_subset)
-        shilo_avgs.append(s_avg)
-        shilo_maxs.append(s_max)
-        print(f"SH+ILO Combined: k = {k}: Average: {s_avg}, Maximum: {s_max}")
+    # --------------------------------
+    # SH+ILO (Simulation) dataset
+    # --------------------------------
+    exact_dfs = []
+    exact_df = pd.read_csv("rmsdh_result/simulation_sh_combined.csv")
+    shi_df = pd.read_csv("rmsdh_result/simulation_shibuya_combined.csv")
+    for df in (exact_df, shi_df):
+        df["p_pdb_id"] = df["p_pdb_id"].str.lower()
 
-    # ---------------------------
-    # Shibuya のデータ
-    # ---------------------------
-    shibuya_dfs = {
-        2: pd.read_csv("rmsdh_result/fast_rmsdh_hingek_cnt_2_postpro_loop.csv"),
-        3: pd.read_csv("rmsdh_result/fast_rmsdh_hingek_cnt_3_postpro_loop.csv"),
-        4: pd.read_csv("rmsdh_result/fast_rmsdh_hingek_cnt_4_postpro_loop.csv"),
-        5: pd.read_csv("rmsdh_result/fast_rmsdh_hingek_cnt_5_postpro_loop.csv"),
+    for k in k_values:
+        # load delta_g
+        delta = pd.read_csv(f"delta_g_simulation_{k}_sigma0.5.csv")
+        delta["p_pdb_id"] = delta["p_pdb_id"].str.lower()
+        # theoretical error
+        delta["theoretical_error"] = np.sqrt(
+            2
+            * delta["delta_g"]
+            * np.log2(delta["Residue length"])
+            * k
+            / delta["Residue length"]
+        )
+        # subset RMSDh values
+        sim_k = exact_df[exact_df["k"] == k][["p_pdb_id", "RMSDh"]].rename(
+            columns={"RMSDh": "RMSDh_exact"}
+        )
+        shi_k = shi_df[shi_df["k"] == k][["p_pdb_id", "RMSDh"]].rename(
+            columns={"RMSDh": "RMSDh_shi"}
+        )
+        # merge and compute actual error
+        df_m = delta.merge(sim_k, on=["p_pdb_id"]).merge(
+            shi_k, on=["p_pdb_id"]
+        )
+        df_m["actual_error"] = df_m["RMSDh_exact"] - df_m["RMSDh_shi"]
+        df_m["k"] = k
+        exact_dfs.append(df_m[["theoretical_error", "actual_error", "k"]])
+    sim_error_df = pd.concat(exact_dfs, ignore_index=True)
+
+    # --------------------------------
+    # Shibuya dataset
+    # --------------------------------
+    shibuya_exact = {
+        k: pd.read_csv(f"rmsdh_result/rmsdh_hingek_cnt_{k}.csv") for k in k_values
     }
-    shibuya_avgs = []
-    shibuya_maxs = []
-    for k in k_values:
-        df = shibuya_dfs[k]
-        df["actual_hinge_cnt"] = k
-        avg_val, max_val = compute_metrics(df)
-        shibuya_avgs.append(avg_val)
-        shibuya_maxs.append(max_val)
-        print(f"Shibuya: k = {k}: Average: {avg_val}, Maximum: {max_val}")
-
-    # ---------------------------
-    # PAR のデータ
-    # ---------------------------
-    par_dfs = {
-        2: filter_by_ok_keys(pd.read_csv("rmsdh_result/fast_rmsdhk_more_data_2_pospro_loop.csv"), ok_keys),
-        3: filter_by_ok_keys(pd.read_csv("rmsdh_result/fast_rmsdhk_more_data_3_pospro_loop.csv"), ok_keys),
-        4: filter_by_ok_keys(pd.read_csv("rmsdh_result/fast_rmsdhk_more_data_4_pospro_loop.csv"), ok_keys),
-        5: filter_by_ok_keys(pd.read_csv("rmsdh_result/fast_rmsdhk_more_data_5_pospro_loop.csv"), ok_keys),
+    shibuya_fast = {
+        k: pd.read_csv(f"rmsdh_result/fast_rmsdh_hingek_cnt_{k}.csv") for k in k_values
     }
-    par_avgs = []
-    par_maxs = []
-    for k in k_values:
-        df = par_dfs[k]
-        df["actual_hinge_cnt"] = k
-        avg_val, max_val = compute_metrics(df)
-        par_avgs.append(avg_val)
-        par_maxs.append(max_val)
-        print(f"PAR: k = {k}: Average: {avg_val}, Maximum: {max_val}")
+    for d in (shibuya_exact, shibuya_fast):
+        for k, df in d.items():
+            df["p_pdb_id"] = df["p_pdb_id"].str.lower()
+            df["q_pdb_id"] = df["q_pdb_id"].str.lower()
 
-    # ---------------------------
-    # Dyndom のデータ
-    # ---------------------------
-    dyndom_dfs = {
-        2: pd.read_csv("rmsdh_result/fast_rmsdhk_dyndom_2_postpro_loop.csv"),
-        3: pd.read_csv("rmsdh_result/fast_rmsdhk_dyndom_3_postpro_loop.csv"),
-        4: pd.read_csv("rmsdh_result/fast_rmsdhk_dyndom_4_postpro_loop.csv"),
-        5: pd.read_csv("rmsdh_result/fast_rmsdhk_dyndom_5_postpro_loop.csv"),
+    delta_sh = pd.read_csv("delta_g_shibuya.csv")
+    delta_sh["p_pdb_id"] = delta_sh["p_pdb_id"].str.lower()
+    delta_sh["q_pdb_id"] = delta_sh["q_pdb_id"].str.lower()
+
+    shi_dfs = []
+    for k in k_values:
+        d0 = delta_sh.copy()
+        d0["theoretical_error"] = np.sqrt(
+            2 * d0["delta_g"] * np.log2(d0["Residue length"]) * k / d0["Residue length"]
+        )
+        ex = shibuya_exact[k][["p_pdb_id", "q_pdb_id", "RMSDh"]].rename(
+            columns={"RMSDh": "RMSDh_exact"}
+        )
+        fa = shibuya_fast[k][["p_pdb_id", "q_pdb_id", "RMSDh"]].rename(
+            columns={"RMSDh": "RMSDh_fast"}
+        )
+        df_m = d0.merge(ex, on=["p_pdb_id", "q_pdb_id"]).merge(
+            fa, on=["p_pdb_id", "q_pdb_id"]
+        )
+        df_m["actual_error"] = df_m["RMSDh_fast"] - df_m["RMSDh_exact"]
+        df_m["k"] = k
+        shi_dfs.append(df_m[["theoretical_error", "actual_error", "k"]])
+    shi_error_df = pd.concat(shi_dfs, ignore_index=True)
+
+    # --------------------------------
+    # PAR dataset
+    # --------------------------------
+    par_exact = {
+        k: filter_by_ok_keys(
+            pd.read_csv(f"rmsdh_result/rmsdhk_more_data_{k}.csv"), ok_keys
+        )
+        for k in k_values
     }
-    dyndom_avgs = []
-    dyndom_maxs = []
-    for k in k_values:
-        df = dyndom_dfs[k]
-        df["actual_hinge_cnt"] = k
-        avg_val, max_val = compute_metrics(df)
-        dyndom_avgs.append(avg_val)
-        dyndom_maxs.append(max_val)
-        print(f"Dyndom: k = {k}: Average: {avg_val}, Maximum: {max_val}")
+    par_fast = {
+        k: filter_by_ok_keys(
+            pd.read_csv(f"rmsdh_result/fast_rmsdhk_more_data_{k}.csv"), ok_keys
+        )
+        for k in k_values
+    }
+    for d in (par_exact, par_fast):
+        for k, df in d.items():
+            df["p_pdb_id"] = df["p_pdb_id"].str.lower()
+            df["q_pdb_id"] = df["q_pdb_id"].str.lower()
 
-    # ---------------------------
-    # 1行4列のサブプロットでプロット
-    # ---------------------------
-    fig, axes = plt.subplots(1, 4, figsize=(20, 6), sharey=True)
-
-    # 各サブプロットごとにタイトルとデータを設定
-    datasets = [
-        ("Simulation", shilo_avgs, shilo_maxs),
-        ("Shibuya", shibuya_avgs, shibuya_maxs),
-        ("PAR", par_avgs, par_maxs),
-        ("DynDom", dyndom_avgs, dyndom_maxs),
+    delta_par = pd.read_csv("delta_g_par.csv")
+    delta_par["p_pdb_id"] = delta_par["p_pdb_id"].str.lower()
+    delta_par["q_pdb_id"] = delta_par["q_pdb_id"].str.lower()
+    # filter by ok_keys
+    delta_par = delta_par[
+        delta_par.apply(lambda r: (r["p_pdb_id"], r["q_pdb_id"]) in ok_keys, axis=1)
     ]
-    caption_dict = {"Simulation": "(a)","Shibuya": "(b)","PAR": "(c)","DynDom": "(d)"}
-    for ax, (title, avg_list, max_list) in zip(axes, datasets):
-        # 平均値を丸マーカー、最大値を四角マーカーでプロット
-        ax.plot(k_values, avg_list, marker="o", linestyle="-", label="Average")
-        ax.plot(k_values, max_list, marker="s", linestyle="-", label="Maximum")
-        ax.set_xlabel(f"{caption_dict[title]}", fontsize=24)
-        ax.set_xticks(k_values)
-        ax.grid(True)
-        ax.legend()
 
-    axes[0].set_ylabel("#Iterations", fontsize=24)
+    par_dfs = []
+    for k in k_values:
+        d0 = delta_par.copy()
+        d0["theoretical_error"] = np.sqrt(
+            2 * d0["delta_g"] * np.log2(d0["Residue length"]) * k / d0["Residue length"]
+        )
+        ex = par_exact[k][["p_pdb_id", "q_pdb_id", "RMSDh"]].rename(
+            columns={"RMSDh": "RMSDh_exact"}
+        )
+        fa = par_fast[k][["p_pdb_id", "q_pdb_id", "RMSDh"]].rename(
+            columns={"RMSDh": "RMSDh_fast"}
+        )
+        df_m = d0.merge(ex, on=["p_pdb_id", "q_pdb_id"]).merge(
+            fa, on=["p_pdb_id", "q_pdb_id"]
+        )
+        df_m["actual_error"] = df_m["RMSDh_fast"] - df_m["RMSDh_exact"]
+        df_m["k"] = k
+        print(len(df_m))
+        par_dfs.append(df_m[["theoretical_error", "actual_error", "k"]])
+    par_error_df = pd.concat(par_dfs, ignore_index=True)
+
+    # --------------------------------
+    # DynDom dataset
+    # --------------------------------
+    dyn_exact = {
+        k: pd.read_csv(f"rmsdh_result/rmsdhk_dyndom_data_{k}.csv") for k in k_values
+    }
+    dyn_fast = {
+        k: pd.read_csv(f"rmsdh_result/fast_rmsdh_hingek_cnt_dyndom_{k}.csv") for k in k_values
+    }
+    for d in (dyn_exact, dyn_fast):
+        for k, df in d.items():
+            df["p_pdb_id"] = df["p_pdb_id"].str.lower()
+            df["q_pdb_id"] = df["q_pdb_id"].str.lower()
+
+    delta_dy = pd.read_csv("delta_g_dyndom.csv")
+    delta_dy["p_pdb_id"] = delta_dy["p_pdb_id"].str.lower()
+    delta_dy["q_pdb_id"] = delta_dy["q_pdb_id"].str.lower()
+
+    dy_dfs = []
+    for k in k_values:
+        d0 = delta_dy.copy()
+        d0["theoretical_error"] = np.sqrt(
+            2 * d0["delta_g"] * np.log2(d0["Residue length"]) * k / d0["Residue length"]
+        )
+        ex = dyn_exact[k][["p_pdb_id", "q_pdb_id", "RMSDh"]].rename(
+            columns={"RMSDh": "RMSDh_exact"}
+        )
+        fa = dyn_fast[k][["p_pdb_id", "q_pdb_id", "RMSDh"]].rename(
+            columns={"RMSDh": "RMSDh_fast"}
+        )
+        df_m = pd.concat([d0, ex, fa], axis=1, join="inner")
+        df_m["actual_error"] = df_m["RMSDh_fast"] - df_m["RMSDh_exact"]
+        df_m["k"] = k
+        print(len(df_m))
+        dy_dfs.append(df_m[["theoretical_error", "actual_error", "k"]])
+    dyndom_error_df = pd.concat(dy_dfs, ignore_index=True)
+
+    # ---------------------------
+    # 4行4列の散布図プロット
+    # ---------------------------
+    datasets = [
+        ("Simulation", sim_error_df),
+        ("Shibuya", shi_error_df),
+        ("PAR",    par_error_df),
+        ("DynDom", dyndom_error_df),
+    ]
+
+    # Figureとaxesを4x4で作成
+    _, axes = plt.subplots(
+        nrows=4, ncols=4,
+        figsize=(20, 20),
+        sharex=True, sharey=True
+    )
+
+    # 列ヘッダーとして k の値を表示
+    for j, k in enumerate(k_values):
+        axes[0, j].set_title(f"k = {k}", fontsize=20)
+
+    # 各行・各列に散布図をプロット
+    for i, (name, df_all) in enumerate(datasets):
+        for j, k in enumerate(k_values):
+            ax = axes[i, j]
+            df = df_all[df_all["k"] == k]
+            ax.scatter(df["theoretical_error"], df["actual_error"],
+                       s=10, alpha=0.7)
+            ax.grid(True)
+            # 左端の列には行ラベル（データセット名）を y 軸ラベルとして表示
+            if j == 0:
+                ax.set_ylabel(f"{name}\nActual error", fontsize=18)
+            # 最下段の行には x 軸ラベルを表示
+            if i == 3:
+                ax.set_xlabel("Theoretical error", fontsize=18)
 
     plt.tight_layout()
-    plt.savefig("figures/all_sh_ilo_iteration_metrics.svg", format="svg")
-    plt.savefig("figures/all_sh_ilo_iteration_metrics.png")
+    plt.savefig("figures/all_sh_error_scatter_4x4.svg", format="svg")
+    plt.savefig("figures/all_sh_error_scatter_4x4.png")
     plt.close()
 
-
-def compute_metrics(df):
-    # "iter_num" 列を数値に変換し、変換できない値は 0 に置換
-    iteration_values = pd.to_numeric(df["iter_num"], errors="coerce").fillna(0)
-    avg_val = iteration_values.mean()
-    max_val = iteration_values.max()
-    return avg_val, max_val
-
-
-def read_simulation_data(file_path):
-    df = pd.read_csv(file_path)
-    # k 列を実際の hinge 数として利用
-    df["actual_hinge_cnt"] = df["k"]
-    return df
 
 
 def filter_by_ok_keys(df, ok_keys):
