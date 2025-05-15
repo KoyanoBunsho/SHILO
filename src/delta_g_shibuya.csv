@@ -1,13 +1,13 @@
-p_pdb_id,q_pdb_id,delta_g
-1cbu,1c9k,853.053
-3hvp,4hvp,56.4213
-1ldm,6ldh,426.547
-149l,1l53,59.8052
-1bpd,2bpg,52.1953
-1ezm,1u4g,17.9648
-3enl,1ebg,155.808
-1ggg,1wdn,2012.38
-1lfg,1lfh,6620.63
-2lao,1lst,1865.08
-1urp,2dri,740.605
-4tnc,2tn4,973.159
+p_pdb_id,q_pdb_id,Residue length,delta_g
+1cbu,1c9k,180,853.053
+3hvp,4hvp,97,56.4213
+1ldm,6ldh,329,426.547
+149l,1l53,164,59.8052
+1bpd,2bpg,324,52.1953
+1ezm,1u4g,298,17.9648
+3enl,1ebg,436,155.808
+1ggg,1wdn,220,2012.38
+1lfg,1lfh,691,6620.63
+2lao,1lst,238,1865.08
+1urp,2dri,271,740.605
+4tnc,2tn4,155,973.159
