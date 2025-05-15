@@ -16,6 +16,8 @@ int main() {
          << ","
          << "q_pdb_id"
          << ","
+         << "Residue length"
+         << ","
          << "delta_g" << std::endl;
   for (int i = 0; i < (int)pdb_pair_vec.size(); i++) {
     std::string p_pdb_id, q_pdb_id;
@@ -34,6 +36,7 @@ int main() {
     q = openMatrixData(coord_path + "coord_" + q_pdb_id + "_" + q_chain_id +
                        "_" + p_pdb_id + "_" + p_chain_id + ".csv");
     int total_residue_length = p.cols();
+    myfile << "," << total_residue_length;
     std::cout << total_residue_length << std::endl;
     std::cout << p_pdb_id << ", " << q_pdb_id << std::endl;
     std::vector<double> default_weights;
