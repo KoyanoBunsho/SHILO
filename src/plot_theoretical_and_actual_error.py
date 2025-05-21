@@ -213,7 +213,14 @@ def main():
                 ax.set_ylabel(f"{name}\nActual error", fontsize=18)
             # 最下段の行には x 軸ラベルを表示
             if i == 3:
-                ax.set_xlabel("Theoretical error", fontsize=18)
+                if j == 0:
+                    ax.set_xlabel("(a)", fontsize=18)
+                elif j == 1:
+                    ax.set_xlabel("(b)", fontsize=18)
+                elif j == 2:
+                    ax.set_xlabel("(c)", fontsize=18)
+                else:
+                    ax.set_xlabel("(d)", fontsize=18)
 
     plt.tight_layout()
     plt.savefig("figures/all_sh_error_scatter_4x4.svg", format="svg")
