@@ -72,6 +72,45 @@ def main():
         tex.write(r"\end{table}" + "\n")
 
     print(f"LaTeX テーブルを '{tex_path}' に書き出しました。")
+    # ── ここまで既存の stats 出力 ──
+
+    # 1000 刻みの度数分布を集計し，10000 より大きい値もカウントして .tex 形式で出力
+    # -----------------------------------------
+    # ビンのエッジを 0,1000,…,10000 とし，
+    # np.histogram で度数を計算
+    bin_edges = np.arange(0, 10001, 1000)  # [0,1000,2000,…,10000]
+    counts_list = []
+    for df, title in dataframes:
+        # 各ビン内の度数
+        counts, _ = np.histogram(df["delta_g"], bins=bin_edges)
+        # 10000 より大きい値を個別にカウント
+        over_count = int((df["delta_g"] > 10000).sum())
+        counts_list.append((title, counts, over_count))
+
+    counts_tex_path = "delta_g_counts.tex"
+    with open(counts_tex_path, "w") as tex:
+        tex.write(r"\begin{table}[ht]" + "\n")
+        tex.write(r"  \centering" + "\n")
+        # カラム数：Data set + 10 ビン + >10000
+        tex.write(r"  \begin{tabular}{l" + "r" * (len(bin_edges)-1 + 1) + "}" + "\n")
+        tex.write(r"    \hline" + "\n")
+        # ヘッダー行：ビン区間のラベル
+        bin_labels = [f"{int(bin_edges[i])}\\text{'–'}{int(bin_edges[i+1])}" for i in range(len(bin_edges)-1)]
+        header = "Data set & " + " & ".join(bin_labels) + " & >10000 \\\\"
+        tex.write(f"    {header}\n")
+        tex.write(r"    \hline" + "\n")
+        # 各データセットごとの度数を出力
+        for title, counts, over in counts_list:
+            counts_str = " & ".join(str(c) for c in counts)
+            tex.write(f"    {title} & {counts_str} & {over} \\\\\n")
+        tex.write(r"    \hline" + "\n")
+        tex.write(r"  \end{tabular}" + "\n")
+        tex.write(r"  \caption{The distribution of $\Delta_G$ values for all graphs $G$ considered in the (a) Simulation, (b) Shibuya 2008, (c) PAR 2020, and (d) DynDom2024 datasets.}" + "\n")
+        tex.write(r"  \label{tab:delta_g_hist_kn}" + "\n")
+        tex.write(r"\end{table}" + "\n")
+
+    print(f"LaTeX カウントテーブルを '{counts_tex_path}' に書き出しました。")
+    # -----------------------------------------
 
 if __name__ == "__main__":
     main()
