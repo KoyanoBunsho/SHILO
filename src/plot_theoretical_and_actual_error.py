@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import os
 
 plt.rcParams["font.family"] = "Times New Roman"
-plt.rcParams["font.size"] = 18
+plt.rcParams["font.size"] = 24
 
 
 def main():
@@ -184,9 +184,9 @@ def main():
     # ---------------------------
     datasets = [
         ("Simulation", sim_error_df),
-        ("Shibuya", shi_error_df),
-        ("PAR",    par_error_df),
-        ("DynDom", dyndom_error_df),
+        ("Shibuya 2008", shi_error_df),
+        ("PAR 2020",    par_error_df),
+        ("DynDom 2024", dyndom_error_df),
     ]
 
     # Figureとaxesを4x4で作成
@@ -196,9 +196,6 @@ def main():
         sharex=True, sharey=True
     )
 
-    # 列ヘッダーとして k の値を表示
-    for j, k in enumerate(k_values):
-        axes[0, j].set_title(f"k = {k}", fontsize=20)
 
     # 各行・各列に散布図をプロット
     for i, (name, df_all) in enumerate(datasets):
@@ -210,17 +207,17 @@ def main():
             ax.grid(True)
             # 左端の列には行ラベル（データセット名）を y 軸ラベルとして表示
             if j == 0:
-                ax.set_ylabel(f"{name}\nActual error", fontsize=18)
+                ax.set_ylabel(f"{name}\nActual error")
             # 最下段の行には x 軸ラベルを表示
             if i == 3:
                 if j == 0:
-                    ax.set_xlabel("(a)", fontsize=18)
+                    ax.set_xlabel("Theoretical error bound\n(a)")
                 elif j == 1:
-                    ax.set_xlabel("(b)", fontsize=18)
+                    ax.set_xlabel("Theoretical error bound\n(b)")
                 elif j == 2:
-                    ax.set_xlabel("(c)", fontsize=18)
+                    ax.set_xlabel("Theoretical error bound\n(c)")
                 else:
-                    ax.set_xlabel("(d)", fontsize=18)
+                    ax.set_xlabel("Theoretical error bound\n(d)")
 
     plt.tight_layout()
     plt.savefig("figures/all_sh_error_scatter_4x4.svg", format="svg")
