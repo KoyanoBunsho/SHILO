@@ -204,6 +204,9 @@ def main():
             df = df_all[df_all["k"] == k]
             ax.scatter(df["theoretical_error"], df["actual_error"],
                        s=10, alpha=0.7)
+            ax.set_xlim(0, 200)
+            ax.set_xticks(np.arange(0, 200, 50))
+            ax.set_ylim(0, 0.8)
             ax.grid(True)
             # 左端の列には行ラベル（データセット名）を y 軸ラベルとして表示
             if j == 0:
