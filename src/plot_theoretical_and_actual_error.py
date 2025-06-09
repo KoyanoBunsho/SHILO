@@ -210,17 +210,17 @@ def main():
             ax.grid(True)
             # 左端の列には行ラベル（データセット名）を y 軸ラベルとして表示
             if j == 0:
-                ax.set_ylabel(f"{name}\nActual error")
+                ax.set_ylabel(f"{name}\n"+r"Actual error ($\AA$)")
             # 最下段の行には x 軸ラベルを表示
             if i == 3:
                 if j == 0:
-                    ax.set_xlabel("Theoretical error bound\n(a)")
+                    ax.set_xlabel(r"Theoretical error bound ($\AA$)"+"\n(a)")
                 elif j == 1:
-                    ax.set_xlabel("Theoretical error bound\n(b)")
+                    ax.set_xlabel(r"Theoretical error bound ($\AA$)"+"\n(b)")
                 elif j == 2:
-                    ax.set_xlabel("Theoretical error bound\n(c)")
+                    ax.set_xlabel(r"Theoretical error bound ($\AA$)"+"\n(c)")
                 else:
-                    ax.set_xlabel("Theoretical error bound\n(d)")
+                    ax.set_xlabel(r"Theoretical error bound ($\AA$)"+"\n(d)")
 
     plt.tight_layout()
     plt.savefig("figures/all_sh_error_scatter_4x4.svg", format="svg")
