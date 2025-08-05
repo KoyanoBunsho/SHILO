@@ -482,7 +482,7 @@ public:
     }
     double average_delta_g = 0.0;
     double all_pattern_num =
-        static_cast<double> n * (n - 1) * (n - 2) * (n - 3) / 24.0;
+        static_cast<double>(n) * (n - 1) * (n - 2) * (n - 3) / 24.0;
 #pragma omp parallel for collapse(4) reduction(+ : average_delta_g) num_threads(80)
     for (int i = 1; i < n; i++) {
       for (int j = i + 1; j < n; j++) {
