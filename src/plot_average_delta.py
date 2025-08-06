@@ -10,7 +10,7 @@ def main():
     methods = ["shibuya", "par", "dyndom"]
     _, axes = plt.subplots(2, 2, figsize=(10, 10)) 
     axes_flat = axes.ravel()
-
+    linestyles = ["-", "--", ":", "-."]  # 実線、破線、点線、‐．点線
     for i, (ax, method) in enumerate(zip(axes_flat[:3], methods)):
         delta_g_df = pd.read_csv(f"delta_g_{method}.csv")
         avg_delta_df = pd.read_csv(f"average_delta_g_{method}.csv")
@@ -26,8 +26,8 @@ def main():
 
         # 追加する直線
         x_vals = np.linspace(0, df["delta_g"].max(), 100)
-        for factor in [1, 0.1, 0.01, 0.001]:
-            ax.plot(x_vals, x_vals * factor, linestyle="--")
+        for factor, ls in zip([1, 0.1, 0.01, 0.001], linestyles):
+            ax.plot(x_vals, x_vals * factor, linestyle=ls)
 
         # 相関係数の計算と出力
         corr = df["delta_g"].corr(df["average_delta_g"])
@@ -56,7 +56,7 @@ def main():
     # 追加する直線（シミュレーション）
     x_vals_sim = np.linspace(0, df_sim_all["delta_g"].max(), 100)
     for factor in [1, 0.1, 0.01, 0.001]:
-        ax.plot(x_vals_sim, x_vals_sim * factor, linestyle="--")
+        ax.plot(x_vals_sim, x_vals_sim * factor, linestyle=linestyles[3])
 
     # 相関係数の計算と出力（シミュレーション）
     corr_sim = df_sim_all["delta_g"].corr(df_sim_all["average_delta_g"])
