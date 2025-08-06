@@ -23,7 +23,7 @@ def main():
         ax.set_xlim(0, df["delta_g"].max())
         ax.set_ylim(0, df["average_delta_g"].max())
         ax.set_xlabel(r"$\Delta_G$" + f"\n({chr(ord('a') + i)})")
-        ax.set_ylabel(r"$\overline{\Delta_G}$")
+        ax.set_ylabel(r"$\tilde{\Delta_G}$")
         ax.grid(True)
 
         # 追加する直線
@@ -52,7 +52,7 @@ def main():
     ax.set_xlim(0, df_sim_all["delta_g"].max())
     ax.set_ylim(0, df_sim_all["average_delta_g"].max())
     ax.set_xlabel(r"$\Delta_G$" + "\n(d)")
-    ax.set_ylabel(r"$\overline{\Delta_G}$")
+    ax.set_ylabel(r"$\tilde{\Delta_G}$")
     ax.grid(True)
 
     # 追加する直線（シミュレーション）
