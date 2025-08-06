@@ -11,6 +11,8 @@ def main():
     _, axes = plt.subplots(2, 2, figsize=(10, 10)) 
     axes_flat = axes.ravel()
     linestyles = ["-", "--", ":", "-."]  # 実線、破線、点線、‐．点線
+    colors     = ["red", 'green',  'magenta',    'black']
+    labels   = [r"$y=x$", r'$y=\frac{x}{10}$', r'$y=\frac{x}{100}$', r'$y=\frac{x}{1000}$']
     for i, (ax, method) in enumerate(zip(axes_flat[:3], methods)):
         delta_g_df = pd.read_csv(f"delta_g_{method}.csv")
         avg_delta_df = pd.read_csv(f"average_delta_g_{method}.csv")
@@ -26,8 +28,8 @@ def main():
 
         # 追加する直線
         x_vals = np.linspace(0, df["delta_g"].max(), 100)
-        for factor, ls in zip([1, 0.1, 0.01, 0.001], linestyles):
-            ax.plot(x_vals, x_vals * factor, linestyle=ls)
+        #for factor, ls, color, label in zip([1, 0.1, 0.01, 0.001], linestyles, colors, labels):
+            #ax.plot(x_vals, x_vals * factor, linestyle=ls, label=label, color=color)
 
         # 相関係数の計算と出力
         corr = df["delta_g"].corr(df["average_delta_g"])
@@ -55,9 +57,8 @@ def main():
 
     # 追加する直線（シミュレーション）
     x_vals_sim = np.linspace(0, df_sim_all["delta_g"].max(), 100)
-    for factor in [1, 0.1, 0.01, 0.001]:
-        ax.plot(x_vals_sim, x_vals_sim * factor, linestyle=linestyles[3])
-
+    #for factor, ls, color, label in zip([1, 0.1, 0.01, 0.001], linestyles, colors, labels):
+        #ax.plot(x_vals_sim, x_vals_sim * factor, linestyle=ls, color=color, label=label)
     # 相関係数の計算と出力（シミュレーション）
     corr_sim = df_sim_all["delta_g"].corr(df_sim_all["average_delta_g"])
     print(f"Correlation for simulation: {corr_sim:.4f}")
