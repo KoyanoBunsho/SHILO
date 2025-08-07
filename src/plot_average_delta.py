@@ -17,6 +17,8 @@ def main():
         delta_g_df = pd.read_csv(f"delta_g_{method}.csv")
         avg_delta_df = pd.read_csv(f"average_delta_g_{method}.csv")
         df = pd.concat([delta_g_df, avg_delta_df], axis=1)
+        print(method)
+        print((df["average_delta_g"] / df["delta_g"]).mean())
 
         # 散布図
         ax.scatter(df["delta_g"], df["average_delta_g"], s=1)
@@ -48,6 +50,8 @@ def main():
 
     #─── シミュレーションまとめプロット ───#
     ax = axes_flat[3]
+    print("Simulation")
+    print((df_sim_all["average_delta_g"] / df_sim_all["delta_g"]).mean())
     ax.scatter(df_sim_all["delta_g"], df_sim_all["average_delta_g"], s=1)
     ax.set_xlim(0, df_sim_all["delta_g"].max())
     ax.set_ylim(0, df_sim_all["average_delta_g"].max())
