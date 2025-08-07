@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # フォント設定
 plt.rcParams["font.family"] = "Times New Roman"
-plt.rcParams["font.size"] = 28
+plt.rcParams["font.size"] = 18
 
 def main():
     methods = ["shibuya", "par", "dyndom"]
@@ -21,11 +21,24 @@ def main():
         print((df["average_delta_g"] / df["delta_g"]).mean())
 
         # 散布図
+        xticks = np.linspace(0, df["delta_g"].max(), 4)        # 0 〜 max を 11 点に分割
+        yticks = np.linspace(0, df["average_delta_g"].max(), 4)
+        round_base = 100
+        xticks = np.round(xticks / round_base) * round_base
+        if i == 0:
+            yticks = np.round(yticks / 10) * 10
+        else:
+            yticks = np.round(yticks / round_base) * round_base
         ax.scatter(df["delta_g"], df["average_delta_g"], s=1)
         ax.set_xlim(0, df["delta_g"].max())
         ax.set_ylim(0, df["average_delta_g"].max())
         ax.set_xlabel(r"$\Delta_G$" + f"\n({chr(ord('a') + i)})")
         ax.set_ylabel(r"$\tilde{\Delta_G}$")
+        ax.set_xticks(xticks)
+        if i == 2:
+            ax.set_yticks([0, 1000, 2000, 3000, 4000])
+        else:
+            ax.set_yticks(yticks)
         ax.grid(True)
 
         # 追加する直線
@@ -57,6 +70,15 @@ def main():
     ax.set_ylim(0, df_sim_all["average_delta_g"].max())
     ax.set_xlabel(r"$\Delta_G$" + "\n(d)")
     ax.set_ylabel(r"$\tilde{\Delta_G}$")
+    xticks = np.linspace(0, df_sim_all["delta_g"].max(), 4)
+    yticks = np.linspace(0, df_sim_all["average_delta_g"].max(), 4)
+    xticks = np.linspace(0, df["delta_g"].max(), 4)        # 0 〜 max を 11 点に分割
+    yticks = np.linspace(0, df["average_delta_g"].max(), 4)
+    round_base = 132000
+    xticks = np.round(xticks / round_base) * round_base
+    yticks = np.round(yticks / 1000) * 1000
+    ax.set_xticks(xticks)
+    ax.set_yticks([0, 1000, 2000, 3000, 4000])
     ax.grid(True)
 
     # 追加する直線（シミュレーション）
