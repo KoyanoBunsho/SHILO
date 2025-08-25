@@ -192,8 +192,7 @@ def main():
     # Figureとaxesを4x4で作成
     _, axes = plt.subplots(
         nrows=4, ncols=4,
-        figsize=(20, 20),
-        sharex=True, sharey=True
+        figsize=(20, 20)
     )
 
 
@@ -206,21 +205,20 @@ def main():
                        s=10, alpha=0.7)
             ax.set_xlim(0, 200)
             ax.set_xticks(np.arange(0, 200, 50))
-            ax.set_ylim(0, 0.8)
+            ax.set_ylim(0, df["actual_error"].max())
             ax.grid(True)
             # 左端の列には行ラベル（データセット名）を y 軸ラベルとして表示
             if j == 0:
                 ax.set_ylabel(f"{name}\n"+r"Actual error ($\AA$)")
             # 最下段の行には x 軸ラベルを表示
-            if i == 3:
-                if j == 0:
-                    ax.set_xlabel(r"Theoretical error bound ($\AA$)"+"\n(a)")
-                elif j == 1:
-                    ax.set_xlabel(r"Theoretical error bound ($\AA$)"+"\n(b)")
-                elif j == 2:
-                    ax.set_xlabel(r"Theoretical error bound ($\AA$)"+"\n(c)")
-                else:
-                    ax.set_xlabel(r"Theoretical error bound ($\AA$)"+"\n(d)")
+            if j == 0:
+                ax.set_xlabel(r"Theoretical error bound ($\AA$)"+"\n(a)")
+            elif j == 1:
+                ax.set_xlabel(r"Theoretical error bound ($\AA$)"+"\n(b)")
+            elif j == 2:
+                ax.set_xlabel(r"Theoretical error bound ($\AA$)"+"\n(c)")
+            else:
+                ax.set_xlabel(r"Theoretical error bound ($\AA$)"+"\n(d)")
 
     plt.tight_layout()
     plt.savefig("figures/all_sh_error_scatter_4x4.svg", format="svg")
