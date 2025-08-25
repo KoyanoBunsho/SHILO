@@ -449,6 +449,55 @@ public:
         static_cast<double>(monotonicity_cnt) / static_cast<double>(total_cnt);
     return tmr;
   }
+  double calcDeltaG() {
+    std::vector<std::vector<double>> delta_g_dp(n + 1,
+                                                std::vector<double>(n + 1));
+    for (int i = 1; i < n; i++) {
+      for (int j = i + 1; j <= n; j++) {
+        delta_g_dp[i][j] = calcSDij(i, j);
+      }
+    }
+    double delta_g = 0.0;
+#pragma omp parallel for collapse(4) reduction(max : delta_g) num_threads(80)
+    for (int i = 1; i < n; i++) {
+      for (int j = i + 1; j < n; j++) {
+        for (int k = j + 1; k < n; k++) {
+          for (int l = k + 1; l <= n; l++) {
+            delta_g =
+                std::max(delta_g, delta_g_dp[i][k] + delta_g_dp[j][l] -
+                                      delta_g_dp[i][l] - delta_g_dp[j][k]);
+          }
+        }
+      }
+    }
+    return delta_g;
+  }
+  double calcAverageDeltaG() {
+    std::vector<std::vector<double>> delta_g_dp(n + 1,
+                                                std::vector<double>(n + 1));
+    for (int i = 1; i < n; i++) {
+      for (int j = i + 1; j <= n; j++) {
+        delta_g_dp[i][j] = calcSDij(i, j);
+      }
+    }
+    double average_delta_g = 0.0;
+    double all_pattern_num =
+        static_cast<double>(n) * (n - 1) * (n - 2) * (n - 3) / 24.0;
+#pragma omp parallel for collapse(4) reduction(+ : average_delta_g) num_threads(80)
+    for (int i = 1; i < n; i++) {
+      for (int j = i + 1; j < n; j++) {
+        for (int k = j + 1; k < n; k++) {
+          for (int l = k + 1; l <= n; l++) {
+            average_delta_g += std::max(delta_g_dp[i][k] + delta_g_dp[j][l] -
+                                            delta_g_dp[i][l] - delta_g_dp[j][k],
+                                        0.0) /
+                               all_pattern_num;
+          }
+        }
+      }
+    }
+    return average_delta_g;
+  }
   double calcMongeRateFromMatrix(std::vector<std::vector<double>> &tmr_dp) {
     int monge_cnt = 0;
     int total_cnt = 0;
