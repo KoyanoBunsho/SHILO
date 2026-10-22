@@ -10,6 +10,7 @@
 #include <numeric>
 #include <omp.h>
 #include <random>
+#include <stdexcept>
 #include <unordered_map>
 constexpr double INF = std::numeric_limits<double>::infinity();
 constexpr double eps = std::numeric_limits<double>::epsilon();
@@ -66,7 +67,16 @@ class ProteinRMSDhinge {
 public:
   ProteinRMSDhinge(const Eigen::Matrix3Xd &A, const Eigen::Matrix3Xd &B,
                    const int hinge_num) {
-    assert(A.cols() == B.cols());
+    if (A.cols() != B.cols() || A.cols() == 0 ||
+        A.cols() >= std::numeric_limits<int>::max()) {
+      throw std::invalid_argument("Coordinate matrices must have equal, nonzero lengths");
+    }
+    if (!A.allFinite() || !B.allFinite()) {
+      throw std::invalid_argument("Coordinates must be finite");
+    }
+    if (hinge_num < 1 || hinge_num >= A.cols()) {
+      throw std::invalid_argument("Hinge count must be positive and less than the residue count");
+    }
     int n = A.cols();
     this->A = A;
     this->B = B;
@@ -448,6 +458,55 @@ public:
     double tmr =
         static_cast<double>(monotonicity_cnt) / static_cast<double>(total_cnt);
     return tmr;
+  }
+  double calcDeltaG() {
+    std::vector<std::vector<double>> delta_g_dp(n + 1,
+                                                std::vector<double>(n + 1));
+    for (int i = 1; i < n; i++) {
+      for (int j = i + 1; j <= n; j++) {
+        delta_g_dp[i][j] = calcSDij(i, j);
+      }
+    }
+    double delta_g = 0.0;
+#pragma omp parallel for collapse(4) reduction(max : delta_g) num_threads(80)
+    for (int i = 1; i < n; i++) {
+      for (int j = i + 1; j < n; j++) {
+        for (int k = j + 1; k < n; k++) {
+          for (int l = k + 1; l <= n; l++) {
+            delta_g =
+                std::max(delta_g, delta_g_dp[i][k] + delta_g_dp[j][l] -
+                                      delta_g_dp[i][l] - delta_g_dp[j][k]);
+          }
+        }
+      }
+    }
+    return delta_g;
+  }
+  double calcAverageDeltaG() {
+    std::vector<std::vector<double>> delta_g_dp(n + 1,
+                                                std::vector<double>(n + 1));
+    for (int i = 1; i < n; i++) {
+      for (int j = i + 1; j <= n; j++) {
+        delta_g_dp[i][j] = calcSDij(i, j);
+      }
+    }
+    double average_delta_g = 0.0;
+    double all_pattern_num =
+        static_cast<double>(n) * (n - 1) * (n - 2) * (n - 3) / 24.0;
+#pragma omp parallel for collapse(4) reduction(+ : average_delta_g) num_threads(80)
+    for (int i = 1; i < n; i++) {
+      for (int j = i + 1; j < n; j++) {
+        for (int k = j + 1; k < n; k++) {
+          for (int l = k + 1; l <= n; l++) {
+            average_delta_g += std::max(delta_g_dp[i][k] + delta_g_dp[j][l] -
+                                            delta_g_dp[i][l] - delta_g_dp[j][k],
+                                        0.0) /
+                               all_pattern_num;
+          }
+        }
+      }
+    }
+    return average_delta_g;
   }
   double calcMongeRateFromMatrix(std::vector<std::vector<double>> &tmr_dp) {
     int monge_cnt = 0;
