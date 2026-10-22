@@ -3,12 +3,21 @@ import matplotlib.pyplot as plt
 import os
 
 plt.rcParams["font.family"] = "Times New Roman"
+plt.rcParams["font.size"] = 20
 
 
 def main():
     os.makedirs("figures", exist_ok=True)
-    # TODO: parデータをok_pdbで限定する
-    # shilo データの読み込み
+    ok_pdb = pd.read_csv("../notebooks/ok_pdb.csv")
+    ok_pdb["p_pdb_id"] = ok_pdb["p_pdb_id"].str.lower()
+    ok_pdb["q_pdb_id"] = ok_pdb["q_pdb_id"].str.lower()
+    ok_keys = set(
+        zip(
+            ok_pdb["p_pdb_id"],
+            ok_pdb["q_pdb_id"],
+        )
+    )
+
     shilo_2_shibuya = pd.read_csv(
         "rmsdh_result/fast_rmsdh_hingek_cnt_2_postpro_loop.csv"
     )
@@ -39,6 +48,12 @@ def main():
     rilo_2_dyndom = pd.read_csv("rmsdh_result/ablation_study_loop_dyndom2.csv")
     rilo_3_dyndom = pd.read_csv("rmsdh_result/ablation_study_loop_dyndom3.csv")
     rilo_4_dyndom = pd.read_csv("rmsdh_result/ablation_study_loop_dyndom4.csv")
+    shilo_2_par = filter_by_ok_keys(shilo_2_par, ok_keys)
+    shilo_3_par = filter_by_ok_keys(shilo_3_par, ok_keys)
+    shilo_4_par = filter_by_ok_keys(shilo_4_par, ok_keys)
+    rilo_2_par = filter_by_ok_keys(rilo_2_par, ok_keys)
+    rilo_3_par = filter_by_ok_keys(rilo_3_par, ok_keys)
+    rilo_4_par = filter_by_ok_keys(rilo_4_par, ok_keys)
 
     # データセットのリスト化 (k=2,3,4 の各 Shibuya, Par, Dyndom)
     rilo_datasets = [
@@ -137,6 +152,8 @@ def main():
     plt.savefig("figures/iteration_percentage.png")
     plt.close()
 
+def filter_by_ok_keys(df, ok_keys):
+    return df[df.apply(lambda row: (row["p_pdb_id"].lower(), row["q_pdb_id"].lower()) in ok_keys, axis=1)]
 
 if __name__ == "__main__":
     main()

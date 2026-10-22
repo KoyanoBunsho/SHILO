@@ -92,7 +92,6 @@ def calc_ans_dyndom(exp, detect, d=0):
 
 
 def calc_acc_df(df, heuristic_df):
-    print(df.head(), heuristic_df.head())
     df["hinge_index"] = df["hinge_index"].fillna("")
     heuristic_df["hinge_index"] = heuristic_df["hinge_index"].fillna("")
     f_measure_dict = {}

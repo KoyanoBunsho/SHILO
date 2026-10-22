@@ -7,15 +7,15 @@ plt.rcParams["font.size"] = 18
 
 def main():
     os.makedirs("figures", exist_ok=True)
-    
-    # ok_pdb の読み込みと前処理（pdb ID を小文字に統一）
     ok_pdb = pd.read_csv("../notebooks/ok_pdb.csv")
     ok_pdb["p_pdb_id"] = ok_pdb["p_pdb_id"].str.lower()
     ok_pdb["q_pdb_id"] = ok_pdb["q_pdb_id"].str.lower()
     ok_keys = set(zip(ok_pdb["p_pdb_id"], ok_pdb["q_pdb_id"]))
+    simulation_sh_ilo_df = read_simulation_data("rmsdh_result/simulation_sh_ilo_combined.csv")
+    # simulation_sh_ilo_dfの結果を一番左に加える．ok_pdbで限定する必要はない
     
-    # k の範囲（例として 2～10）
-    k_values = range(2, 11)
+    # k の範囲（例として 2～5）
+    k_values = range(2, 6)
     
     shilo_times = []   # SH+ILO の計算時間（合計値）
     dyndom_times = []  # DynDom の計算時間（合計値）
@@ -66,12 +66,14 @@ def main():
     axes[0].plot(list(k_values), shilo_times, marker='o', linestyle='-')
     axes[0].set_ylabel("Computation Time (s)")
     axes[0].set_xticks(list(k_values))
+    axes[0].set_xlim(2, 5)
     axes[0].grid(True)
     
     # 右側：DynDom のプロット
     axes[1].plot(list(k_values), dyndom_times, marker='s', linestyle='-')
     axes[1].set_ylabel("Computation Time (s)")
     axes[1].set_xticks(list(k_values))
+    axes[1].set_xlim(2, 5)
     axes[1].grid(True)
     
     plt.tight_layout()
@@ -79,5 +81,15 @@ def main():
     plt.savefig("figures/computation_time_shilo_dyndom.png")
     plt.close()
 
+def read_simulation_data(file_path):
+    df = pd.read_csv(file_path).fillna("")
+    df["actual_hinge_cnt"] = df["k"]
+    df["primary_key"] = (
+        df["p_pdb_id"].apply(lambda x: str(x)[:9])
+        + "_hinge_"
+        + df["actual_hinge_cnt"].astype(str)
+        + "_sigma0.5"
+    )
+    return df
 if __name__ == "__main__":
     main()
