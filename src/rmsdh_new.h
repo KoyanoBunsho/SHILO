@@ -10,6 +10,7 @@
 #include <numeric>
 #include <omp.h>
 #include <random>
+#include <stdexcept>
 #include <unordered_map>
 constexpr double INF = std::numeric_limits<double>::infinity();
 constexpr double eps = std::numeric_limits<double>::epsilon();
@@ -66,7 +67,16 @@ class ProteinRMSDhinge {
 public:
   ProteinRMSDhinge(const Eigen::Matrix3Xd &A, const Eigen::Matrix3Xd &B,
                    const int hinge_num) {
-    assert(A.cols() == B.cols());
+    if (A.cols() != B.cols() || A.cols() == 0 ||
+        A.cols() >= std::numeric_limits<int>::max()) {
+      throw std::invalid_argument("Coordinate matrices must have equal, nonzero lengths");
+    }
+    if (!A.allFinite() || !B.allFinite()) {
+      throw std::invalid_argument("Coordinates must be finite");
+    }
+    if (hinge_num < 1 || hinge_num >= A.cols()) {
+      throw std::invalid_argument("Hinge count must be positive and less than the residue count");
+    }
     int n = A.cols();
     this->A = A;
     this->B = B;

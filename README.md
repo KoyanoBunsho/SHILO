@@ -43,9 +43,14 @@ By using SMAWK algorithm [3], the above problem can be solved in $O(kn)$.
 
 ### Experiments
 
+Python analysis scripts require Python 3.11 or 3.12 and Poetry 2.2 or later.
+Install the locked dependencies with `poetry install --no-root`.
+The Python minimum is required by the security-fixed Pillow 13 dependency.
+
 You can enter the virtual environment by the following commands
 ```bash
-docker-compose up -d
+docker compose build --pull
+docker compose up -d
 docker container exec -it shilo bash
 ```
 
@@ -65,8 +70,33 @@ bash ablation_study.sh
 
 You can also compute $RMSDh^{(k)}$ of two protein pairs by the following command
 ```bash
-g++ execute_shilo.cpp -o execute_shilo -std=c++14 -Wall -Wextra -O3 -mtune=native -march=native -mfpmath=both -Werror
-./execute_shilo pdb3hvp.pdb pdb4hvp.pdb A A 2
+g++ execute_sh_ilo.cpp -o execute_sh_ilo -std=c++14 -O3
+./execute_sh_ilo pdb3hvp.pdb pdb4hvp.pdb A A 2
+```
+
+Both command-line programs require a positive hinge count smaller than the
+number of aligned CA residues. Missing files, malformed ATOM records, empty
+chains, and invalid hinge counts exit with an error before computation.
+
+### Security checks
+
+Audit every package in `poetry.lock`, including dependencies for other Python
+versions and platforms, using [pip-audit](https://github.com/pypa/pip-audit):
+
+```bash
+uv run --no-project --python 3.12 --with pip-audit python scripts/audit_dependencies.py
+```
+
+The container uses [Ubuntu 24.04 LTS](https://ubuntu.com/about/release-cycle).
+Rebuild with `docker compose build --pull --no-cache` to pick up new OS fixes.
+Run the C++ input regression tests with AddressSanitizer and
+UndefinedBehaviorSanitizer from the repository root:
+
+```bash
+docker build --pull -t shilo-security-check .
+docker run --rm --network none \
+  --mount "type=bind,source=$PWD,target=/workspace,readonly" \
+  --workdir /workspace shilo-security-check bash scripts/test_security.sh
 ```
 
 

@@ -1,6 +1,9 @@
 #ifndef rmsd_io
 #define rmsd_io
 #include "rmsd_struct.h"
+#include "pdb_reader.h"
+#include <algorithm>
+#include <sstream>
 #include <set>
 
 void read_csv(std::vector<std::vector<std::string>> &data,
@@ -84,82 +87,6 @@ bool getFileStrContent(
   in.close();
   return true;
 }
-class PDBReader {
-private:
-  std::string pdb_filename;
-
-public:
-  PDBReader(const std::string &filename) : pdb_filename(filename) {}
-
-  std::set<int> get_residue_numbers(const std::string &chain_id) const {
-    std::ifstream file(pdb_filename);
-    std::string line;
-    std::set<int> residue_numbers;
-
-    if (file.is_open()) {
-      while (getline(file, line)) {
-        std::stringstream ss(line);
-        std::string field;
-        std::getline(ss, field, ' ');
-        if (field == "ATOM") {
-          std::string atom_name;
-          std::string chain;
-          int res_num;
-          ss >> field;
-          ss >> atom_name;
-          ss >> field;
-          ss >> chain;
-          ss >> res_num;
-          if (chain == chain_id) {
-            residue_numbers.insert(res_num);
-          }
-        }
-      }
-      file.close();
-    } else {
-      std::cout << "Unable to open file: " << pdb_filename << std::endl;
-    }
-
-    return residue_numbers;
-  }
-
-  std::vector<std::tuple<double, double, double>>
-  get_CA_coordinates(const std::set<int> &residue_numbers,
-                     const std::string &chain_id) const {
-    std::ifstream file(pdb_filename);
-    std::string line;
-    std::vector<std::tuple<double, double, double>> coordinates;
-
-    if (file.is_open()) {
-      while (getline(file, line)) {
-        std::stringstream ss(line);
-        std::string field;
-        std::getline(ss, field, ' ');
-        if (field == "ATOM") {
-          std::string atom_name;
-          std::string chain;
-          int res_num;
-          double x, y, z;
-          ss >> field;
-          ss >> atom_name;
-          ss >> field;
-          ss >> chain;
-          ss >> res_num;
-          ss >> x >> y >> z;
-          if (atom_name == "CA" && chain == chain_id &&
-              residue_numbers.find(res_num) != residue_numbers.end()) {
-            coordinates.push_back(std::make_tuple(x, y, z));
-          }
-        }
-      }
-      file.close();
-    } else {
-      std::cout << "Unable to open file: " << pdb_filename << std::endl;
-    }
-
-    return coordinates;
-  }
-};
 
 std::set<int> intersect_residue_numbers(const std::set<int> &set1,
                                         const std::set<int> &set2) {
